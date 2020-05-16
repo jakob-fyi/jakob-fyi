@@ -1,0 +1,22 @@
+header{
+
+    h1.logo{
+        display: inline-flex;
+        flex-direction: column;
+        font-size: $logo-font-size;
+        text-transform: uppercase;
+        display: none;
+    }
+
+    .headline{
+        font-weight: $fontWeightMedium;
+        font-size: 1.5em;
+    }
+}
+
+#arbeit-vereine{
+    .left h2,
+    .right{
+        //border-top: 0px;
+    }
+}
