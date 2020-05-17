@@ -6,7 +6,18 @@
         "done": false,
         "content": {
             "title": "Überland",
-            "susbtitle": "Die Geschichte des Zwangsarbeitslagers Sitzenberg_Reidling 1944/45",
+            "susbtitle": "Die Geschichte des Zwangsarbeitslagers Sitzenberg-Reidling 1944/45",
+            "link": false
+        }
+    },
+    {
+        "started": 2020,
+        "ended": 2020,
+        "category": "history",
+        "done": false,
+        "content": {
+            "title": "140 Jahre FF Gemeinlebarn",
+            "susbtitle": "Digital Story Telling Website",
             "link": false
         }
     },
@@ -17,8 +28,85 @@
         "done": true,
         "content": {
             "title": "Dia Scanner",
-            "susbtitle": "",
-            "link": ""
+            "susbtitle": "Automatisierte Digitalisierung von Dias und Verarbeitung",
+            "link": "#"
+        }
+    },
+    {
+        "started": 2017,
+        "ended": 2019,
+        "category": "software",
+        "done": true,
+        "content": {
+            "title": "FFGBSY",
+            "susbtitle": "Bestell- und Boniersystem der FF Gemeinlebarn - Mobile App, API & Admin-Dashboard",
+            "link": "https://www.ff-gemeinlebarn.at"
+        }
+    },
+    {
+        "started": 2020,
+        "ended": 2020,
+        "category": "philosophy",
+        "done": false,
+        "content": {
+            "title": "Das Alter in der Krise übergehen",
+            "susbtitle": "Seminararbeit",
+            "link": false
+        }
+    },
+    {
+        "started": 2019,
+        "ended": 2019,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "In dubio pro malo",
+            "susbtitle": "Seminararbeit",
+            "link": "#"
+        }
+    },
+    {
+        "started": 2019,
+        "ended": 2019,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Das Absurde und der Tod",
+            "susbtitle": "Seminararbeit",
+            "link": "#"
+        }
+    },
+    {
+        "started": 2019,
+        "ended": 2019,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Abrahams Wiederholung",
+            "susbtitle": "Seminararbeit",
+            "link": "#"
+        }
+    },
+    {
+        "started": 2019,
+        "ended": 2019,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Der moralische Gottesbeweis in der Kritik der Urteilskraft",
+            "susbtitle": "Proseminararbeit",
+            "link": "#"
+        }
+    },
+    {
+        "started": 2019,
+        "ended": 2019,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Die Notwendigkeit des Strebens im supererogatorischen Raum",
+            "susbtitle": "Proseminararbeit",
+            "link": "#"
         }
     }
 ]
