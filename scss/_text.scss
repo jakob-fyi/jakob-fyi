@@ -1,0 +1,20 @@
+h1 {
+    font-weight: $fontWeightMedium;
+    font-size: 1.75em;
+}
+
+h2 {
+    font-weight: $fontWeightMedium;
+    font-size: 1em;
+    text-align: left;
+}
+
+/*
+section > h2,
+section .right > h2 {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    color: #777777;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}*/
