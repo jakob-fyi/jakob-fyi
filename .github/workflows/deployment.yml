@@ -1,0 +1,30 @@
+name: Deployment
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  ci-cd:
+    name: Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Deploy in Stage 'Production' via FTP
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.CD_FTP_HOST }}
+          user: ${{ secrets.CD_FTP_HOST }}
+          password: ${{ secrets.CD_FTP_HOST }}
+          localDir: "."
+          remoteDir: "."
+          options: "--delete"

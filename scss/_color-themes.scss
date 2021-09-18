@@ -9,6 +9,14 @@ body.color-theme{
         font-weight: $fontWeightMedium;
         text-transform: uppercase;
         align-self: flex-end;
+        border: 2px #ddd solid;
+        border-radius: 0.2em;
+        transition: all ease 300ms;
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.65;
+        }
 
         svg{
             height: 20px;
@@ -45,8 +53,7 @@ body.color-theme{
             .greeting { color: #000000; }
             .subjects { color: #333333; }
         }
-
-        
+ 
         .section__title{
             border-color: darken($itemBackgroundColor, 8%);
             color: $itemTextColor;
@@ -61,18 +68,40 @@ body.color-theme{
 
             &[href]:hover{
                 background-color: lighten($itemBackgroundColor, 1%);
-                border-color: darken($itemBackgroundColor, 8%);
+                border-color: darken($itemBackgroundColor, 12%);
             }
         }
 
-        .footer__overlay{
+        footer{
             background-color: rgba(darken($pageBackgroundColor, 5%), 0.7);
+            
+            #contact .right .links a{
+                color: #555555;
+
+                &:hover{
+                    color: #000000;
+                }
+            }
+
+            #image {
+                h2{
+                    color: #000000;
+                }
+                a, p {
+                    color: #555555;
+                }
+
+                .infos p:hover, a:hover{
+                    color: #000000;
+                    cursor: pointer;
+                }
+            }
         }
     }
 
     &--dark{
         $pageBackgroundColor: #333333;
-        $itemBackgroundColor: #3a3a3a;
+        $itemBackgroundColor: #3b3b3b;
         $itemTextColor: #ffffff;
 
         background-color: $pageBackgroundColor;
@@ -109,12 +138,45 @@ body.color-theme{
 
             &[href]:hover{
                 background-color: lighten($itemBackgroundColor, 1%);
-                border-color: darken($itemBackgroundColor, 8%);
+                border-color: lighten($itemBackgroundColor, 12%);
             }
         }
 
-        .footer__overlay{
+        footer{
             background-color: rgba(darken($pageBackgroundColor, 3%), 0.85);
+
+            .job{
+                border-color: lighten($itemBackgroundColor, 12%) !important;
+            }
+
+            section .left.section__title
+            {
+                border-color: lighten($itemBackgroundColor, 30%);
+            }
+
+            #contact .right .links a{
+                color: #cccccc;
+
+                &:hover{
+                    color: #ffffff;
+                }
+            }
+
+            #image {
+                
+                h2{
+                    color: #ffffff;
+                }
+
+                a, p {
+                    color: #cccccc;
+                }
+
+                .infos p:hover, a:hover{
+                    color: #ffffff;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

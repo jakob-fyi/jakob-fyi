@@ -6,7 +6,7 @@ main{
 
 header,
 main,
-.footer__overlay{
+footer{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -30,11 +30,45 @@ main,
         }
 
         .right{
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             width: 100%;
             padding-left: 30px;
+            display: flex;
+            flex-direction: column;
+
+            .items{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint) {
+    
+    main, 
+    header, 
+    footer
+    {
+        section {
+            flex-direction: column;
+
+            .left{
+                width: 100%;
+        
+                &.section__title{
+                    text-align: left;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid #e9e9e9;
+                    border-top: 0px;
+                    margin-bottom: 20px;
+                }
+            }
+        
+            .right{
+                width: 100%;
+                padding-left: 0px;
+            }
         }
     }
 }

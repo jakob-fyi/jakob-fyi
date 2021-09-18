@@ -7,10 +7,10 @@
 .load-more {
     display: inline-flex;
     width: auto;
-    margin-top: 20px;
-    padding: 10px 20px;
-    //border: 1px solid #dddddd;
+    margin-bottom: 40px;
+    padding: 4px;
     align-items: center;
+    transition: all ease 300ms;
 
     svg {
         margin-right: 10px;
@@ -19,7 +19,16 @@
     &__title {
         display: inline-flex;
         width: auto;
+        font-size: 0.9em;
+        color: #333;
     }
+
+    &:hover{
+        opacity: 0.65;
+        cursor: pointer;
+    }
+
+    display: none;
 }
 
 .item {
@@ -30,17 +39,25 @@
     margin-bottom: 20px;
     padding: 15px 20px;
 
+    display: flex;
+    flex-direction: row;
+
+    &__left{
+        flex: 1;
+    }
+    &__right{
+
+    }
+
     &__date{
         display: inline-flex;
         font-size: 0.6em;
         font-weight: $fontWeightSemiBold;
-        color: #cccccc;
+        color: #bbbbbb;
         padding: 2px 5px;
         margin-bottom: 10px;
-        border: 1px solid #cccccc;
+        border: 1px solid #bbbbbb;
         width: auto;
-
-        display: none;
     }
 
     &__title{
