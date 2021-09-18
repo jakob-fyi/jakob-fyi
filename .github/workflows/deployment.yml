@@ -23,8 +23,8 @@ jobs:
         uses: sebastianpopp/ftp-action@releases/v2
         with:
           host: ${{ secrets.CD_FTP_HOST }}
-          user: ${{ secrets.CD_FTP_HOST }}
-          password: ${{ secrets.CD_FTP_HOST }}
+          user: ${{ secrets.CD_FTP_USERNAME }}
+          password: ${{ secrets.CD_FTP_PASSWORD }}
           localDir: "."
           remoteDir: "."
           options: "--delete"
