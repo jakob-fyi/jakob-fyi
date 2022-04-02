@@ -19,12 +19,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
       - name: Deploy in Stage 'Production' via FTP
         uses: sebastianpopp/ftp-action@releases/v2
         with:
           host: ${{ secrets.CD_FTP_HOST }}
           user: ${{ secrets.CD_FTP_USERNAME }}
           password: ${{ secrets.CD_FTP_PASSWORD }}
-          localDir: "."
+          localDir: "./dist"
           remoteDir: "."
           options: "--delete"

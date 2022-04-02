@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(() => {
 
     if (window.matchMedia('(prefers-color-scheme: dark)').matches)
     {
@@ -7,7 +7,7 @@ $(document).ready(() => {
 
     $('.color-theme-toggle').click(() => $('body').toggleClass(['color-theme--light', 'color-theme--dark']));
 
-    _ = new Typed('#greeting-typing', {
+    new Typed('#greeting-typing', {
         stringsElement: '#greeting',
         typeSpeed: 30,
         onStringTyped: () => setTimeout(() => $('.typed-cursor').remove(), 2000)
@@ -32,7 +32,7 @@ const toggleImpressum = () => {
 
 const getProjects = () =>
 {
-    $.get("/projects.json", (projects) =>
+    $.get("/data/projects.json", (projects) =>
     {
         projects.forEach(item => {
             let project = new Project(item);

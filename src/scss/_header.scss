@@ -1,26 +1,26 @@
 header {
 
-    section{
+    section {
         padding: 50px 0px;
 
-        .left{
+        .left {
             display: flex;
             align-items: flex-start;
             justify-content: flex-end;
         }
 
-        .greeting{
+        .greeting {
             font-size: 1.75em;
             line-height: 40px;
             margin-top: 20px;
             margin-bottom: 20px;
 
-            .fyi{
+            .fyi {
                 font-weight: $fontWeightLight;
             }
         }
 
-        .subjects{
+        .subjects {
             font-size: 1.2em;
             font-weight: $fontWeightRegular;
         }
@@ -28,22 +28,22 @@ header {
 }
 
 @media screen and (max-width: $breakpoint) {
-    
+
     body.color-theme header {
-    
+
         section {
             padding-top: 40px;
             padding-bottom: 0px;
         }
-        
+
         .color-theme-toggle {
             padding: 10px;
             border-radius: 999em;
 
-            span{
+            span {
                 display: none;
             }
         }
-            
+
     }
 }

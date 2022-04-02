@@ -1,0 +1,44 @@
+{
+    "name": "jakob-fyi",
+    "version": "1.0.0",
+    "description": "Personal Website of Jakob Vesely",
+    "main": "index.js",
+    "scripts": {
+        "test": "test",
+        "serve": "gulp serve",
+        "build": "gulp build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JakobVesely/jakob-fyi.git"
+    },
+    "keywords": [
+        "website"
+    ],
+    "author": "Jakob Vesely",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JakobVesely/jakob-fyi/issues"
+    },
+    "homepage": "https://github.com/JakobVesely/jakob-fyi#readme",
+    "devDependencies": {
+        "@babel/core": "^7.17.8",
+        "@babel/preset-env": "^7.16.11",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^8.0.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-cssnano": "^2.1.3",
+        "gulp-live-server": "^0.0.31",
+        "gulp-mode": "^1.1.0",
+        "gulp-sass": "^5.1.0",
+        "gulp-sourcemaps": "^3.0.0",
+        "gulp-uglify": "^3.0.2",
+        "sass": "^1.49.11"
+    },
+    "dependencies": {
+        "animejs": "^3.2.1",
+        "jquery": "^3.6.0",
+        "typed.js": "^2.0.12"
+    }
+}
