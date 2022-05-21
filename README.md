@@ -1,4 +1,7 @@
 # jakob.fyi
-My personal website
 
-Lightbulb Icon: https://www.iconfinder.com/icons/3586363/creative_idea_light_lightbulb_icon
+Hi! I'm Jakob, for your information.
+
+> Technology. Software. Philosophy. History. Science.
+
+check out [www.jakob.fyi](https://www.jakob.fyi)!
