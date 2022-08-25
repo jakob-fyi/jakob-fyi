@@ -14,6 +14,11 @@ gulp.task('process-data', () => {
     .pipe(gulp.dest('dist/data'));
 });
 
+gulp.task('process-fonts', () => {
+    return gulp.src(['src/fonts/*'])
+    .pipe(gulp.dest('dist/fonts'));
+});
+
 gulp.task('process-static-img', () => {
     return gulp.src(['src/assets/favicon.png'])
     .pipe(gulp.dest('dist/img'));
@@ -100,6 +105,7 @@ exports.watch = gulp.series('watch');
 exports.serve = gulp.parallel('watch', 'serve');
 exports.build = gulp.series(
     'process-data', 
+    'process-fonts', 
     'process-vendor-js', 
     'process-static-img', 
     'process-sass', 
