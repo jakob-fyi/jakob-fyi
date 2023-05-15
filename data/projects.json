@@ -1,5 +1,60 @@
 [
     {
+        "started": 2023,
+        "ended": 2023,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Die ambivalente Funktion des Todes",
+            "susbtitle": "Der Versuch den Todesbegriff in der Philosophie von Albert Camus zu verorten",
+            "link": null
+        }
+    },
+    {
+        "started": 2023,
+        "ended": 2023,
+        "category": "featured",
+        "done": true,
+        "content": {
+            "title": "Fasching in Lewing",
+            "susbtitle": "Ein bildlicher Rückblick auf den Fasching in Gemeinlebarn 1982 bis 2018",
+            "link": "https://fasching.ortsarchiv-gemeinlebarn.org"
+        }
+    },
+    {
+        "started": 2022,
+        "ended": 2023,
+        "category": "featured",
+        "done": true,
+        "content": {
+            "title": "ISDIAH Beschreibung",
+            "susbtitle": "Eine umfassende und standardisierte Beschreibung des Ortsarchiv Gemeinlebarn nach ISDIAH",
+            "link": "https://www.ortsarchiv-gemeinlebarn.org"
+        }
+    },
+    {
+        "started": 2021,
+        "ended": false,
+        "category": "history",
+        "done": false,
+        "content": {
+            "title": "Schaufenster",
+            "susbtitle": "Plattform für öffentlich zugängliche Einträge des Ortsarchivs, ähnlich der bekannten Topothek",
+            "link": "https://schaufenster.ortsarchiv-gemeinlebarn.org"
+        }
+    },
+    {
+        "started": 2019,
+        "ended": false,
+        "category": "featured",
+        "done": false,
+        "content": {
+            "title": "Überland",
+            "susbtitle": "Die Geschichte eines Zwangsarbeitslagers zwischen Gemeinlebarn und Sitzenberg-Reidling 1944/45",
+            "link": "https://ueberland.jakob.fyi"
+        }
+    },
+    {
         "started": 2021,
         "ended": false,
         "category": "history",
@@ -11,31 +66,9 @@
         }
     },
     {
-        "started": 2021,
-        "ended": false,
-        "category": "software",
-        "done": false,
-        "content": {
-            "title": "Schaufenster",
-            "susbtitle": "Plattform für öffentlich zugängliche Einträge des Ortsarchivs, ähnlich der bekannten Topothek",
-            "link": "https://schaufenster.ortsarchiv-gemeinlebarn.org"
-        }
-    },
-    {
-        "started": 2019,
-        "ended": false,
-        "category": "history",
-        "done": false,
-        "content": {
-            "title": "Überland",
-            "susbtitle": "Die Geschichte eines Zwangsarbeitslagers zwischen Gemeinlebarn und Sitzenberg-Reidling 1944/45",
-            "link": null
-        }
-    },
-    {
         "started": 2018,
         "ended": false,
-        "category": "software",
+        "category": "history",
         "done": false,
         "content": {
             "title": "Findbuch & API",
@@ -57,12 +90,12 @@
     {
         "started": 2020,
         "ended": 2020,
-        "category": "software",
+        "category": "featured",
         "done": true,
         "content": {
             "title": "Dia Scanner",
             "susbtitle": "Automatisierte Digitalisierung von Dias und Verarbeitung",
-            "link": "https://github.com/JakobVesely/reversal-film-scanner-rework-processing"
+            "link": "https://github.com/JakobVesely/reversal-film-scanner-rework-processing#reversal-film-scanner-rework-processing"
         }
     },
     {
