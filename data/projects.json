@@ -2,6 +2,17 @@
     {
         "started": 2023,
         "ended": 2023,
+        "category": "featured",
+        "done": true,
+        "content": {
+            "title": "DDFIY",
+            "susbtitle": "PWA zur Auswahl einer zufälligen Folge der drei ???",
+            "link": "https://ddfiy.jakob.fyi"
+        }
+    },
+    {
+        "started": 2023,
+        "ended": 2023,
         "category": "philosophy",
         "done": true,
         "content": {
