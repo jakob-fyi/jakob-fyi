@@ -44,6 +44,17 @@
         }
     },
     {
+        "started": 2022,
+        "ended": 2022,
+        "category": "philosophy",
+        "done": true,
+        "content": {
+            "title": "Wovon wir reden, wenn wir von Ich und Wir reden",
+            "susbtitle": "Über die Diskrepanz zwischen Autonomie und Verschmelzung im Eros",
+            "link": null
+        }
+    },
+    {
         "started": 2021,
         "ended": false,
         "category": "history",
