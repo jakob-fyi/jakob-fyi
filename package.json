@@ -2,7 +2,6 @@
     "name": "jakob-fyi",
     "version": "1.0.0",
     "description": "Personal Website of Jakob Vesely",
-    "main": "app.js",
     "scripts": {
         "parcel": "npx parcel",
         "start": "parcel src/index.html",
