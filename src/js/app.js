@@ -15,14 +15,14 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     window.toggleTheme();
 }
 
-_ = new Typed('#greeting-typing', {
-    stringsElement: '#greeting',
-    typeSpeed: 30,
-    onStringTyped: () => setTimeout(() => document.querySelector('.typed-cursor').remove(), 2000)
-});
-
 projects.forEach(item => {
     let project = new Project(item);
     let element = project.getElement();
     document.querySelector("#" + project.category + " > .right > .items").appendChild(element);
+});
+
+const _ = new Typed('#greeting-typing', {
+    stringsElement: '#greeting',
+    typeSpeed: 30,
+    onStringTyped: () => setTimeout(() => document.querySelector('.typed-cursor').remove(), 2000)
 });
