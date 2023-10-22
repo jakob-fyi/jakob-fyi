@@ -1,0 +1,53 @@
+name: CI & CD Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: '[npm] Install Dependencies'
+        run: npm ci
+
+      - name: '[npm] Build'
+        run: npm run ci:build --if-present
+
+      - name: Publish Artifact for Deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: Artifact
+          path: ./dist/
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+    - name: Download Artifact form Build
+      uses: actions/download-artifact@v3
+      with:
+        name: Artifact
+        path: ./dist/
+
+    - name: Deploy with FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_DEPLOY_HOSTNAME }}
+        username: ${{ secrets.FTP_DEPLOY_USERNAME }}
+        password: ${{ secrets.FTP_DEPLOY_PASSWORD }}
+        local-dir: ./dist/
+        dangerous-clean-slate: true

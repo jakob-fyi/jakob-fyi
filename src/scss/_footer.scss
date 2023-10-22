@@ -3,12 +3,12 @@ footer {
     margin-top: 50px;
     background-color: #ffffff;
     padding-top: 100px;
-    
-    .right{
+
+    .right {
 
         padding-top: 18px;
-    
-        &.section__content{
+
+        &.section__content {
             flex-direction: row;
 
             .job {
@@ -20,29 +20,29 @@ footer {
                 border-right: 1px solid #dddddd;
                 transition: all ease 300ms;
 
-                &:last-child{
+                &:last-child {
                     border-right: 0px;
                 }
             }
 
-            .links a{
+            .links a {
                 transition: all ease 300ms;
             }
         }
     }
 
-    #contact{
+    #contact {
         margin-top: 80px;
 
-        .right{
+        .right {
             flex-direction: column;
             align-items: flex-start;
-    
-            .links{
+
+            .links {
                 display: flex;
                 flex-direction: row;
-    
-                a{
+
+                a {
                     font-weight: $fontWeightRegular;
                     text-decoration: none;
                     margin-right: 20px;
@@ -52,14 +52,15 @@ footer {
         }
     }
 
-    #image{
+    #image {
         margin-top: 50px;
 
         .left .infos {
             display: flex;
             flex-direction: column;
-        
-            p, a{
+
+            p,
+            a {
                 text-align: right;
                 font-weight: $fontWeightRegular;
                 text-decoration: none;
@@ -68,46 +69,47 @@ footer {
             }
         }
 
-        .right{
+        .right {
             display: flex;
             justify-content: flex-end;
             align-items: end;
             padding-top: 0px;
 
-            .impressum{
+            .impressum {
                 width: 100%;
-                transition: opacity ease 300ms;
+                transition: all ease 300ms;
+                opacity: 1;
+                height: auto;
+                max-height: 9999px;
 
-                &.hidden{
+                &.hidden {
                     opacity: 0;
+                    max-height: 0;
+                    overflow: hidden;
                 }
 
-                &.shown{
-                    opacity: 1;
-                }
-
-                h2{
+                h2 {
                     margin-top: 0px;
                 }
 
-                p{
+                p {
                     margin-bottom: 20px;
                 }
 
-                a{
+                a {
                     text-decoration: none;
                 }
             }
 
-            svg{
+            svg {
                 width: 100%;
                 max-width: 500px;
             }
         }
     }
 
-    .job[href]{
-        &:hover{
+    .job[href] {
+        &:hover {
             opacity: 0.65;
             cursor: pointer;
         }
@@ -116,43 +118,42 @@ footer {
 
 
 @media screen and (max-width: $breakpoint) {
-    
-    footer
-    {
+
+    footer {
         padding: 40px 40px 0px 40px;
 
         section {
             flex-direction: column;
 
-            .left.section__title{
+            .left.section__title {
                 margin-bottom: 0px;
             }
 
-            .right.section__content{
+            .right.section__content {
                 flex-direction: column;
-    
+
                 .job {
                     margin-bottom: 10px;
                     padding-bottom: 10px;
                     border-bottom: 1px solid #dddddd;
                     border-right: 0px;
-    
-                    &:last-child{
+
+                    &:last-child {
                         border-bottom: 0px;
                     }
                 }
             }
         }
 
-        #contact{
+        #contact {
             margin-top: 20px;
-    
-            .right{
-        
-                .links{
+
+            .right {
+
+                .links {
                     flex-direction: column;
-        
-                    a{
+
+                    a {
                         margin-right: 0px;
                         margin-bottom: 10px;
                     }
