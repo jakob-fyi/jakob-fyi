@@ -5,6 +5,17 @@
         "category": "featured",
         "done": true,
         "content": {
+            "title": "Die römischen Meilensteine von Gemeinlebarn",
+            "susbtitle": "Website-Projekt des Ortsarchivs Gemeinlebarn und Dominik Hagmann",
+            "link": "https://meilensteine.ortsarchiv-gemeinlebarn.org"
+        }
+    },
+    {
+        "started": 2023,
+        "ended": 2023,
+        "category": "software",
+        "done": true,
+        "content": {
             "title": "DDFIY",
             "susbtitle": "PWA zur Auswahl einer zufälligen Folge der drei ???",
             "link": "https://ddfiy.jakob.fyi"
@@ -24,7 +35,7 @@
     {
         "started": 2023,
         "ended": 2023,
-        "category": "featured",
+        "category": "history",
         "done": true,
         "content": {
             "title": "Fasching in Lewing",
