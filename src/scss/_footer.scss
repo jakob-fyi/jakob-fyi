@@ -1,35 +1,69 @@
 footer {
     width: 100%;
     margin-top: 50px;
-    background-color: #ffffff;
+    color: var(--footer-text-color);
+    background-color: var(--footer-background-color);
     padding-top: 100px;
 
-    .right {
+    a{
+        color: var(--footer-links-text-color);
+        font-weight: $fontWeightRegular;
+        text-decoration: none;
+        transition: all ease 300ms;
 
-        padding-top: 18px;
+        &:hover{
+            color: var(--footer-links-text-color-hover);
+        }
+    }
 
-        &.section__content {
+    #jobs {
+        .section-content {
             flex-direction: row;
-
+    
             .job {
                 text-decoration: none;
                 font-size: 0.85em;
                 background-color: transparent;
                 margin-right: 20px;
                 padding-right: 20px;
-                border-right: 1px solid #dddddd;
+                border-right: 1px solid var(--job-border-color);
                 transition: all ease 300ms;
-
+    
                 &:last-child {
                     border-right: 0px;
                 }
-            }
-
-            .links a {
-                transition: all ease 300ms;
+    
+                &__date{
+                    color: var(--job-date-color);
+                    border: 1px solid var(--job-date-color);
+                    width: auto;
+                    margin-bottom: 10px;
+                    padding: 2px 5px;
+                    font-size: .6em;
+                    font-weight: 600;
+                    display: inline-flex;
+                }
+    
+                &__title{
+                    color: var(--job-title-text-color);
+                    margin: 0;
+                    padding: 0;
+                    font-size: 1em;
+                    font-weight: 500;
+                    line-height: 1.4;
+                }
+    
+    
+                &__subtitle{
+                    color: var(--job-subtitle-text-color);
+                    margin: 4px 0 0;
+                    padding: 0;
+                    font-size: .8em;
+                }
             }
         }
     }
+    
 
     #contact {
         margin-top: 80px;
@@ -41,13 +75,8 @@ footer {
             .links {
                 display: flex;
                 flex-direction: row;
-
-                a {
-                    font-weight: $fontWeightRegular;
-                    text-decoration: none;
-                    margin-right: 20px;
-                    font-size: 0.9em;
-                }
+                gap: 10px;
+                font-size: 0.9em;
             }
         }
     }
@@ -122,20 +151,16 @@ footer {
     footer {
         padding: 40px 40px 0px 40px;
 
-        section {
+        #jobs {
             flex-direction: column;
 
-            .left.section__title {
-                margin-bottom: 0px;
-            }
-
-            .right.section__content {
+            .right.section-content {
                 flex-direction: column;
 
                 .job {
                     margin-bottom: 10px;
                     padding-bottom: 10px;
-                    border-bottom: 1px solid #dddddd;
+                    border-bottom: 1px solid var(--job-border-color);
                     border-right: 0px;
 
                     &:last-child {

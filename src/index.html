@@ -31,27 +31,27 @@
 		<script src="./js/app.js" type="module"></script>
 	</head>
 
-	<body class="color-theme color-theme--light">
+	<body>
 
 		<header>
 
-			<button class="color-theme-toggle color-theme-toggle--darkmode" onclick="toggleTheme()">
-				<svg id="Layer_1" style="enable-background:new 0 0 100.353 100.352;" version="1.1" viewBox="0 0 100.353 100.352" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-				<path d="M69.294,11.442c-6.788-5.594-15.724-7.82-24.512-6.109C32.951,7.636,23.449,17.623,21.675,29.62  c-1.447,9.79,2.031,19.567,9.304,26.155c3.277,2.968,5.254,7.243,5.568,12.039c0.006,0.087,0.023,0.171,0.042,0.254v15.039  c0,0.828,0.671,1.5,1.5,1.5h1.495c0.609,4.359,3.813,7.697,7.672,7.697h6.81c3.859,0,7.062-3.338,7.671-7.697h1.495  c0.828,0,1.5-0.672,1.5-1.5V67.828c0-0.003,0.001-0.006,0.001-0.01c0-4.462,2.026-8.771,5.706-12.133  c6.062-5.538,9.538-13.415,9.538-21.61C79.978,25.287,76.084,17.037,69.294,11.442z M45.357,39.91h-2.305  c-1.271,0-2.305-1.034-2.305-2.305s1.034-2.305,2.305-2.305s2.305,1.034,2.305,2.305V39.91z M55.966,37.605  c0-1.271,1.034-2.305,2.306-2.305c1.271,0,2.305,1.034,2.305,2.305s-1.034,2.305-2.305,2.305h-2.303L55.966,37.605z M55.063,69.211  h6.67v12.396H60.36c-0.003,0-0.006-0.001-0.01-0.001s-0.006,0.001-0.01,0.001H40.982c-0.003,0-0.006-0.001-0.01-0.001  s-0.006,0.001-0.01,0.001H39.59V69.211h14.366 M48.357,66.211V42.91h4.617l0.034,23.301H48.357z M54.066,89.304h-6.81  c-2.238,0-4.117-2.004-4.637-4.697h16.083C58.183,87.3,56.304,89.304,54.066,89.304z M68.416,53.471  c-3.872,3.537-6.164,8.013-6.593,12.74h-5.816L55.974,42.91h2.298c2.925,0,5.305-2.38,5.305-5.305c0-2.925-2.38-5.305-5.305-5.305  c-2.926,0-5.306,2.38-5.306,5.307l0.003,2.303h-4.612v-2.305c0-2.925-2.38-5.305-5.305-5.305c-2.925,0-5.305,2.38-5.305,5.305  c0,2.925,2.38,5.305,5.305,5.305h2.305v23.301h-5.972c-0.636-5.005-2.864-9.465-6.393-12.66c-6.528-5.914-9.65-14.696-8.35-23.493  c1.591-10.76,10.108-19.716,20.712-21.781c7.908-1.538,15.938,0.458,22.03,5.48c6.096,5.023,9.592,12.429,9.592,20.319  C76.978,41.43,73.857,48.5,68.416,53.471z" />
-			</svg>
-				<span>Switch to Darkmode</span>
-			</button>
-			<button class="color-theme-toggle color-theme-toggle--lightmode" onclick="toggleTheme()">
-				<svg id="Layer_1" style="enable-background:new 0 0 100.353 100.352;" version="1.1" viewBox="0 0 100.353 100.352" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-				<path d="M69.294,11.442c-6.788-5.594-15.724-7.82-24.512-6.109C32.951,7.636,23.449,17.623,21.675,29.62  c-1.447,9.79,2.031,19.567,9.304,26.155c3.277,2.968,5.254,7.243,5.568,12.039c0.006,0.087,0.023,0.171,0.042,0.254v15.039  c0,0.828,0.671,1.5,1.5,1.5h1.495c0.609,4.359,3.813,7.697,7.672,7.697h6.81c3.859,0,7.062-3.338,7.671-7.697h1.495  c0.828,0,1.5-0.672,1.5-1.5V67.828c0-0.003,0.001-0.006,0.001-0.01c0-4.462,2.026-8.771,5.706-12.133  c6.062-5.538,9.538-13.415,9.538-21.61C79.978,25.287,76.084,17.037,69.294,11.442z M45.357,39.91h-2.305  c-1.271,0-2.305-1.034-2.305-2.305s1.034-2.305,2.305-2.305s2.305,1.034,2.305,2.305V39.91z M55.966,37.605  c0-1.271,1.034-2.305,2.306-2.305c1.271,0,2.305,1.034,2.305,2.305s-1.034,2.305-2.305,2.305h-2.303L55.966,37.605z M55.063,69.211  h6.67v12.396H60.36c-0.003,0-0.006-0.001-0.01-0.001s-0.006,0.001-0.01,0.001H40.982c-0.003,0-0.006-0.001-0.01-0.001  s-0.006,0.001-0.01,0.001H39.59V69.211h14.366 M48.357,66.211V42.91h4.617l0.034,23.301H48.357z M54.066,89.304h-6.81  c-2.238,0-4.117-2.004-4.637-4.697h16.083C58.183,87.3,56.304,89.304,54.066,89.304z M68.416,53.471  c-3.872,3.537-6.164,8.013-6.593,12.74h-5.816L55.974,42.91h2.298c2.925,0,5.305-2.38,5.305-5.305c0-2.925-2.38-5.305-5.305-5.305  c-2.926,0-5.306,2.38-5.306,5.307l0.003,2.303h-4.612v-2.305c0-2.925-2.38-5.305-5.305-5.305c-2.925,0-5.305,2.38-5.305,5.305  c0,2.925,2.38,5.305,5.305,5.305h2.305v23.301h-5.972c-0.636-5.005-2.864-9.465-6.393-12.66c-6.528-5.914-9.65-14.696-8.35-23.493  c1.591-10.76,10.108-19.716,20.712-21.781c7.908-1.538,15.938,0.458,22.03,5.48c6.096,5.023,9.592,12.429,9.592,20.319  C76.978,41.43,73.857,48.5,68.416,53.471z" />
-			</svg>
-				<span>Switch to Lightmode</span>
-			</button>
+			<div class="buttons">
+				<button onclick="toggleTheme()">
+					<svg style="enable-background:new 0 0 100.353 100.352;" version="1.1" viewBox="0 0 100.353 100.352" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<path d="M69.294,11.442c-6.788-5.594-15.724-7.82-24.512-6.109C32.951,7.636,23.449,17.623,21.675,29.62  c-1.447,9.79,2.031,19.567,9.304,26.155c3.277,2.968,5.254,7.243,5.568,12.039c0.006,0.087,0.023,0.171,0.042,0.254v15.039  c0,0.828,0.671,1.5,1.5,1.5h1.495c0.609,4.359,3.813,7.697,7.672,7.697h6.81c3.859,0,7.062-3.338,7.671-7.697h1.495  c0.828,0,1.5-0.672,1.5-1.5V67.828c0-0.003,0.001-0.006,0.001-0.01c0-4.462,2.026-8.771,5.706-12.133  c6.062-5.538,9.538-13.415,9.538-21.61C79.978,25.287,76.084,17.037,69.294,11.442z M45.357,39.91h-2.305  c-1.271,0-2.305-1.034-2.305-2.305s1.034-2.305,2.305-2.305s2.305,1.034,2.305,2.305V39.91z M55.966,37.605  c0-1.271,1.034-2.305,2.306-2.305c1.271,0,2.305,1.034,2.305,2.305s-1.034,2.305-2.305,2.305h-2.303L55.966,37.605z M55.063,69.211  h6.67v12.396H60.36c-0.003,0-0.006-0.001-0.01-0.001s-0.006,0.001-0.01,0.001H40.982c-0.003,0-0.006-0.001-0.01-0.001  s-0.006,0.001-0.01,0.001H39.59V69.211h14.366 M48.357,66.211V42.91h4.617l0.034,23.301H48.357z M54.066,89.304h-6.81  c-2.238,0-4.117-2.004-4.637-4.697h16.083C58.183,87.3,56.304,89.304,54.066,89.304z M68.416,53.471  c-3.872,3.537-6.164,8.013-6.593,12.74h-5.816L55.974,42.91h2.298c2.925,0,5.305-2.38,5.305-5.305c0-2.925-2.38-5.305-5.305-5.305  c-2.926,0-5.306,2.38-5.306,5.307l0.003,2.303h-4.612v-2.305c0-2.925-2.38-5.305-5.305-5.305c-2.925,0-5.305,2.38-5.305,5.305  c0,2.925,2.38,5.305,5.305,5.305h2.305v23.301h-5.972c-0.636-5.005-2.864-9.465-6.393-12.66c-6.528-5.914-9.65-14.696-8.35-23.493  c1.591-10.76,10.108-19.716,20.712-21.781c7.908-1.538,15.938,0.458,22.03,5.48c6.096,5.023,9.592,12.429,9.592,20.319  C76.978,41.43,73.857,48.5,68.416,53.471z" />
+					</svg>
+					<span>Darkmode</span>
+				</button>
+
+				<button onclick="toggleTheme()">
+					<svg style="enable-background:new 0 0 100.353 100.352;" version="1.1" viewBox="0 0 100.353 100.352" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<path d="M69.294,11.442c-6.788-5.594-15.724-7.82-24.512-6.109C32.951,7.636,23.449,17.623,21.675,29.62  c-1.447,9.79,2.031,19.567,9.304,26.155c3.277,2.968,5.254,7.243,5.568,12.039c0.006,0.087,0.023,0.171,0.042,0.254v15.039  c0,0.828,0.671,1.5,1.5,1.5h1.495c0.609,4.359,3.813,7.697,7.672,7.697h6.81c3.859,0,7.062-3.338,7.671-7.697h1.495  c0.828,0,1.5-0.672,1.5-1.5V67.828c0-0.003,0.001-0.006,0.001-0.01c0-4.462,2.026-8.771,5.706-12.133  c6.062-5.538,9.538-13.415,9.538-21.61C79.978,25.287,76.084,17.037,69.294,11.442z M45.357,39.91h-2.305  c-1.271,0-2.305-1.034-2.305-2.305s1.034-2.305,2.305-2.305s2.305,1.034,2.305,2.305V39.91z M55.966,37.605  c0-1.271,1.034-2.305,2.306-2.305c1.271,0,2.305,1.034,2.305,2.305s-1.034,2.305-2.305,2.305h-2.303L55.966,37.605z M55.063,69.211  h6.67v12.396H60.36c-0.003,0-0.006-0.001-0.01-0.001s-0.006,0.001-0.01,0.001H40.982c-0.003,0-0.006-0.001-0.01-0.001  s-0.006,0.001-0.01,0.001H39.59V69.211h14.366 M48.357,66.211V42.91h4.617l0.034,23.301H48.357z M54.066,89.304h-6.81  c-2.238,0-4.117-2.004-4.637-4.697h16.083C58.183,87.3,56.304,89.304,54.066,89.304z M68.416,53.471  c-3.872,3.537-6.164,8.013-6.593,12.74h-5.816L55.974,42.91h2.298c2.925,0,5.305-2.38,5.305-5.305c0-2.925-2.38-5.305-5.305-5.305  c-2.926,0-5.306,2.38-5.306,5.307l0.003,2.303h-4.612v-2.305c0-2.925-2.38-5.305-5.305-5.305c-2.925,0-5.305,2.38-5.305,5.305  c0,2.925,2.38,5.305,5.305,5.305h2.305v23.301h-5.972c-0.636-5.005-2.864-9.465-6.393-12.66c-6.528-5.914-9.65-14.696-8.35-23.493  c1.591-10.76,10.108-19.716,20.712-21.781c7.908-1.538,15.938,0.458,22.03,5.48c6.096,5.023,9.592,12.429,9.592,20.319  C76.978,41.43,73.857,48.5,68.416,53.471z" />
+					</svg>
+				</button>
+			</div>
 
 			<section>
-				<div class="left">
-
-				</div>
+				<div class="left"></div>
 				<div class="right">
 					<h1 class="greeting" id="greeting">
 						<span class="line">
@@ -68,102 +68,121 @@
 		</header>
 		<main>
 			<section id="featured" class="project-category">
-				<h2 class="left section__title">
-					Featured
-				</h2>
-				<div class="right">
-					<div class="items">
-						<!-- Items will be added here -->
-					</div>
-					<div class="load-more">
-						<svg height="16px" id="Layer_1" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px">
-						<path d="M2,6C0.896,6,0,6.896,0,8s0.896,2,2,2s2-0.896,2-2S3.104,6,2,6z M8,6C6.896,6,6,6.896,6,8s0.896,2,2,2s2-0.896,2-2  S9.104,6,8,6z M14,6c-1.104,0-2,0.896-2,2s0.896,2,2,2s2-0.896,2-2S15.104,6,14,6z" />
-					</svg>
-						<div class="load-more__title">Weitere Projekte in diesem Bereich laden</div>
-					</div>
+				<h2 class="left section-title">Featured</h2>
+				<div class="right items">
+					<fyi-jakob-item id="ueberland"
+									title="Überland"
+									subtitle="Die Geschichte eines Zwangsarbeitslagers zwischen Gemeinlebarn und Sitzenberg-Reidling 1944/45"
+									tags="History, Science, Talks, Paper"
+									time="seit 2019"
+									link="https://ueberland.jakob.fyi">
+					</fyi-jakob-item>
+					<fyi-jakob-item id="meilensteine"
+									title="Die römischen Meilensteine von Gemeinlebarn"
+									subtitle="Website-Projekt des Ortsarchivs Gemeinlebarn und Dominik Hagmann"
+									tags="History, Web, Geoinformation, Software"
+									time="2023"
+									link="https://meilensteine.ortsarchiv-gemeinlebarn.org">
+					</fyi-jakob-item>
 				</div>
 			</section>
 
 			<section id="software" class="project-category">
-				<h2 class="left section__title">
-					Software & Tech
-				</h2>
-				<div class="right">
-					<div class="items">
-						<!-- Items will be added here -->
-					</div>
-					<div class="load-more">
-						<svg height="16px" id="Layer_1" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px">
-						<path d="M2,6C0.896,6,0,6.896,0,8s0.896,2,2,2s2-0.896,2-2S3.104,6,2,6z M8,6C6.896,6,6,6.896,6,8s0.896,2,2,2s2-0.896,2-2  S9.104,6,8,6z M14,6c-1.104,0-2,0.896-2,2s0.896,2,2,2s2-0.896,2-2S15.104,6,14,6z" />
-					</svg>
-						<div class="load-more__title">Weitere Projekte in diesem Bereich laden</div>
-					</div>
+				<h2 class="left section-title">2023</h2>
+				<div class="right items">
+					<fyi-jakob-item id="ddfiy"
+									title="DDFIY"
+									subtitle="PWA zur Auswahl einer zufälligen Folge der drei ???"
+									tags="PWA, App, Software"
+									time="2023"
+									link="https://ddfiy.jakob.fyi">
+					</fyi-jakob-item>
+					<fyi-jakob-item title="Die ambivalente Funktion des Todes"
+									subtitle="Der Versuch den Todesbegriff in der Philosophie von Albert Camus zu verorten"
+									tags="Philosophy, Paper"
+									time="2023">
+					</fyi-jakob-item>
+					<fyi-jakob-item id="fasching"
+									title="Fasching in Lewing"
+									subtitle="Ein bildlicher Rückblick auf den Fasching in Gemeinlebarn 1982 bis 2018"
+									tags="History, Web, Software"
+									time="2023"
+									link="https://fasching.ortsarchiv-gemeinlebarn.org">
+					</fyi-jakob-item>
+					<fyi-jakob-item id="isdiah"
+									title="ISDIAH Beschreibung"
+									subtitle="Eine umfassende und standardisierte Beschreibung des Ortsarchiv Gemeinlebarn nach ISDIAH"
+									tags="Archive, Science"
+									time="2022 bis 2023"
+									link="https://www.ortsarchiv-gemeinlebarn.org">
+					</fyi-jakob-item>
 				</div>
 			</section>
 
-			<section id="history" class="project-category">
-				<h2 class="left section__title">
-					Geschichte & Archiv
-				</h2>
-				<div class="right">
-					<div class="items">
-						<!-- Items will be added here -->
-					</div>
-					<div class="load-more">
-						<svg height="16px" id="Layer_1" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px">
-						<path d="M2,6C0.896,6,0,6.896,0,8s0.896,2,2,2s2-0.896,2-2S3.104,6,2,6z M8,6C6.896,6,6,6.896,6,8s0.896,2,2,2s2-0.896,2-2  S9.104,6,8,6z M14,6c-1.104,0-2,0.896-2,2s0.896,2,2,2s2-0.896,2-2S15.104,6,14,6z" />
-					</svg>
-						<div class="load-more__title">Weitere Projekte in diesem Bereich laden</div>
-					</div>
+			<section id="year-2022" class="project-category">
+				<h2 class="left section-title">2022</h2>
+				<div class="right items">
+					<fyi-jakob-item title="Wovon wir reden, wenn wir von Ich und Wir reden"
+									subtitle="Über die Diskrepanz zwischen Autonomie und Verschmelzung im Eros"
+									tags="Philosophy, Paper"
+									time="2022">
+					</fyi-jakob-item>
 				</div>
 			</section>
 
-			<section id="philosophy" class="project-category">
-				<h2 class="left section__title">
-					Philosophie
-				</h2>
-				<div class="right">
-					<div class="items">
-						<!-- Items will be added here -->
-					</div>
-					<div class="load-more">
-						<svg height="16px" id="Layer_1" style="enable-background:new 0 0 16 16;" version="1.1" viewBox="0 0 16 16" width="16px">
-						<path d="M2,6C0.896,6,0,6.896,0,8s0.896,2,2,2s2-0.896,2-2S3.104,6,2,6z M8,6C6.896,6,6,6.896,6,8s0.896,2,2,2s2-0.896,2-2  S9.104,6,8,6z M14,6c-1.104,0-2,0.896-2,2s0.896,2,2,2s2-0.896,2-2S15.104,6,14,6z" />
-					</svg>
-						<div class="load-more__title">Weitere Projekte in diesem Bereich laden</div>
-					</div>
+			<section id="year-2021" class="project-category">
+				<h2 class="left section-title">Before</h2>
+				<div class="right items">
+					<fyi-jakob-item title="FFGFÜA"
+									subtitle="Füllapplikation für die ALFST Gemeinlebarn"
+									tags="PWA, App, Software, Feuerwehr"
+									time="2021"
+									link="https://ffgfuea.appartig.at">
+					</fyi-jakob-item>
+					<fyi-jakob-item title="Dia Scanner"
+									subtitle="Automatisierte Digitalisierung von Dias und Verarbeitung"
+									tags="Software, Hardware"
+									time="2020"
+									link="https://github.com/JakobVesely/reversal-film-scanner-rework-processing#reversal-film-scanner-rework-processing">
+					</fyi-jakob-item>
+					<fyi-jakob-item title="FFGBSY"
+									subtitle="Bestell- und Boniersystem der FF Gemeinlebarn - PWA und API"
+									tags="PWA, App, Software, Hardware"
+									time="seit 2017"
+									link="https://www.appartig.at/work/ffgbsy-ff-gemeinlebarn-bestellsystem/">
+					</fyi-jakob-item>
 				</div>
 			</section>
 		</main>
 		<footer>
-			<section>
-				<h2 class="left section__title">Where i do this stuff</h2>
-				<div class="right section__content">
+			<section id="jobs">
+				<h2 class="left section-title">Where i do this stuff</h2>
+				<div class="right section-content">
 					<a href="https://www.appartig.at" target="_blank" class="job" rel="noopener noreferrer">
-						<p class="item__date">seit 2013</p>
-						<h3 class="item__title">AppArtig e.U.</h3>
-						<p class="item__subtitle">IT Dienstleistungen</p>
+						<p class="job__date">seit 2013</p>
+						<h3 class="job__title">AppArtig e.U.</h3>
+						<p class="job__subtitle">IT Dienstleistungen</p>
 					</a>
 					<div class="job">
-						<p class="item__date">seit 2020</p>
-						<h3 class="item__title">Land NÖ</h3>
-						<p class="item__subtitle">Software Entwicklung</p>
+						<p class="job__date">seit 2020</p>
+						<h3 class="job__title">Land NÖ</h3>
+						<p class="job__subtitle">Software Entwicklung</p>
 					</div>
 					<a href="https://www.ff-gemeinlebarn.at" target="_blank" class="job" rel="noopener noreferrer">
-						<p class="item__date">seit 2004</p>
-						<h3 class="item__title">FF Gemeinlebarn</h3>
-						<p class="item__subtitle">Freiwillige Feuerwehr Gemeinlebarn</p>
+						<p class="job__date">seit 2004</p>
+						<h3 class="job__title">FF Gemeinlebarn</h3>
+						<p class="job__subtitle">Freiwillige Feuerwehr Gemeinlebarn</p>
 					</a>
 					<a href="https://www.ortsarchiv-gemeinlebarn.org" target="_blank" class="job" rel="noopener noreferrer">
-						<p class="item__date">seit 2013</p>
-						<h3 class="item__title">Ortsarchiv Gemeinlebarn</h3>
-						<p class="item__subtitle">Aufbau, Verwaltung und Digitaliserung</p>
+						<p class="job__date">seit 2013</p>
+						<h3 class="job__title">Ortsarchiv Gemeinlebarn</h3>
+						<p class="job__subtitle">Aufbau, Verwaltung und Digitaliserung</p>
 					</a>
 				</div>
 			</section>
 			<section id="contact">
-				<h2 class="left section__title">Mail & Links</h2>
-				<div class="right section__content">
+				<h2 class="left section-title">Mail & Links</h2>
+				<div class="right section-content">
 					<div class="links">
 						<a href="mailto:contact@jakob.fyi">Mail</a>
 						<a href="https://github.com/jakob-fyi" target="_blank">GitHub</a>

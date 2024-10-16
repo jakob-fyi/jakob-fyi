@@ -21,11 +21,12 @@ footer{
         .left{
             width: 180px;
 
-            &.section__title{
+            &.section-title{
+                color: var(--section-title-text-color);
                 font-size: 1em;
                 text-align: right;
                 padding-top: 15px;
-                border-top: 1px solid #e9e9e9;
+                border-top: 1px solid var(--section-title-border-color);
             }
         }
 
@@ -56,10 +57,9 @@ footer{
             .left{
                 width: 100%;
         
-                &.section__title{
+                &.section-title{
                     text-align: left;
                     padding-bottom: 15px;
-                    border-bottom: 1px solid #e9e9e9;
                     border-top: 0px;
                     margin-bottom: 20px;
                 }
