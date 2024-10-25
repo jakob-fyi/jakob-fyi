@@ -54,6 +54,7 @@ export class ProjectComponent extends WebComponent {
         const timeEl = document.createElement("div");
         timeEl.setAttribute("class", "item__time");
         timeEl.innerText = this.getAttribute("time");
+        tagsEl.innerHTML += `<span class="item__tag">${this.getAttribute("time")}</span>`;
 
         contentEl.appendChild(titleEl);
         contentEl.appendChild(subtitleEl);

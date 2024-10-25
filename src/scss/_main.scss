@@ -1,6 +1,4 @@
 main {
-    gap: 20px;
-    padding: var(--page-padding);
     padding-bottom: 0;
 
     section#image {
@@ -18,8 +16,22 @@ main {
     }
 }
 
+#archive {
+    background-color: var(--archive-background-color);
+    border-top: 1px var(--archive-border-color) solid;
+    border-bottom: 1px var(--archive-border-color) solid;
+    padding-top: calc(2 * var(--page-padding));
+    padding-bottom: calc(3 * var(--page-padding));
+}
+
 body.grid {
     main section[type="items"] .content {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: $breakpoint) {
+    #archive {
+        padding: var(--page-padding);
     }
 }

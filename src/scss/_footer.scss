@@ -3,7 +3,8 @@ footer {
     color: var(--footer-text-color);
     background-color: var(--footer-background-color);
     padding: var(--page-padding);
-    padding-top: 100px;
+    padding-top: calc(3 * var(--page-padding));
+    padding-bottom: calc(3 * var(--page-padding));
     gap: calc(2 * var(--page-padding));
 
     #jobs {
@@ -42,5 +43,12 @@ footer {
                 grid-template-columns: 1fr 1fr;
             }
         }
+    }
+}
+
+@media screen and (max-width: $breakpoint) {
+    footer {
+        padding: var(--page-padding);
+        gap: var(--page-padding);
     }
 }
