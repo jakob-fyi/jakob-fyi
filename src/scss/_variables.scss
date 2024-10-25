@@ -1,10 +1,23 @@
-:root{
+:root {
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+
+    --default-padding: 1em;
+    --page-padding: 2.5em;
+
     --page-background-color: #f5f5f5;
+    --base-text-color: #222222;
+    --link-background-color: #32327733;
     --header-greeting-text-color: #000000;
     --header-subjects-text-color: #333333;
     --header-toggle-text-color: #666666;
     --header-toggle-border-color: #dfdfdf;
-    --footer-background-color: #e8e8e8b3;
+    --footer-background-color: #efefef;
     --footer-headline-text-color: #000000;
     --footer-text-color: #555555;
     --footer-text-color-hover: #000000;
@@ -14,19 +27,27 @@
     --section-title-border-color: #e4e4e4;
     --item-background-color: #f8f8f8;
     --item-background-color-hover: #fbfbfb;
-    --item-border-color: #eeeeee;
-    --item-border-color-hover: #d9d9d9;
+    --item-border-color: #e1e1e1;
+    --item-border-color-hover: #dadada;
     --item-title-text-color: #000000;
     --item-subtitle-text-color: #777777;
-    --item-tag-text-color: #bbbbbb;
-    --item-tag-border-color: #bbbbbb;
+    --event-title-text-color: var(--item-title-text-color);
+    --event-subtitle-text-color: var(--item-subtitle-text-color);
+    --event-date-and-place-text-color: #555555;
+    --tag-text-color: #aaaaaa;
+    --tag-border-color: #dddddd;
     --job-title-text-color: #000000;
     --job-subtitle-text-color: #777777;
     --job-date-color: #bbbbbb;
     --job-border-color: #eeeeee;
 
-    body.dark{
+    --item-border-radius: 2px;
+    --event-border-radius: var(--item-border-radius);
+
+    body.dark {
         --page-background-color: #333333;
+        --base-text-color: #eeeeee;
+        --link-background-color: #32327733;
         --header-greeting-text-color: #ffffff;
         --header-subjects-text-color: #cccccc;
         --header-toggle-text-color: #999999;
@@ -45,8 +66,11 @@
         --item-border-color-hover: #5a5a5a;
         --item-title-text-color: #ffffff;
         --item-subtitle-text-color: #808080;
-        --item-tag-text-color: #bbbbbb;
-        --item-tag-border-color: #bbbbbb;
+        --event-title-text-color: var(--item-title-text-color);
+        --event-subtitle-text-color: var(--item-subtitle-text-color);
+        --event-date-and-place-text-color: #cccccc;
+        --tag-text-color: #bbbbbb;
+        --tag-border-color: #555;
         --job-title-text-color: #ffffff;
         --job-subtitle-text-color: #808080;
         --job-date-color: #bbbbbb;
@@ -54,16 +78,6 @@
     }
 }
 
-$fontWeightLight: 300;
-$fontWeightRegular: 400;
-$fontWeightMedium: 500;
-$fontWeightSemiBold: 600;
-$fontWeightBold: 700;
-$fontWeightExtraBold: 800;
-$fontWeightBlack: 900;
-
-$logo-font-size: 1.5rem;
-$padding: 80px;
-
 $inner-wrapper-width: 1000px;
 $breakpoint: 600px;
+$breakpointWide: 840px;

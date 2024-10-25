@@ -1,73 +1,64 @@
-
-header,
-main{
-    padding: 40px;
-}
-
 header,
 main,
-footer{
+footer {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     section {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 150px auto;
+        gap: 0px 30px;
         width: 100%;
         max-width: $inner-wrapper-width;
 
-        .left{
-            width: 180px;
-
-            &.section-title{
-                color: var(--section-title-text-color);
-                font-size: 1em;
-                text-align: right;
-                padding-top: 15px;
-                border-top: 1px solid var(--section-title-border-color);
-            }
+        .title {
+            grid-column-start: 1;
+            grid-column-end: span 1;
+            color: var(--section-title-text-color);
+            font-size: 1em;
+            font-weight: var(--font-weight-medium);
+            text-align: right;
+            padding-top: 15px;
+            border-top: 1px solid var(--section-title-border-color);
         }
 
-        .right{
-            width: 100%;
-            padding-left: 30px;
-            display: flex;
-            flex-direction: column;
+        .headline {
+            color: var(--section-title-text-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
 
-            .items{
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
+        .headline,
+        .content {
+            grid-column-start: 2;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            align-items: flex-start;
         }
     }
 }
 
 @media screen and (max-width: $breakpoint) {
-    
-    main, 
-    header, 
-    footer
-    {
+    main,
+    header,
+    footer {
         section {
+            display: flex;
             flex-direction: column;
 
-            .left{
-                width: 100%;
-        
-                &.section-title{
-                    text-align: left;
-                    padding-bottom: 15px;
-                    border-top: 0px;
-                    margin-bottom: 20px;
-                }
+            .title {
+                text-align: left;
+                padding-bottom: 1em;
+                padding-top: 2em;
+                border-top: 0;
             }
-        
-            .right{
-                width: 100%;
-                padding-left: 0px;
+
+            .content {
+                grid-template-columns: 1fr !important;
             }
         }
     }

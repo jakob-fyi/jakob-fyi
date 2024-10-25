@@ -1,188 +1,45 @@
 footer {
     width: 100%;
-    margin-top: 50px;
     color: var(--footer-text-color);
     background-color: var(--footer-background-color);
+    padding: var(--page-padding);
     padding-top: 100px;
-
-    a{
-        color: var(--footer-links-text-color);
-        font-weight: $fontWeightRegular;
-        text-decoration: none;
-        transition: all ease 300ms;
-
-        &:hover{
-            color: var(--footer-links-text-color-hover);
-        }
-    }
+    gap: calc(2 * var(--page-padding));
 
     #jobs {
-        .section-content {
-            flex-direction: row;
-    
-            .job {
-                text-decoration: none;
-                font-size: 0.85em;
-                background-color: transparent;
-                margin-right: 20px;
-                padding-right: 20px;
-                border-right: 1px solid var(--job-border-color);
-                transition: all ease 300ms;
-    
-                &:last-child {
-                    border-right: 0px;
-                }
-    
-                &__date{
-                    color: var(--job-date-color);
-                    border: 1px solid var(--job-date-color);
-                    width: auto;
-                    margin-bottom: 10px;
-                    padding: 2px 5px;
-                    font-size: .6em;
-                    font-weight: 600;
-                    display: inline-flex;
-                }
-    
-                &__title{
-                    color: var(--job-title-text-color);
-                    margin: 0;
-                    padding: 0;
-                    font-size: 1em;
-                    font-weight: 500;
-                    line-height: 1.4;
-                }
-    
-    
-                &__subtitle{
-                    color: var(--job-subtitle-text-color);
-                    margin: 4px 0 0;
-                    padding: 0;
-                    font-size: .8em;
-                }
-            }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1em;
         }
     }
-    
 
     #contact {
-        margin-top: 80px;
-
-        .right {
-            flex-direction: column;
-            align-items: flex-start;
-
-            .links {
-                display: flex;
-                flex-direction: row;
-                gap: 10px;
-                font-size: 0.9em;
-            }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 1em;
+            column-gap: 3em;
         }
     }
 
-    #image {
-        margin-top: 50px;
+    #imprint {
+        .content {
+            gap: 0px;
 
-        .left .infos {
-            display: flex;
-            flex-direction: column;
-
-            p,
-            a {
-                text-align: right;
-                font-weight: $fontWeightRegular;
-                text-decoration: none;
-                font-size: 0.9em;
-                display: inline-block;
+            h2 {
+                margin-bottom: 0.2em;
+                margin-top: 1em;
             }
-        }
-
-        .right {
-            display: flex;
-            justify-content: flex-end;
-            align-items: end;
-            padding-top: 0px;
-
-            .impressum {
-                width: 100%;
-                transition: all ease 300ms;
-                opacity: 1;
-                height: auto;
-                max-height: 9999px;
-
-                &.hidden {
-                    opacity: 0;
-                    max-height: 0;
-                    overflow: hidden;
-                }
-
-                h2 {
-                    margin-top: 0px;
-                }
-
-                p {
-                    margin-bottom: 20px;
-                }
-
-                a {
-                    text-decoration: none;
-                }
-            }
-
-            svg {
-                width: 100%;
-                max-width: 500px;
-            }
-        }
-    }
-
-    .job[href] {
-        &:hover {
-            opacity: 0.65;
-            cursor: pointer;
         }
     }
 }
 
-
-@media screen and (max-width: $breakpoint) {
-
+@media screen and (max-width: $breakpointWide) {
     footer {
-        padding: 40px 40px 0px 40px;
-
-        #jobs {
-            flex-direction: column;
-
-            .right.section-content {
-                flex-direction: column;
-
-                .job {
-                    margin-bottom: 10px;
-                    padding-bottom: 10px;
-                    border-bottom: 1px solid var(--job-border-color);
-                    border-right: 0px;
-
-                    &:last-child {
-                        border-bottom: 0px;
-                    }
-                }
-            }
-        }
-
-        #contact {
-            margin-top: 20px;
-
-            .right {
-
-                .links {
-                    flex-direction: column;
-
-                    a {
-                        margin-right: 0px;
-                        margin-bottom: 10px;
-                    }
-                }
+        section#jobs {
+            .content {
+                grid-template-columns: 1fr 1fr;
             }
         }
     }

@@ -15,7 +15,6 @@ export class WebComponent extends HTMLElement {
 
         if (link) {
             el.setAttribute("href", link);
-            el.setAttribute("target", "_blank");
             el.setAttribute("rel", "noopener noreferrer");
         }
 
