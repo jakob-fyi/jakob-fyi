@@ -37,6 +37,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: Production
+    if: success() && github.ref == 'refs/heads/main'
     steps:
       - name: Download Artifact form Build
         uses: actions/download-artifact@v4
