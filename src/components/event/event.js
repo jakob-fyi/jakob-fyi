@@ -70,5 +70,11 @@ export class EventComponent extends WebComponent {
 
         leftEl.append(expandedEl);
         containerEl.append(leftEl);
+
+        setTimeout(() => {
+            containerEl
+                .querySelectorAll("a")
+                .forEach((tag) => (tag.onclick = (e) => e.stopPropagation()));
+        }, 500);
     }
 }
