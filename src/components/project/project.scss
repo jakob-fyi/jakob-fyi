@@ -17,7 +17,7 @@
         height: 100%;
 
         &:hover {
-            padding: 20px 20px;
+            padding: 20px;
             cursor: default;
 
             .item__meta {
@@ -101,6 +101,20 @@
                     stroke: #aaa;
                 }
             }
+        }
+    }
+}
+
+@media (hover: none) {
+    :host .item {
+        &:hover {
+            padding: 15px 20px;
+        }
+
+        .item__main .item__meta {
+            max-height: 100px;
+            opacity: 1;
+            animation: none;
         }
     }
 }
