@@ -1,3 +1,7 @@
+$inner-wrapper-width: 1000px;
+$breakpoint: 600px;
+$breakpointWide: 840px;
+
 :root {
     --font-weight-light: 300;
     --font-weight-regular: 400;
@@ -9,6 +13,14 @@
 
     --default-padding: 1em;
     --page-padding: calc(2.5 * var(--default-padding));
+
+    @media screen and (max-width: $breakpointWide) {
+        --page-padding: calc(2 * var(--default-padding));
+    }
+
+    @media screen and (max-width: $breakpoint) {
+        --page-padding: calc(1.75 * var(--default-padding));
+    }
 
     --page-background-color: #f5f5f5;
     --base-text-color: #222222;
@@ -81,7 +93,3 @@
         --job-border-color: #484848;
     }
 }
-
-$inner-wrapper-width: 1000px;
-$breakpoint: 600px;
-$breakpointWide: 840px;
