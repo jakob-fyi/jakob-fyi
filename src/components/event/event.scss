@@ -1,0 +1,113 @@
+@import "../../scss/text";
+@import "../../scss/components";
+
+:host {
+    .event {
+        text-decoration: none;
+        transition: all ease 300ms;
+        color: var(--base-text-color);
+        border: 1px var(--item-border-color) solid;
+        padding: 15px 20px;
+        display: flex;
+        flex-direction: row;
+        border-radius: var(--event-border-radius);
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--item-background-color-hover);
+            border-color: var(--item-border-color-hover);
+        }
+
+        &__left {
+            flex: 1;
+        }
+
+        .event__tags {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            .event__tag {
+                @extend .tag;
+            }
+        }
+
+        &__title,
+        &__subtitle,
+        &__datetime,
+        &__place {
+            margin: 0px;
+            padding: 0px;
+            font-size: 1em;
+        }
+
+        &__title {
+            line-height: 1.4;
+            color: var(--event-title-text-color);
+            font-weight: 500;
+        }
+
+        &__subtitle {
+            color: var(--event-subtitle-text-color);
+            margin-top: 4px;
+            font-size: 0.9em;
+        }
+
+        &__datetime {
+            color: var(--event-date-and-place-text-color);
+            margin-top: 14px;
+        }
+
+        &__place {
+            color: var(--event-date-and-place-text-color);
+            margin-top: 4px;
+        }
+
+        .event__expanded {
+            height: auto;
+            overflow: hidden;
+            max-height: 0;
+
+            &.show-expanded {
+                animation-name: showexpanded;
+                animation-duration: 300ms;
+                max-height: 1000px;
+            }
+
+            &.hide-expanded {
+                animation-name: hideexpanded;
+                animation-duration: 300ms;
+                max-height: 0;
+            }
+        }
+
+        &__expanded-spacer {
+            height: 14px;
+            width: 100%;
+            display: block;
+        }
+    }
+}
+
+@keyframes showexpanded {
+    from {
+        max-height: 0px;
+        opacity: 0;
+    }
+    to {
+        max-height: 1000px;
+        opacity: 1;
+    }
+}
+
+@keyframes hideexpanded {
+    from {
+        max-height: 1000px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0px;
+        opacity: 0;
+    }
+}

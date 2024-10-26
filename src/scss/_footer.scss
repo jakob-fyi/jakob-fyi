@@ -1,164 +1,54 @@
 footer {
     width: 100%;
-    margin-top: 50px;
-    background-color: #ffffff;
-    padding-top: 100px;
+    color: var(--footer-text-color);
+    background-color: var(--footer-background-color);
+    padding: var(--page-padding);
+    padding-top: calc(3 * var(--page-padding));
+    padding-bottom: calc(3 * var(--page-padding));
+    gap: calc(2 * var(--page-padding));
 
-    .right {
-
-        padding-top: 18px;
-
-        &.section__content {
-            flex-direction: row;
-
-            .job {
-                text-decoration: none;
-                font-size: 0.85em;
-                background-color: transparent;
-                margin-right: 20px;
-                padding-right: 20px;
-                border-right: 1px solid #dddddd;
-                transition: all ease 300ms;
-
-                &:last-child {
-                    border-right: 0px;
-                }
-            }
-
-            .links a {
-                transition: all ease 300ms;
-            }
+    #jobs {
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1em;
         }
     }
 
     #contact {
-        margin-top: 80px;
-
-        .right {
-            flex-direction: column;
-            align-items: flex-start;
-
-            .links {
-                display: flex;
-                flex-direction: row;
-
-                a {
-                    font-weight: $fontWeightRegular;
-                    text-decoration: none;
-                    margin-right: 20px;
-                    font-size: 0.9em;
-                }
-            }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 1em;
+            column-gap: 3em;
         }
     }
 
-    #image {
-        margin-top: 50px;
+    #imprint {
+        .content {
+            gap: 0px;
 
-        .left .infos {
-            display: flex;
-            flex-direction: column;
-
-            p,
-            a {
-                text-align: right;
-                font-weight: $fontWeightRegular;
-                text-decoration: none;
-                font-size: 0.9em;
-                display: inline-block;
+            h2 {
+                margin-bottom: 0.2em;
+                margin-top: 1em;
             }
-        }
-
-        .right {
-            display: flex;
-            justify-content: flex-end;
-            align-items: end;
-            padding-top: 0px;
-
-            .impressum {
-                width: 100%;
-                transition: all ease 300ms;
-                opacity: 1;
-                height: auto;
-                max-height: 9999px;
-
-                &.hidden {
-                    opacity: 0;
-                    max-height: 0;
-                    overflow: hidden;
-                }
-
-                h2 {
-                    margin-top: 0px;
-                }
-
-                p {
-                    margin-bottom: 20px;
-                }
-
-                a {
-                    text-decoration: none;
-                }
-            }
-
-            svg {
-                width: 100%;
-                max-width: 500px;
-            }
-        }
-    }
-
-    .job[href] {
-        &:hover {
-            opacity: 0.65;
-            cursor: pointer;
         }
     }
 }
 
+@media screen and (max-width: $breakpointWide) {
+    footer {
+        section#jobs {
+            .content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    }
+}
 
 @media screen and (max-width: $breakpoint) {
-
     footer {
-        padding: 40px 40px 0px 40px;
-
-        section {
-            flex-direction: column;
-
-            .left.section__title {
-                margin-bottom: 0px;
-            }
-
-            .right.section__content {
-                flex-direction: column;
-
-                .job {
-                    margin-bottom: 10px;
-                    padding-bottom: 10px;
-                    border-bottom: 1px solid #dddddd;
-                    border-right: 0px;
-
-                    &:last-child {
-                        border-bottom: 0px;
-                    }
-                }
-            }
-        }
-
-        #contact {
-            margin-top: 20px;
-
-            .right {
-
-                .links {
-                    flex-direction: column;
-
-                    a {
-                        margin-right: 0px;
-                        margin-bottom: 10px;
-                    }
-                }
-            }
-        }
+        padding: var(--page-padding);
+        gap: var(--page-padding);
     }
 }

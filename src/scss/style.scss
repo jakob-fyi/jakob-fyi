@@ -1,9 +1,45 @@
 @import "variables";
 @import "fonts";
 @import "base";
-@import "color-themes";
-@import "layout";
 @import "text";
+@import "components";
+@import "layout";
 @import "header";
+@import "main";
 @import "footer";
-@import "item";
+
+body {
+    .icon-dark {
+        display: none;
+    }
+    .icon-light {
+        display: block;
+    }
+
+    .icon-grid {
+        display: block;
+    }
+
+    .icon-list {
+        display: none;
+    }
+
+    &.dark {
+        .icon-dark {
+            display: block;
+        }
+        .icon-light {
+            display: none;
+        }
+    }
+
+    &.grid {
+        .icon-grid {
+            display: none;
+        }
+
+        .icon-list {
+            display: block;
+        }
+    }
+}

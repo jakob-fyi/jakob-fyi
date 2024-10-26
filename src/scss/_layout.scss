@@ -1,73 +1,69 @@
-
-header,
-main{
-    padding: 40px;
-}
-
 header,
 main,
-footer{
+#archive,
+footer {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: var(--page-padding);
+    gap: var(--default-padding);
 
     section {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 150px auto;
+        gap: calc(2 * var(--default-padding));
         width: 100%;
         max-width: $inner-wrapper-width;
 
-        .left{
-            width: 180px;
-
-            &.section__title{
-                font-size: 1em;
-                text-align: right;
-                padding-top: 15px;
-                border-top: 1px solid #e9e9e9;
-            }
+        .title {
+            grid-column-start: 1;
+            grid-column-end: span 1;
+            color: var(--section-title-text-color);
+            font-size: 1em;
+            font-weight: var(--font-weight-medium);
+            text-align: right;
+            padding-top: 15px;
+            border-top: 1px solid var(--section-title-border-color);
         }
 
-        .right{
-            width: 100%;
-            padding-left: 30px;
-            display: flex;
-            flex-direction: column;
+        .headline {
+            color: var(--section-title-text-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
 
-            .items{
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
+        .headline,
+        .content {
+            grid-column-start: 2;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--default-padding);
+            align-items: flex-start;
         }
     }
 }
 
 @media screen and (max-width: $breakpoint) {
-    
-    main, 
-    header, 
-    footer
-    {
+    header,
+    main,
+    #archive,
+    footer {
         section {
+            display: flex;
             flex-direction: column;
+            gap: 0;
 
-            .left{
-                width: 100%;
-        
-                &.section__title{
-                    text-align: left;
-                    padding-bottom: 15px;
-                    border-bottom: 1px solid #e9e9e9;
-                    border-top: 0px;
-                    margin-bottom: 20px;
-                }
+            .title {
+                text-align: left;
+                padding-bottom: 1em;
+                padding-top: 2em;
+                border-top: 0;
             }
-        
-            .right{
-                width: 100%;
-                padding-left: 0px;
+
+            .content {
+                grid-template-columns: 1fr !important;
             }
         }
     }

@@ -1,0 +1,46 @@
+.tag {
+    display: inline-flex;
+    font-size: 0.6em;
+    font-weight: 500;
+    color: var(--tag-text-color);
+    padding: 2px 5px;
+    border: 2px solid var(--tag-border-color);
+    width: auto;
+    border-radius: 2px;
+}
+
+.button,
+button {
+    font-size: 0.65em;
+    display: inline-flex;
+    background: transparent;
+    padding: 10px 14px;
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    align-self: flex-end;
+    border: 2px #ddd solid;
+    border-radius: 0.2em;
+    transition: all ease 300ms;
+    color: var(--header-toggle-text-color);
+    border-color: var(--header-toggle-border-color);
+    line-height: 20px;
+    gap: 10px;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.65;
+    }
+
+    svg {
+        height: 20px;
+        width: 20px;
+
+        path {
+            fill: var(--header-toggle-text-color);
+        }
+
+        circle {
+            stroke: var(--header-toggle-text-color);
+        }
+    }
+}

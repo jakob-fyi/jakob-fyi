@@ -1,36 +1,67 @@
 header {
+    position: relative;
+
+    .buttons {
+        position: absolute;
+        right: var(--page-padding);
+        top: var(--page-padding);
+    }
+
+    .image {
+        width: 250px;
+        height: 250px;
+        border-radius: 999em;
+        overflow: hidden;
+        background: #3b3b3b;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        position: absolute;
+        left: 240px;
+        top: 60px;
+        z-index: -2;
+        display: none;
+    }
 
     section {
         padding: 50px 0px;
 
-        .left {
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-end;
-        }
+        .content {
+            gap: 0;
+            transition: none;
 
-        .greeting {
-            font-size: 1.75em;
-            line-height: 40px;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            .greetings {
+                display: flex;
+                flex-direction: row;
 
-            .fyi {
-                font-weight: $fontWeightLight;
+                .greeting {
+                    display: block;
+                    font-size: 1.75em;
+                    text-align: left;
+                    line-height: 40px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    font-weight: var(--font-weight-medium);
+                    color: var(--header-greeting-text-color);
+
+                    .fyi {
+                        font-weight: var(--font-weight-light);
+                    }
+                }
             }
-        }
 
-        .subjects {
-            font-size: 1.2em;
-            font-weight: $fontWeightRegular;
+            .subjects {
+                font-size: 1.2em;
+                text-align: left;
+                font-weight: var(--font-weight-regular);
+                color: var(--header-subjects-text-color);
+            }
         }
     }
 }
 
 @media screen and (max-width: $breakpoint) {
-
     body.color-theme header {
-
         section {
             padding-top: 40px;
             padding-bottom: 0px;
@@ -44,6 +75,5 @@ header {
                 display: none;
             }
         }
-
     }
 }
