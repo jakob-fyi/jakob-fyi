@@ -5,7 +5,7 @@
     "scripts": {
         "parcel": "npx parcel",
         "start": "parcel src/index.html",
-        "ci:build": "parcel build src/index.html --log-level error --no-cache --dist-dir ./dist"
+        "ci:build": "parcel build src/index.html --log-level error --no-cache --no-optimize --dist-dir ./dist"
     },
     "repository": {
         "type": "git",
