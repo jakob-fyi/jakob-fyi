@@ -53,7 +53,13 @@ export class EventComponent extends WebComponent {
 
         const expandedEl = document.createElement("div");
         expandedEl.setAttribute("class", "event__expanded");
-        expandedEl.setAttribute("expanded", this.expanded);
+
+        if (this.getAttribute("expanded") == "true") {
+            this.expanded = true;
+            expandedEl.classList.add("show-expanded");
+        } else {
+            expandedEl.setAttribute("expanded", this.expanded);
+        }
         expandedEl.innerHTML =
             '<div class="event__expanded-spacer"></div>' + this.innerHTML;
 
