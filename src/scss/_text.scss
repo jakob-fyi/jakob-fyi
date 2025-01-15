@@ -14,11 +14,11 @@ h1 {
 }
 
 h2 {
-    font-size: 1em;
+    font-size: 1.35em;
 }
 
 h3 {
-    font-size: 1em;
+    font-size: 1.15em;
 }
 
 h4 {
@@ -48,7 +48,6 @@ a {
         background-color: var(--link-background-color);
         z-index: -1;
         width: 100%;
-        max-width: 30px;
         height: 6px;
         transition: all 0.3s ease-in-out;
         position: absolute;
