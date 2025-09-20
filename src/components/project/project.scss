@@ -26,6 +26,7 @@
                 animation-duration: 300ms;
             }
 
+            &[onclick]:hover,
             &[href]:hover {
                 cursor: pointer;
                 background-color: var(--item-background-color-hover);
@@ -94,10 +95,12 @@
         &__aside {
             line-height: 0;
 
-            .link-icon {
+            .icon {
                 width: 24px;
 
-                path {
+                path,
+                rect,
+                circle {
                     stroke: #aaa;
                 }
             }

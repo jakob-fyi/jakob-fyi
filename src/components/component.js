@@ -24,7 +24,6 @@ export class WebComponent extends HTMLElement {
     }
 
     addStyle(style) {
-        this.styleTag.textContent += `${style}
-        `;
+        this.styleTag.textContent += `${style}`;
     }
 }

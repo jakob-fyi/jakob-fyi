@@ -28,6 +28,13 @@
 
 		<link rel="icon" type="image/png" href="./assets/favicon.png" sizes="32x32">
 		<link rel="stylesheet" href="./scss/style.scss" />
+		<link rel="stylesheet" href="/node_modules/lightgallery/css/lightgallery-bundle.css">
+
+		<link type="text/css" rel="stylesheet" href="/node_modules/lightgallery/css/lightgallery.css" />
+
+		<link type="text/css" rel="stylesheet" href="/node_modules/lightgallery/css/lg-zoom.css" />
+		<link type="text/css" rel="stylesheet" href="/node_modules/lightgallery/css/lg-thumbnail.css" />
+
 		<script src="./js/app.js" type="module"></script>
 	</head>
 
@@ -61,6 +68,20 @@
 			<section type="items" id="featured">
 				<h2 class="title">Current & Featured</h2>
 				<div class="content">
+					<fyi-jakob-story id="moebel-schrank-1" title="Schrank No. 1">
+						<img number="0" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img number="1" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img number="2" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img number="3" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img number="4" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					</fyi-jakob-story>
+					<fyi-jakob-project id="schrank-1"
+									   title="Schrank"
+									   subtitle="Kleiderschrank"
+									   tags="Woodwork"
+									   story="moebel-schrank-1"
+									   time="2025">
+					</fyi-jakob-project>
 					<fyi-jakob-project id="ueberland"
 									   title="Überland – Wiederentdeckung eines Zwangsarbeitslagers"
 									   subtitle="Geschichte des Zwangsarbeitslagers zwischen Gemeinlebarn und Sitzenberg-Reidling 1944/45"
