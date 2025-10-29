@@ -1,3 +1,5 @@
+@use "variables";
+
 main {
     padding-bottom: 0;
 
@@ -30,7 +32,7 @@ body.grid {
     }
 }
 
-@media screen and (max-width: $breakpoint) {
+@media screen and (max-width: variables.$breakpoint) {
     #archive {
         padding: var(--page-padding);
     }
