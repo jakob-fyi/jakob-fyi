@@ -1,12 +1,12 @@
-@import "variables";
-@import "fonts";
-@import "base";
-@import "text";
-@import "components";
-@import "layout";
-@import "header";
-@import "main";
-@import "footer";
+@use "variables";
+@use "fonts";
+@use "base";
+@use "text";
+@use "components";
+@use "layout";
+@use "header";
+@use "main";
+@use "footer";
 
 body {
     .icon-dark {
