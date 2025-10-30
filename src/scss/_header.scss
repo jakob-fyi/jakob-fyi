@@ -1,3 +1,5 @@
+@use "variables";
+
 header {
     position: relative;
 
@@ -60,7 +62,7 @@ header {
     }
 }
 
-@media screen and (max-width: $breakpoint) {
+@media screen and (max-width: variables.$breakpoint) {
     body.color-theme header {
         section {
             padding-top: 40px;

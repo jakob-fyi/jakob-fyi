@@ -1,3 +1,5 @@
+@use "variables";
+
 header,
 main,
 #archive,
@@ -14,7 +16,7 @@ footer {
         grid-template-columns: 150px auto;
         gap: calc(2 * var(--default-padding));
         width: 100%;
-        max-width: $inner-wrapper-width;
+        max-width: variables.$inner-wrapper-width;
 
         .title {
             grid-column-start: 1;
@@ -45,7 +47,7 @@ footer {
     }
 }
 
-@media screen and (max-width: $breakpoint) {
+@media screen and (max-width: variables.$breakpoint) {
     header,
     main,
     #archive,
