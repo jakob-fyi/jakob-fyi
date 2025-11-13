@@ -36,7 +36,18 @@ export class ProjectStory extends LitElement {
                 display: flex;
             }
 
+            .fullscreen.opened .container {
+                opacity: 0;
+                transition: all ease 300ms;
+            }
+
+            .fullscreen.opened.ready .container {
+                opacity: 1;
+                transition: all ease 300ms;
+            }
+
             .fullscreen .container {
+                opacity: 0;
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
@@ -44,6 +55,7 @@ export class ProjectStory extends LitElement {
                 overflow: hidden;
                 flex: 1;
                 padding: 20px 0px;
+                transition: all ease 300ms;
             }
 
             .fullscreen .container .images {
@@ -76,20 +88,28 @@ export class ProjectStory extends LitElement {
                 transform: scale(1);
             }
 
-            .fullscreen .title {
+            .fullscreen .titles {
                 padding: 20px;
                 width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
-            .fullscreen .title h2 {
+
+            .fullscreen .titles h2 {
                 font-size: 1em;
                 font-weight: 500;
                 text-align: center;
+                margin: 0;
             }
 
-            .fullscreen .title h3 {
+            .fullscreen .titles h3 {
                 font-size: 0.9em;
                 font-weight: normal;
                 text-align: center;
+                margin: 0;
+                margin-bottom: 10px;
             }
 
             .fullscreen .buttons {
@@ -99,6 +119,21 @@ export class ProjectStory extends LitElement {
                 align-items: center;
                 gap: 30px;
                 padding: 20px;
+            }
+
+            .fullscreen .buttons button {
+                line-height: 0;
+                padding: 10px;
+                border-radius: 999em;
+                border: 2px #ddd solid;
+                transition: all ease 300ms;
+                color: var(--header-toggle-text-color);
+                border-color: var(--header-toggle-border-color);
+            }
+
+            .fullscreen .buttons button:hover {
+                cursor: pointer;
+                opacity: 0.65;
             }
 
             .fullscreen .progress-container {
@@ -120,7 +155,9 @@ export class ProjectStory extends LitElement {
         subTitle: { type: String },
         tags: { type: Array },
         time: { type: String },
-        showFullscreen: { type: Boolean },
+
+        open: { type: Boolean },
+        ready: { state: true },
     };
 
     constructor() {
@@ -128,6 +165,8 @@ export class ProjectStory extends LitElement {
         console.log(this.logPrefix(), "constructor()");
 
         // Set initial Values
+        this.open = false;
+        this.ready = false;
         this.currentIndex = 0;
         this.mitteInContainer = 0;
         this.startX = 0;
@@ -260,7 +299,13 @@ export class ProjectStory extends LitElement {
     }
 
     openStoryFullscreen() {
-        this.showFullscreen = true;
+        this.open = true;
+        setTimeout(() => {
+            this.ready = true;
+            console.log(this.ready);
+            this.calculateSizes();
+            this.move(this.currentIndex);
+        }, 300);
     }
 
     setAllImagesInactive() {
@@ -286,7 +331,7 @@ export class ProjectStory extends LitElement {
     backward = () => this.move(this.currentIndex - 1);
 
     close = () => {
-        this.showFullscreen = false;
+        this.open = false;
     };
 
     render() {
@@ -336,22 +381,78 @@ export class ProjectStory extends LitElement {
                 </svg>
             </fyi-jakob-item-lit>
             <div
-                class="fullscreen ${this.showFullscreen ? "opened" : "closed"}"
+                class="fullscreen ${this.open ? "opened" : "closed"} ${this
+                    .ready
+                    ? "ready"
+                    : "not-ready"}"
             >
                 <div class="container" id="container">
                     <div class="images" id="images">
                         <slot @slotchange=${this.handleSlotchange}></slot>
                     </div>
                 </div>
-
-                <div class="title">
-                    <h2>Title</h2>
-                    <h3>Subtitle</h3>
-                </div>
-                <div class="buttons">
-                    <button @click="${this.backward}">Links</button>
-                    <button @click="${this.close}">Schließen</button>
-                    <button @click="${this.forward}">Rechts</button>
+                <nav class="buttons">
+                    <button type="button" @click="${this.backward}">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                        >
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="48"
+                                d="M328 112L184 256l144 144"
+                            />
+                        </svg>
+                    </button>
+                    <button type="button" @click="${this.close}">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                        >
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="32"
+                                d="M368 368L144 144M368 144L144 368"
+                            />
+                        </svg>
+                    </button>
+                    <button type="button" @click="${this.forward}">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                        >
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="48"
+                                d="M184 112l144 144-144 144"
+                            />
+                        </svg>
+                    </button>
+                </nav>
+                <div class="titles">
+                    <h2>${this.mainTitle}</h2>
+                    <h3>${this.subTitle}</h3>
+                    <div>
+                        ${(this.tags ?? []).map(
+                            (item) => html`
+                                <fyi-jakob-meta-item-lit>
+                                    ${item}
+                                </fyi-jakob-meta-item-lit>
+                            `,
+                        )}
+                        <fyi-jakob-meta-item-lit>
+                            ${this.time}
+                        </fyi-jakob-meta-item-lit>
+                    </div>
                 </div>
             </div> `;
     }
