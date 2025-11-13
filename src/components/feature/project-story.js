@@ -1,0 +1,351 @@
+import { css, html, LitElement } from "lit";
+
+export class ProjectStory extends LitElement {
+    static styles = css`
+        :host(:hover) > fyi-jakob-item-lit {
+            cursor: pointer;
+            background-color: var(--item-background-color-hover);
+            border-color: var(--item-border-color-hover);
+        }
+
+        :host {
+            svg {
+                width: 24px;
+            }
+
+            .fullscreen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                z-index: 9999;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: #f4f4f4;
+                box-sizing: border-box;
+            }
+
+            .fullscreen.opened {
+                display: flex;
+            }
+
+            .fullscreen .container {
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                display: flex;
+                overflow: hidden;
+                flex: 1;
+                padding: 20px 0px;
+            }
+
+            .fullscreen .container .images {
+                height: 100%;
+                width: auto;
+                display: flex;
+                flex-direction: row;
+                flex-basis: 200px;
+                flex-grow: 0;
+                flex-shrink: 0;
+                transition: all ease 300ms;
+            }
+
+            .fullscreen .container .images ::slotted(img) {
+                height: 100%;
+                border-radius: 10px;
+                overflow: hidden;
+                opacity: 0.35;
+                transform: scale(0.9);
+                transition: all ease 300ms;
+            }
+            .fullscreen .container .images ::slotted(img:hover) {
+                opacity: 0.5;
+                transform: scale(0.95);
+                cursor: pointer;
+            }
+
+            .fullscreen .container .images ::slotted(img.active) {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .fullscreen .title {
+                padding: 20px;
+                width: 100%;
+            }
+            .fullscreen .title h2 {
+                font-size: 1em;
+                font-weight: 500;
+                text-align: center;
+            }
+
+            .fullscreen .title h3 {
+                font-size: 0.9em;
+                font-weight: normal;
+                text-align: center;
+            }
+
+            .fullscreen .buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .fullscreen .progress-container {
+                width: 100%;
+                height: 4px;
+            }
+
+            .fullscreen .progress-container#progress {
+                width: 0;
+                height: 100%;
+                background-color: #999;
+            }
+        }
+    `;
+
+    static properties = {
+        mainTitle: { type: String },
+        subTitle: { type: String },
+        tags: { type: Array },
+        time: { type: String },
+        images: { type: Array },
+        showFullscreen: { type: Boolean },
+    };
+
+    constructor() {
+        super();
+        this.showFullscreen = false;
+    }
+
+    openStoryFullscreen() {
+        this.initStory();
+        this.calculateSizesAndSetImage(0);
+        this.showFullscreen = true;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+
+        console.log("connected");
+    }
+
+    initStory() {
+        this.containerElement = this.shadowRoot.getElementById("container");
+        this.imagesContainerElement = this.shadowRoot.getElementById("images");
+        this.firstImageElement = this.imageElements[0];
+        this.progressElement = this.shadowRoot.getElementById("progress");
+
+        this.gap = 20;
+        this.maxIndex = this.imageElements.length - 1;
+
+        this.currentIndex = 0;
+        this.mitteInContainer = 0;
+        this.startX = 0;
+
+        this.containerWidth = this.containerElement.clientWidth;
+        this.imagesWidth = this.imagesContainerElement.clientWidth;
+        this.imageWidth = this.firstImageElement.clientWidth;
+
+        let i = 0;
+
+        for (let el of this.imageElements) {
+            el.setAttribute("index", i);
+            el.addEventListener("click", (el) =>
+                move(el.target.getAttribute("index")),
+            );
+            i++;
+        }
+
+        addEventListener("keyup", (event) => {
+            if (event.key == "ArrowRight") {
+                move(currentIndex + 1);
+            }
+            if (event.key == "ArrowLeft") {
+                move(currentIndex - 1);
+            }
+        });
+
+        addEventListener("resize", () => {
+            calculateSizesAndSetImage(currentIndex);
+        });
+
+        // Swipe
+
+        document.addEventListener(
+            "touchstart",
+            (evt) => {
+                const firstTouch = evt.touches[0];
+                xDown = firstTouch.clientX;
+                yDown = firstTouch.clientY;
+            },
+            false,
+        );
+
+        document.addEventListener(
+            "touchmove",
+            (evt) => {
+                if (!xDown || !yDown) {
+                    return;
+                }
+
+                var xUp = evt.touches[0].clientX;
+                var yUp = evt.touches[0].clientY;
+
+                var xDiff = xDown - xUp;
+                var yDiff = yDown - yUp;
+
+                if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                    /*most significant*/
+                    if (xDiff > 0) {
+                        move(currentIndex + 1);
+                    } else {
+                        move(currentIndex - 1);
+                    }
+                } else {
+                    if (yDiff > 0) {
+                        document.dispatchEvent("swipeDown");
+                    } else {
+                        document.dispatchEvent("swipeUp");
+                    }
+                }
+
+                xDown = null;
+                yDown = null;
+            },
+            false,
+        );
+
+        let xDown = null;
+        let yDown = null;
+    }
+
+    setAllImagesInactive() {
+        for (let el of this.imageElements) {
+            el.classList.remove("active");
+        }
+    }
+
+    calculateSizesAndSetImage(index) {
+        this.currentIndex = index;
+
+        this.setAllImagesInactive();
+
+        this.containerWidth =
+            this.shadowRoot.getElementById("container").clientWidth;
+        this.imagesWidth = this.imagesContainerElement.clientWidth;
+        this.imageWidth = this.firstImageElement.clientWidth;
+
+        this.mitteInContainer = this.containerWidth / 2;
+        this.startX = this.mitteInContainer - this.imageWidth / 2;
+
+        this.imagesContainerElement.style.gap = `${this.gap}px`;
+        // imagesContainerElement.style.transform = `translateX(${startX}px)`;
+        // imageElements.item(index).classList.add("active");
+        this.move(this.currentIndex);
+
+        console.log("containerWidth", this.containerWidth);
+        console.log("mitteInContainer", this.mitteInContainer);
+        console.log("imagesWidth", this.imagesWidth);
+        console.log("imageWidth", this.imageWidth);
+        console.log("startX", this.startX);
+    }
+
+    move(index) {
+        if (index <= this.maxIndex && index >= 0) {
+            this.currentIndex = index;
+            const newX =
+                this.startX - this.currentIndex * (this.imageWidth + this.gap);
+            console.log("Move to Index =", index, ", X-Translation =", newX);
+            this.imagesContainerElement.style.transform = `translateX(${newX}px)`;
+
+            this.setAllImagesInactive();
+            this.imageElements[index].classList.add("active");
+        }
+    }
+
+    forward = () => this.move(this.currentIndex + 1);
+    backward = () => this.move(currentIndex - 1);
+    close = () => {
+        this.showFullscreen = true;
+    };
+
+    handleSlotchange(e) {
+        this.imageElements = e.target.assignedElements();
+        this.calculateSizesAndSetImage(this.currentIndex);
+    }
+
+    render() {
+        return html`<fyi-jakob-item-lit @click="${this.openStoryFullscreen}">
+                ${(this.tags ?? []).map(
+                    (item) => html`
+                        <fyi-jakob-meta-item-lit slot="meta">
+                            ${item}
+                        </fyi-jakob-meta-item-lit>
+                    `,
+                )}
+                <fyi-jakob-meta-item-lit slot="meta">
+                    ${this.time}
+                </fyi-jakob-meta-item-lit>
+                <fyi-jakob-titles-lit
+                    slot="content"
+                    .mainTitle=${this.mainTitle}
+                    .subTitle=${this.subTitle}
+                ></fyi-jakob-titles-lit>
+                <svg slot="aside" viewBox="0 0 512 512">
+                    <rect
+                        x="48"
+                        y="80"
+                        width="416"
+                        height="352"
+                        rx="48"
+                        ry="48"
+                        fill="none"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                    />
+                    <circle
+                        cx="336"
+                        cy="176"
+                        r="32"
+                        fill="none"
+                        stroke-miterlimit="10"
+                        stroke-width="32"
+                    />
+                    <path
+                        d="M304 335.79l-90.66-90.49a32 32 0 00-43.87-1.3L48 352M224 432l123.34-123.34a32 32 0 0143.11-2L464 368"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                    />
+                </svg>
+            </fyi-jakob-item-lit>
+            <div
+                class="fullscreen ${this.showFullscreen ? "opened" : "closed"}"
+            >
+                <div class="container" id="container">
+                    <div class="images" id="images">
+                        <slot @slotchange=${this.handleSlotchange}></slot>
+                    </div>
+                </div>
+
+                <div class="title">
+                    <h2>Title</h2>
+                    <h3>Subtitle</h3>
+                </div>
+                <div class="buttons">
+                    <button @click="${this.backward}">Links</button>
+                    <button @click="${this.close}">Schließen</button>
+                    <button @click="${this.forward}">Rechts</button>
+                </div>
+            </div> `;
+    }
+}

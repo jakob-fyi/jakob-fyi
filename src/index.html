@@ -36,9 +36,35 @@
 		<link type="text/css" rel="stylesheet" href="/node_modules/lightgallery/css/lg-thumbnail.css" />
 
 		<script src="./js/app.js" type="module"></script>
+		<script src="./components/lit-components.js" type="module"></script>
+		<!-- <script src="./components/ui/item.js" type="module"></script>
+		<script src="./components/feature/project.js" type="module"></script> -->
 	</head>
 
 	<body onload="initApp()">
+
+		<!-- <div class="story">
+
+			<div class="container" id="container">
+				<div class="images" id="images">
+					<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+				</div>
+			</div>
+
+			<div class="title">
+				<h2>Title</h2>
+				<h3>Subtitle</h3>
+			</div>
+			<div class="buttons">
+				<button onclick="backward()">Links</button>
+				<button onclick="close()">Schließen</button>
+				<button onclick="forward()">Rechts</button>
+			</div>
+		</div> -->
 
 		<header>
 			<section>
@@ -68,13 +94,40 @@
 			<section type="items" id="featured">
 				<h2 class="title">Current & Featured</h2>
 				<div class="content">
-					<fyi-jakob-story id="moebel-schrank-1" title="Schrank No. 1">
+					<fyi-jakob-project-story-lit tags='["Woodwork", "Furniture"]' time="2025" mainTitle="Test 1" subTitle="Test 2">
+						<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+						<img src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
+					</fyi-jakob-project-story-lit>
+					<fyi-jakob-project-text-lit tags='["Woodwork", "Furniture"]' time="2025" mainTitle="Test 1" subTitle="Test 2">
+					</fyi-jakob-project-text-lit>
+					<fyi-jakob-project-event-lit maintitle="Überland – Ein Zwangsarbeitslager zwischen Gemeinlebarn und Reidling 1944/45"
+												 subtitle="Errichtung, Vergessen und Wiederentdeckung des lokalen Lagerkomplexes von 1944 bis heute"
+												 place="Bücherei Sitzenberg-Reidling"
+												 date="Freitag, 21. November 2025"
+												 time="18:30 Uhr"
+												 tags='["Event", "History", "Talk"]'
+												 expanded="true">
+
+						<p>In den Jahren 1944/45 bestand entlang der Bahnstraße zwischen Gemeinlebarn und Reidling ein bisher wenig bekanntes Lager ungarisch-jüdischer Zwangsarbeiter:innen. In seinem Vortrag stellt Jakob Vesely die Erkenntnisse der mehrjährigen Forschung einer breiten Öffentlichkeit vor.</p>
+						<p><strong>Veranstaltungsort:</strong> Bücherei Sitzenberg-Reidling, Leopold Figl-Platz 3, 3454 Sitzenberg-Reidling</p>
+					</fyi-jakob-project-event-lit>
+					<fyi-jakob-project-link-lit id="meilensteine"
+												maintitle="Die römischen Meilensteine von Gemeinlebarn"
+												subtitle="Website-Projekt des Ortsarchivs Gemeinlebarn und Dominik Hagmann"
+												tags='["History", "Web", "Geoinformation", "Software"]'
+												time="2023"
+												link="https://meilensteine.ortsarchiv-gemeinlebarn.org">
+					</fyi-jakob-project-link-lit>
+					<!-- <fyi-jakob-story id="moebel-schrank-1" title="Schrank No. 1">
 						<img number="0" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
 						<img number="1" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
 						<img number="2" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
 						<img number="3" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
 						<img number="4" src="assets/stories/moebel/schrank-1/01.jpg" alt="Entwurf">
-					</fyi-jakob-story>
+					</fyi-jakob-story> -->
 					<fyi-jakob-project id="schrank-1"
 									   title="Schrank"
 									   subtitle="Kleiderschrank"

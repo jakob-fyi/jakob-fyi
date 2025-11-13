@@ -1,4 +1,3 @@
-import PhotoSwipe from "photoswipe";
 import Typed from "typed.js";
 import { EventComponent } from "../components/event/event";
 import { JobComponent } from "../components/job/job";
@@ -43,16 +42,16 @@ window.initApp = () => {
         });
     }, 300);
 
-    const lightbox = new PhotoSwipe({
-        // may select multiple "galleries"
-        gallery: "#gallery--getting-started",
+    // const lightbox = new PhotoSwipe({
+    //     // may select multiple "galleries"
+    //     gallery: "#gallery--getting-started",
 
-        // Elements within gallery (slides)
-        children: "a",
+    //     // Elements within gallery (slides)
+    //     children: "a",
 
-        // setup PhotoSwipe Core dynamic import
-        pswpModule: () => import("photoswipe"),
-    });
+    //     // setup PhotoSwipe Core dynamic import
+    //     pswpModule: () => import("photoswipe"),
+    // });
 
-    lightbox.init();
+    // lightbox.init();
 };
