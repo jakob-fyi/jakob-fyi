@@ -1,6 +1,8 @@
 import { css, html, LitElement } from "lit";
 
 export class ProjectStory extends LitElement {
+    logPrefix = () => `[jakob.fyi] [Story Component, '${this.id}']`;
+
     static styles = css`
         :host(:hover) > fyi-jakob-item-lit {
             cursor: pointer;
@@ -113,71 +115,82 @@ export class ProjectStory extends LitElement {
     `;
 
     static properties = {
+        id: { type: String },
         mainTitle: { type: String },
         subTitle: { type: String },
         tags: { type: Array },
         time: { type: String },
-        images: { type: Array },
         showFullscreen: { type: Boolean },
     };
 
     constructor() {
         super();
-        this.showFullscreen = false;
-    }
+        console.log(this.logPrefix(), "constructor()");
 
-    openStoryFullscreen() {
-        this.initStory();
-        this.calculateSizesAndSetImage(0);
-        this.showFullscreen = true;
-    }
-    connectedCallback() {
-        super.connectedCallback();
-
-        console.log("connected");
-    }
-
-    initStory() {
-        this.containerElement = this.shadowRoot.getElementById("container");
-        this.imagesContainerElement = this.shadowRoot.getElementById("images");
-        this.firstImageElement = this.imageElements[0];
-        this.progressElement = this.shadowRoot.getElementById("progress");
-
-        this.gap = 20;
-        this.maxIndex = this.imageElements.length - 1;
-
+        // Set initial Values
         this.currentIndex = 0;
         this.mitteInContainer = 0;
         this.startX = 0;
+        this.gap = 20;
 
-        this.containerWidth = this.containerElement.clientWidth;
-        this.imagesWidth = this.imagesContainerElement.clientWidth;
-        this.imageWidth = this.firstImageElement.clientWidth;
+        // Setup Listers
+        addEventListener("resize", () => {
+            console.log(this.logPrefix(), "On resize Event");
+            this.calculateSizes();
+            this.move(this.currentIndex);
+        });
+    }
+
+    handleSlotchange(e) {
+        console.log(this.logPrefix(), "handleSlotchange()");
+
+        if (e.target.assignedElements()) {
+            this.imageElements = e.target.assignedElements();
+            this.containerElement = this.shadowRoot.getElementById("container");
+            this.imagesContainerElement =
+                this.shadowRoot.getElementById("images");
+            this.firstImageElement = this.imageElements[0];
+            this.progressElement = this.shadowRoot.getElementById("progress");
+
+            this.imagesContainerElement.style.gap = `${this.gap}px`;
+
+            console.log(
+                this.logPrefix(),
+                "Elements assigned, Slotted Image Count =",
+                this.imageElements.length,
+            );
+
+            this.assignListenersAndIndizesToElements();
+            this.calculateSizes();
+            this.setAllImagesInactive();
+            this.move(this.currentIndex);
+        }
+    }
+
+    assignListenersAndIndizesToElements() {
+        console.log(
+            this.logPrefix(),
+            "Assign Listeners and Indizes to Elements",
+        );
 
         let i = 0;
 
         for (let el of this.imageElements) {
             el.setAttribute("index", i);
             el.addEventListener("click", (el) =>
-                move(el.target.getAttribute("index")),
+                this.move(el.target.getAttribute("index")),
             );
             i++;
         }
 
         addEventListener("keyup", (event) => {
             if (event.key == "ArrowRight") {
-                move(currentIndex + 1);
+                this.move(this.currentIndex + 1);
             }
             if (event.key == "ArrowLeft") {
-                move(currentIndex - 1);
+                this.move(this.currentIndex - 1);
             }
         });
-
-        addEventListener("resize", () => {
-            calculateSizesAndSetImage(currentIndex);
-        });
-
-        // Swipe
 
         document.addEventListener(
             "touchstart",
@@ -205,9 +218,9 @@ export class ProjectStory extends LitElement {
                 if (Math.abs(xDiff) > Math.abs(yDiff)) {
                     /*most significant*/
                     if (xDiff > 0) {
-                        move(currentIndex + 1);
+                        this.move(this.currentIndex + 1);
                     } else {
-                        move(currentIndex - 1);
+                        this.move(this.currentIndex - 1);
                     }
                 } else {
                     if (yDiff > 0) {
@@ -227,35 +240,33 @@ export class ProjectStory extends LitElement {
         let yDown = null;
     }
 
-    setAllImagesInactive() {
-        for (let el of this.imageElements) {
-            el.classList.remove("active");
-        }
-    }
-
-    calculateSizesAndSetImage(index) {
-        this.currentIndex = index;
-
-        this.setAllImagesInactive();
-
-        this.containerWidth =
-            this.shadowRoot.getElementById("container").clientWidth;
+    calculateSizes() {
+        console.log(this.logPrefix(), "Calculate Sizes");
+        this.containerWidth = this.containerElement.clientWidth;
         this.imagesWidth = this.imagesContainerElement.clientWidth;
         this.imageWidth = this.firstImageElement.clientWidth;
 
         this.mitteInContainer = this.containerWidth / 2;
         this.startX = this.mitteInContainer - this.imageWidth / 2;
 
-        this.imagesContainerElement.style.gap = `${this.gap}px`;
-        // imagesContainerElement.style.transform = `translateX(${startX}px)`;
-        // imageElements.item(index).classList.add("active");
-        this.move(this.currentIndex);
+        this.maxIndex = this.imageElements.length - 1;
 
-        console.log("containerWidth", this.containerWidth);
-        console.log("mitteInContainer", this.mitteInContainer);
-        console.log("imagesWidth", this.imagesWidth);
-        console.log("imageWidth", this.imageWidth);
-        console.log("startX", this.startX);
+        console.log("--> containerWidth", this.containerWidth);
+        console.log("--> imagesWidth", this.imagesWidth);
+        console.log("--> imageWidth", this.imageWidth);
+        console.log("--> mitteInContainer", this.mitteInContainer);
+        console.log("--> startX", this.startX);
+        console.log("--> maxIndex", this.maxIndex);
+    }
+
+    openStoryFullscreen() {
+        this.showFullscreen = true;
+    }
+
+    setAllImagesInactive() {
+        for (let el of this.imageElements) {
+            el.classList.remove("active");
+        }
     }
 
     move(index) {
@@ -272,15 +283,11 @@ export class ProjectStory extends LitElement {
     }
 
     forward = () => this.move(this.currentIndex + 1);
-    backward = () => this.move(currentIndex - 1);
-    close = () => {
-        this.showFullscreen = true;
-    };
+    backward = () => this.move(this.currentIndex - 1);
 
-    handleSlotchange(e) {
-        this.imageElements = e.target.assignedElements();
-        this.calculateSizesAndSetImage(this.currentIndex);
-    }
+    close = () => {
+        this.showFullscreen = false;
+    };
 
     render() {
         return html`<fyi-jakob-item-lit @click="${this.openStoryFullscreen}">
