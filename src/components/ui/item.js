@@ -28,6 +28,7 @@ export class Item extends LitElement {
                     flex: 1;
                     display: flex;
                     flex-direction: column;
+                    width: 100%;
 
                     .meta {
                         display: flex;
@@ -49,6 +50,7 @@ export class Item extends LitElement {
                 ::slotted(svg) {
                     line-height: 0;
                     stroke: #aaa;
+                    flex-shrink: 0;
                 }
             }
 

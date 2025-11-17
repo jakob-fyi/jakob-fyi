@@ -32,7 +32,10 @@ export class Section extends LitElement {
             .content {
                 grid-column-start: 2;
                 display: grid;
-                grid-template-columns: repeat(var(--content-columns), 1fr);
+                grid-template-columns: repeat(
+                    var(--content-columns),
+                    minmax(0, 1fr)
+                );
                 row-gap: var(--content-row-gap);
                 column-gap: var(--content-column-gap);
             }
@@ -52,7 +55,7 @@ export class Section extends LitElement {
                 }
 
                 .content {
-                    grid-template-columns: 1fr !important;
+                    grid-template-columns: minmax(0, 1fr) !important;
                 }
             }
         }
