@@ -1,5 +1,12 @@
 @use "variables";
 
+.headline {
+    color: var(--section-title-text-color);
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
 header,
 main,
 #archive,
@@ -10,63 +17,4 @@ footer {
     align-items: center;
     padding: var(--page-padding);
     gap: var(--default-padding);
-
-    section {
-        display: grid;
-        grid-template-columns: 150px auto;
-        gap: calc(2 * var(--default-padding));
-        width: 100%;
-        max-width: variables.$inner-wrapper-width;
-
-        .title {
-            grid-column-start: 1;
-            grid-column-end: span 1;
-            color: var(--section-title-text-color);
-            font-size: 1em;
-            font-weight: var(--font-weight-medium);
-            text-align: right;
-            padding-top: 15px;
-            border-top: 1px solid var(--section-title-border-color);
-        }
-
-        .headline {
-            color: var(--section-title-text-color);
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .headline,
-        .content {
-            grid-column-start: 2;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--default-padding);
-            align-items: flex-start;
-        }
-    }
-}
-
-@media screen and (max-width: variables.$breakpoint) {
-    header,
-    main,
-    #archive,
-    footer {
-        section {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-
-            .title {
-                text-align: left;
-                padding-bottom: 1em;
-                padding-top: 2em;
-                border-top: 0;
-            }
-
-            .content {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    }
 }

@@ -9,73 +9,44 @@ header {
         top: var(--page-padding);
     }
 
-    .image {
-        width: 250px;
-        height: 250px;
-        border-radius: 999em;
-        overflow: hidden;
-        background: #3b3b3b;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        position: absolute;
-        left: 240px;
-        top: 60px;
-        z-index: -2;
-        display: none;
-    }
-
-    section {
+    fyi-jakob-section {
         padding: 50px 0px;
+        --content-row-gap: 0;
 
-        .content {
-            gap: 0;
-            transition: none;
+        .greetings {
+            display: flex;
+            flex-direction: row;
 
-            .greetings {
-                display: flex;
-                flex-direction: row;
+            .greeting {
+                display: block;
+                font-size: 1.75em;
+                text-align: left;
+                line-height: 40px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-weight: var(--font-weight-medium);
+                color: var(--header-greeting-text-color);
 
-                .greeting {
-                    display: block;
-                    font-size: 1.75em;
-                    text-align: left;
-                    line-height: 40px;
-                    margin-top: 20px;
-                    margin-bottom: 20px;
-                    font-weight: var(--font-weight-medium);
-                    color: var(--header-greeting-text-color);
-
-                    .fyi {
-                        font-weight: var(--font-weight-light);
-                    }
+                .fyi {
+                    font-weight: var(--font-weight-light);
                 }
             }
+        }
 
-            .subjects {
-                font-size: 1.2em;
-                text-align: left;
-                font-weight: var(--font-weight-regular);
-                color: var(--header-subjects-text-color);
-            }
+        .subjects {
+            font-size: 1.2em;
+            text-align: left;
+            font-weight: var(--font-weight-regular);
+            color: var(--header-subjects-text-color);
         }
     }
 }
 
-@media screen and (max-width: variables.$breakpoint) {
-    body.color-theme header {
-        section {
+@media screen and (max-width: 600px) {
+    header {
+        fyi-jakob-section {
             padding-top: 40px;
             padding-bottom: 0px;
-        }
-
-        .color-theme-toggle {
-            padding: 10px;
-            border-radius: 999em;
-
-            span {
-                display: none;
-            }
         }
     }
 }
