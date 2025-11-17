@@ -1,6 +1,4 @@
 import Typed from "typed.js";
-import { JobComponent } from "../components/job/job";
-import { LinkComponent } from "../components/link/link";
 
 window.toggleTheme = () => {
     document.body.classList.toggle("dark");
@@ -10,8 +8,8 @@ if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     window.toggleTheme();
 }
 
-customElements.define("fyi-jakob-link", LinkComponent);
-customElements.define("fyi-jakob-job", JobComponent);
+// customElements.define("fyi-jakob-link", LinkComponent);
+// customElements.define("fyi-jakob-job", JobComponent);
 
 window.initApp = () => {
     document.body.classList.add("init");

@@ -1,3 +1,4 @@
+import { Job } from "./feature/job";
 import { ProjectEvent } from "./feature/project-event";
 import { ProjectLink } from "./feature/project-link";
 import { ProjectStory } from "./feature/project-story";
@@ -14,6 +15,7 @@ customElements.define("fyi-jakob-meta-item-lit", MetaItem);
 customElements.define("fyi-jakob-meta-line-lit", MetaLine);
 customElements.define("fyi-jakob-titles-lit", Titles);
 customElements.define("fyi-jakob-section", Section);
+customElements.define("fyi-jakob-job", Job);
 
 // Feature Components
 customElements.define("fyi-jakob-project-link-lit", ProjectLink);
