@@ -11,16 +11,16 @@ import { MetaLine } from "./ui/meta-line";
 import { Titles } from "./ui/titles";
 
 // Dump/UI Components
-customElements.define("fyi-jakob-item-lit", Item);
-customElements.define("fyi-jakob-meta-item-lit", MetaItem);
-customElements.define("fyi-jakob-meta-line-lit", MetaLine);
-customElements.define("fyi-jakob-titles-lit", Titles);
+customElements.define("fyi-jakob-item", Item);
+customElements.define("fyi-jakob-meta-item", MetaItem);
+customElements.define("fyi-jakob-meta-line", MetaLine);
+customElements.define("fyi-jakob-titles", Titles);
 customElements.define("fyi-jakob-section", Section);
 customElements.define("fyi-jakob-job", Job);
 customElements.define("fyi-jakob-link", Link);
 
 // Feature Components
-customElements.define("fyi-jakob-project-link-lit", ProjectLink);
-customElements.define("fyi-jakob-project-text-lit", ProjectText);
-customElements.define("fyi-jakob-project-event-lit", ProjectEvent);
-customElements.define("fyi-jakob-project-story-lit", ProjectStory);
+customElements.define("fyi-jakob-project-link", ProjectLink);
+customElements.define("fyi-jakob-project-text", ProjectText);
+customElements.define("fyi-jakob-project-event", ProjectEvent);
+customElements.define("fyi-jakob-project-story", ProjectStory);

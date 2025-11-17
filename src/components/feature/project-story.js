@@ -4,7 +4,7 @@ export class ProjectStory extends LitElement {
     logPrefix = () => `[jakob.fyi] [Story Component, '${this.id}']`;
 
     static styles = css`
-        :host(:hover) > fyi-jakob-item-lit {
+        :host(:hover) > fyi-jakob-item {
             cursor: pointer;
             background-color: var(--item-background-color-hover);
             border-color: var(--item-border-color-hover);
@@ -335,22 +335,22 @@ export class ProjectStory extends LitElement {
     };
 
     render() {
-        return html`<fyi-jakob-item-lit @click="${this.openStoryFullscreen}">
+        return html`<fyi-jakob-item @click="${this.openStoryFullscreen}">
                 ${(this.tags ?? []).map(
                     (item) => html`
-                        <fyi-jakob-meta-item-lit slot="meta">
+                        <fyi-jakob-meta-item slot="meta">
                             ${item}
-                        </fyi-jakob-meta-item-lit>
+                        </fyi-jakob-meta-item>
                     `,
                 )}
-                <fyi-jakob-meta-item-lit slot="meta">
+                <fyi-jakob-meta-item slot="meta">
                     ${this.time}
-                </fyi-jakob-meta-item-lit>
-                <fyi-jakob-titles-lit
+                </fyi-jakob-meta-item>
+                <fyi-jakob-titles
                     slot="content"
                     .mainTitle=${this.mainTitle}
                     .subTitle=${this.subTitle}
-                ></fyi-jakob-titles-lit>
+                ></fyi-jakob-titles>
                 <svg slot="aside" viewBox="0 0 512 512">
                     <rect
                         x="48"
@@ -379,7 +379,7 @@ export class ProjectStory extends LitElement {
                         stroke-width="32"
                     />
                 </svg>
-            </fyi-jakob-item-lit>
+            </fyi-jakob-item>
             <div
                 class="fullscreen ${this.open ? "opened" : "closed"} ${this
                     .ready
@@ -444,14 +444,14 @@ export class ProjectStory extends LitElement {
                     <div>
                         ${(this.tags ?? []).map(
                             (item) => html`
-                                <fyi-jakob-meta-item-lit>
+                                <fyi-jakob-meta-item>
                                     ${item}
-                                </fyi-jakob-meta-item-lit>
+                                </fyi-jakob-meta-item>
                             `,
                         )}
-                        <fyi-jakob-meta-item-lit>
+                        <fyi-jakob-meta-item>
                             ${this.time}
-                        </fyi-jakob-meta-item-lit>
+                        </fyi-jakob-meta-item>
                     </div>
                 </div>
             </div> `;

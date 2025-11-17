@@ -13,22 +13,22 @@ export class Project extends LitElement {
     }
 
     render() {
-        return html`<fyi-jakob-item-lit>
+        return html`<fyi-jakob-item>
             ${(this.tags ?? []).map(
                 (item) => html`
-                    <fyi-jakob-meta-item-lit slot="meta">
+                    <fyi-jakob-meta-item slot="meta">
                         ${item}
-                    </fyi-jakob-meta-item-lit>
+                    </fyi-jakob-meta-item>
                 `,
             )}
-            <fyi-jakob-meta-item-lit slot="meta">
+            <fyi-jakob-meta-item slot="meta">
                 ${this.time}
-            </fyi-jakob-meta-item-lit>
-            <fyi-jakob-titles-lit
+            </fyi-jakob-meta-item>
+            <fyi-jakob-titles
                 slot="content"
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
-            ></fyi-jakob-titles-lit>
-        </fyi-jakob-item-lit>`;
+            ></fyi-jakob-titles>
+        </fyi-jakob-item>`;
     }
 }

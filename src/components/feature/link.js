@@ -44,10 +44,10 @@ export class Link extends LitElement {
 
     render() {
         return html`<div class="wrapper" @click="${this.openLink}">
-            <fyi-jakob-titles-lit
+            <fyi-jakob-titles
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
-            ></fyi-jakob-titles-lit>
+            ></fyi-jakob-titles>
             <svg
                 fill="none"
                 height="24"

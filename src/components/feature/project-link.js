@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 
 export class ProjectLink extends LitElement {
     static styles = css`
-        :host(:hover) > fyi-jakob-item-lit {
+        :host(:hover) > fyi-jakob-item {
             cursor: pointer;
             background-color: var(--item-background-color-hover);
             border-color: var(--item-border-color-hover);
@@ -28,22 +28,22 @@ export class ProjectLink extends LitElement {
     }
 
     render() {
-        return html`<fyi-jakob-item-lit @click="${this.openLink}">
+        return html`<fyi-jakob-item @click="${this.openLink}">
             ${(this.tags ?? []).map(
                 (item) => html`
-                    <fyi-jakob-meta-item-lit slot="meta">
+                    <fyi-jakob-meta-item slot="meta">
                         ${item}
-                    </fyi-jakob-meta-item-lit>
+                    </fyi-jakob-meta-item>
                 `,
             )}
-            <fyi-jakob-meta-item-lit slot="meta">
+            <fyi-jakob-meta-item slot="meta">
                 ${this.time}
-            </fyi-jakob-meta-item-lit>
-            <fyi-jakob-titles-lit
+            </fyi-jakob-meta-item>
+            <fyi-jakob-titles
                 slot="content"
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
-            ></fyi-jakob-titles-lit>
+            ></fyi-jakob-titles>
             <svg
                 slot="aside"
                 fill="none"
@@ -60,6 +60,6 @@ export class ProjectLink extends LitElement {
                     stroke-width="2"
                 />
             </svg>
-        </fyi-jakob-item-lit>`;
+        </fyi-jakob-item>`;
     }
 }

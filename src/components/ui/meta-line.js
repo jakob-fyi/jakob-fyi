@@ -23,10 +23,10 @@ export class MetaLine extends LitElement {
         return html`
             ${(this.items ?? []).map(
                 (item) => html`
-                    <fyi-jakob-meta-item-lit> ${item} </fyi-jakob-meta-item-lit>
+                    <fyi-jakob-meta-item> ${item} </fyi-jakob-meta-item>
                 `,
             )}
-            <fyi-jakob-meta-item-lit>${this.time}</fyi-jakob-meta-item-lit>
+            <fyi-jakob-meta-item>${this.time}</fyi-jakob-meta-item>
         `;
     }
 }

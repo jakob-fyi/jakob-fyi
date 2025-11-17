@@ -40,11 +40,11 @@ export class Job extends LitElement {
 
     render() {
         return html`<div class="wrapper" @click="${this.openLink}">
-            <fyi-jakob-meta-item-lit> ${this.tagline} </fyi-jakob-meta-item-lit>
-            <fyi-jakob-titles-lit
+            <fyi-jakob-meta-item> ${this.tagline} </fyi-jakob-meta-item>
+            <fyi-jakob-titles
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
-            ></fyi-jakob-titles-lit>
+            ></fyi-jakob-titles>
         </div>`;
     }
 }
