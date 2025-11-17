@@ -10,45 +10,37 @@ footer {
     gap: calc(2 * var(--page-padding));
 
     #jobs {
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 1em;
-        }
+        --content-columns: 4;
     }
 
     #contact {
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            row-gap: 1em;
-            column-gap: 3em;
-        }
+        --content-columns: 2;
+        --content-column-gap: calc(3 * var(--default-padding));
     }
 
     #imprint {
-        .content {
-            gap: 0px;
+        --content-row-gap: 0;
 
-            h2 {
-                margin-bottom: 0.2em;
-                margin-top: 1em;
+        h2 {
+            margin-bottom: 0.2em;
+            margin-top: 1em;
+
+            &:first-child {
+                margin-top: 0;
             }
         }
     }
 }
 
-@media screen and (max-width: variables.$breakpointWide) {
+@media screen and (max-width: 840px) {
     footer {
-        section#jobs {
-            .content {
-                grid-template-columns: 1fr 1fr;
-            }
+        #jobs {
+            --content-columns: 2;
         }
     }
 }
 
-@media screen and (max-width: variables.$breakpoint) {
+@media screen and (max-width: 600px) {
     footer {
         padding: var(--page-padding);
         gap: var(--page-padding);

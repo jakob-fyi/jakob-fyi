@@ -3,17 +3,13 @@
 main {
     padding-bottom: 0;
 
-    section#image {
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            grid-column-start: 2;
+    #image {
+        --content-align-items: flex-end;
 
-            svg {
-                width: 100%;
-                max-width: 500px;
-            }
+        svg {
+            width: 100%;
+            max-width: 500px;
+            justify-self: end;
         }
     }
 }
@@ -26,13 +22,7 @@ main {
     padding-bottom: calc(3 * var(--page-padding));
 }
 
-body.grid {
-    main section[type="items"] .content {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media screen and (max-width: variables.$breakpoint) {
+@media screen and (max-width: 600px) {
     #archive {
         padding: var(--page-padding);
     }

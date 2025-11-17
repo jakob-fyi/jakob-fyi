@@ -6,14 +6,6 @@ window.toggleTheme = () => {
     document.body.classList.toggle("dark");
 };
 
-window.toggleGrid = () => {
-    document.body.classList.toggle("grid");
-};
-
-window.toggleImpressum = () => {
-    document.querySelector(".impressum").classList.toggle("hidden");
-};
-
 if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     window.toggleTheme();
 }
