@@ -8,9 +8,6 @@ if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     window.toggleTheme();
 }
 
-// customElements.define("fyi-jakob-link", LinkComponent);
-// customElements.define("fyi-jakob-job", JobComponent);
-
 window.initApp = () => {
     document.body.classList.add("init");
 
