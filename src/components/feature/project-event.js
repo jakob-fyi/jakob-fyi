@@ -33,33 +33,45 @@ export class ProjectEvent extends LitElement {
                 overflow: hidden;
                 max-height: 0;
 
+                ::slotted(*:first-child) {
+                    transition: all ease 300ms;
+                    padding-top: var(--expanding-top) !important;
+                }
+
                 &.active {
                     animation-name: showexpanded;
                     animation-duration: 300ms;
                     max-height: 1000px;
-                    padding-top: var(--expanding-top);
                 }
 
                 &.inactive {
                     animation-name: hideexpanded;
                     animation-duration: 300ms;
                     max-height: 0;
-                    padding-top: 0px;
+
+                    ::slotted(*:first-child) {
+                        padding-top: 0 !important;
+                    }
                 }
             }
         }
 
         @keyframes showexpanded {
             from {
-            padding
                 max-height: 0px;
                 opacity: 0;
-                padding-top: 0px;
+
+                ::slotted(*:first-child) {
+                    padding-top: 0px;
+                }
             }
             to {
                 max-height: 1000px;
                 opacity: 1;
-                padding-top: var(--expanding-top);
+
+                ::slotted(*:first-child) {
+                    padding-top: var(--expanding-top);
+                }
             }
         }
 
@@ -67,12 +79,19 @@ export class ProjectEvent extends LitElement {
             from {
                 max-height: 1000px;
                 opacity: 1;
-                padding-top: var(--expanding-top);
+
+                ::slotted(*:first-child) {
+                    padding-top: var(--expanding-top);
+                }
             }
             to {
                 max-height: 0px;
                 opacity: 0;
                 padding-top: 0px;
+
+                ::slotted(*:first-child) {
+                    padding-top: 0px;
+                }
             }
         }
     `;
@@ -84,11 +103,12 @@ export class ProjectEvent extends LitElement {
         date: { type: String },
         time: { type: String },
         place: { type: String },
-        expanded: { type: Boolean, state: true },
+        expanded: { type: Boolean },
     };
 
     constructor() {
         super();
+        this.expanded = false;
     }
 
     toggle() {
@@ -109,11 +129,27 @@ export class ProjectEvent extends LitElement {
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
             ></fyi-jakob-titles-lit>
+            <svg
+                slot="aside"
+                fill="none"
+                class="icon"
+                width="26px"
+                height="26px"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M136 208l120-104 120 104M136 304l120 104 120-104"
+                    fill="none"
+                    stroke-width="40"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
             <div>
                 <p class="datetime">${this.date} | ${this.time}</p>
                 <p class="place">${this.place}</p>
             </div>
-
             <div
                 class="expanded-content ${this.expanded
                     ? "active"
