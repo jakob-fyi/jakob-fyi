@@ -34,6 +34,9 @@ export class ProjectStory extends LitElement {
 
             .fullscreen.opened {
                 display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
 
             .fullscreen.opened .container {
@@ -87,24 +90,44 @@ export class ProjectStory extends LitElement {
                 opacity: 1;
                 transform: scale(1);
             }
+            .fullscreen footer {
+                transition: all ease 200ms;
+                width: 100%;
+                bottom: 0px;
+            }
 
-            .fullscreen .titles {
+            .fullscreen.mode-inline footer {
+                position: fixed;
+                background: linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 1) 0%,
+                    rgba(255, 255, 255, 1) 20px,
+                    rgba(255, 255, 255, 0) 100%
+                );
+            }
+
+            .fullscreen.mode-container footer {
+                position: relative;
+            }
+
+            .fullscreen footer .titles {
                 padding: 20px;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 8px;
+                box-sizing: border-box;
             }
 
-            .fullscreen .titles h2 {
+            .fullscreen footer .titles h2 {
                 font-size: 1em;
                 font-weight: 500;
                 text-align: center;
                 margin: 0;
             }
 
-            .fullscreen .titles h3 {
+            .fullscreen footer .titles h3 {
                 font-size: 0.9em;
                 font-weight: normal;
                 text-align: center;
@@ -112,7 +135,7 @@ export class ProjectStory extends LitElement {
                 margin-bottom: 10px;
             }
 
-            .fullscreen .buttons {
+            .fullscreen footer .buttons {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
@@ -121,7 +144,7 @@ export class ProjectStory extends LitElement {
                 padding: 20px;
             }
 
-            .fullscreen .buttons button {
+            .fullscreen footer .buttons button {
                 line-height: 0;
                 padding: 10px;
                 border-radius: 999em;
@@ -131,17 +154,17 @@ export class ProjectStory extends LitElement {
                 border-color: var(--header-toggle-border-color);
             }
 
-            .fullscreen .buttons button:hover {
+            .fullscreen footer .buttons button:hover {
                 cursor: pointer;
                 opacity: 0.65;
             }
 
-            .fullscreen .progress-container {
+            .fullscreen footer .progress-container {
                 width: 100%;
                 height: 4px;
             }
 
-            .fullscreen .progress-container#progress {
+            .fullscreen footer .progress-container#progress {
                 width: 0;
                 height: 100%;
                 background-color: #999;
@@ -157,7 +180,9 @@ export class ProjectStory extends LitElement {
         time: { type: String },
 
         open: { type: Boolean },
-        ready: { state: true },
+        ready: { type: Boolean, state: true },
+        inlineMode: { type: Boolean, state: true },
+        footerStyle: { type: String, state: true },
     };
 
     constructor() {
@@ -167,10 +192,12 @@ export class ProjectStory extends LitElement {
         // Set initial Values
         this.open = false;
         this.ready = false;
+        this.inlineMode = false;
         this.currentIndex = 0;
         this.mitteInContainer = 0;
         this.startX = 0;
         this.gap = 20;
+        this.footerWidth = "100%";
 
         // Setup Listers
         addEventListener("resize", () => {
@@ -302,9 +329,8 @@ export class ProjectStory extends LitElement {
         this.open = true;
         setTimeout(() => {
             this.ready = true;
-            console.log(this.ready);
             this.calculateSizes();
-            this.move(this.currentIndex);
+            this.move(this.currentIndex, false);
         }, 300);
     }
 
@@ -314,13 +340,17 @@ export class ProjectStory extends LitElement {
         }
     }
 
-    move(index) {
+    move(index, transition = true) {
         if (index <= this.maxIndex && index >= 0) {
             this.currentIndex = index;
             const newX =
-                this.startX - this.currentIndex * (this.imageWidth + this.gap);
+                this.startX -
+                this.currentIndex * (this.imageWidth + this.gap - 0.5);
             console.log("Move to Index =", index, ", X-Translation =", newX);
             this.imagesContainerElement.style.transform = `translateX(${newX}px)`;
+            this.imagesContainerElement.style.transition = transition
+                ? "all ease 300ms"
+                : "none";
 
             this.setAllImagesInactive();
             this.imageElements[index].classList.add("active");
@@ -334,7 +364,46 @@ export class ProjectStory extends LitElement {
         this.open = false;
     };
 
+    toggleMode = () => {
+        this.inlineMode = !this.inlineMode;
+
+        setTimeout(() => {
+            this.calculateSizes();
+            this.move(this.currentIndex, false);
+        }, 10);
+    };
+
     render() {
+        const expandIcon = html`<svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="ionicon"
+            viewBox="0 0 512 512"
+        >
+            <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+                d="M432 320v112H320M421.8 421.77L304 304M80 192V80h112M90.2 90.23L208 208M320 80h112v112M421.77 90.2L304 208M192 432H80V320M90.23 421.8L208 304"
+            />
+        </svg>`;
+
+        const contractIcon = html`<svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="ionicon"
+            viewBox="0 0 512 512"
+        >
+            <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+                d="M304 416V304h112M314.2 314.23L432 432M208 96v112H96M197.8 197.77L80 80M416 208H304V96M314.23 197.8L432 80M96 304h112v112M197.77 314.2L80 432"
+            />
+        </svg>`;
+
         return html`<fyi-jakob-item @click="${this.openStoryFullscreen}">
                 ${(this.tags ?? []).map(
                     (item) => html`
@@ -384,76 +453,83 @@ export class ProjectStory extends LitElement {
                 class="fullscreen ${this.open ? "opened" : "closed"} ${this
                     .ready
                     ? "ready"
-                    : "not-ready"}"
+                    : "not-ready"} ${this.inlineMode
+                    ? "mode-inline"
+                    : "mode-container"}"
             >
                 <div class="container" id="container">
                     <div class="images" id="images">
                         <slot @slotchange=${this.handleSlotchange}></slot>
                     </div>
                 </div>
-                <nav class="buttons">
-                    <button type="button" @click="${this.backward}">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="48"
-                                d="M328 112L184 256l144 144"
-                            />
-                        </svg>
-                    </button>
-                    <button type="button" @click="${this.close}">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="32"
-                                d="M368 368L144 144M368 144L144 368"
-                            />
-                        </svg>
-                    </button>
-                    <button type="button" @click="${this.forward}">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                        >
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="48"
-                                d="M184 112l144 144-144 144"
-                            />
-                        </svg>
-                    </button>
-                </nav>
-                <div class="titles">
-                    <h2>${this.mainTitle}</h2>
-                    <h3>${this.subTitle}</h3>
-                    <div>
-                        ${(this.tags ?? []).map(
-                            (item) => html`
-                                <fyi-jakob-meta-item>
-                                    ${item}
-                                </fyi-jakob-meta-item>
-                            `,
-                        )}
-                        <fyi-jakob-meta-item>
-                            ${this.time}
-                        </fyi-jakob-meta-item>
+                <footer style="${this.footerStyle}">
+                    <nav class="buttons">
+                        <button type="button" @click="${this.backward}">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="48"
+                                    d="M328 112L184 256l144 144"
+                                />
+                            </svg>
+                        </button>
+                        <button type="button" @click="${this.close}">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="32"
+                                    d="M368 368L144 144M368 144L144 368"
+                                />
+                            </svg>
+                        </button>
+                        <button type="button" @click="${this.toggleMode}">
+                            ${this.inlineMode ? contractIcon : expandIcon}
+                        </button>
+                        <button type="button" @click="${this.forward}">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="48"
+                                    d="M184 112l144 144-144 144"
+                                />
+                            </svg>
+                        </button>
+                    </nav>
+                    <div class="titles">
+                        <h2>${this.mainTitle}</h2>
+                        <h3>${this.subTitle}</h3>
+                        <div>
+                            ${(this.tags ?? []).map(
+                                (item) => html`
+                                    <fyi-jakob-meta-item>
+                                        ${item}
+                                    </fyi-jakob-meta-item>
+                                `,
+                            )}
+                            <fyi-jakob-meta-item>
+                                ${this.time}
+                            </fyi-jakob-meta-item>
+                        </div>
                     </div>
-                </div>
+                </footer>
             </div> `;
     }
 }
