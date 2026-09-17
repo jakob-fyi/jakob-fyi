@@ -6,7 +6,7 @@
         "parcel": "npx parcel",
         "start": "parcel src/index.html",
         "lint": "prettier . --write",
-        "ci:build": "parcel build src/index.html --log-level error --no-cache --no-optimize --dist-dir ./dist"
+        "ci:build": "parcel build src/index.html --log-level error --no-cache --no-source-maps --dist-dir ./dist"
     },
     "repository": {
         "type": "git",
