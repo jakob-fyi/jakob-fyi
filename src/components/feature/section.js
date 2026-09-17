@@ -62,7 +62,7 @@ export class Section extends LitElement {
     `;
 
     static properties = {
-        mainTitle: { type: String },
+        mainTitle: { type: String }
     };
 
     constructor() {

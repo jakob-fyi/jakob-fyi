@@ -12,7 +12,7 @@ export class MetaLine extends LitElement {
 
     static properties = {
         items: { type: Array },
-        time: { type: String },
+        time: { type: String }
     };
 
     constructor() {
@@ -24,7 +24,7 @@ export class MetaLine extends LitElement {
             ${(this.items ?? []).map(
                 (item) => html`
                     <fyi-jakob-meta-item> ${item} </fyi-jakob-meta-item>
-                `,
+                `
             )}
             <fyi-jakob-meta-item>${this.time}</fyi-jakob-meta-item>
         `;

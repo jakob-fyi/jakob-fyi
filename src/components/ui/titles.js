@@ -24,7 +24,7 @@ export class Titles extends LitElement {
 
     static properties = {
         mainTitle: { type: String },
-        subTitle: { type: String },
+        subTitle: { type: String }
     };
 
     constructor() {

@@ -15,7 +15,7 @@ export class ProjectLink extends LitElement {
         tags: { type: Array },
         time: { type: String },
         link: { type: String },
-        target: { type: String },
+        target: { type: String }
     };
 
     constructor() {
@@ -34,7 +34,7 @@ export class ProjectLink extends LitElement {
                     <fyi-jakob-meta-item slot="meta">
                         ${item}
                     </fyi-jakob-meta-item>
-                `,
+                `
             )}
             <fyi-jakob-meta-item slot="meta">
                 ${this.time}

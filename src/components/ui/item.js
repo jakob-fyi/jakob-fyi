@@ -105,7 +105,7 @@ export class Item extends LitElement {
         mainTitle: { type: String },
         subTitle: { type: String },
         tags: { type: String },
-        time: { type: String },
+        time: { type: String }
     };
 
     constructor() {
