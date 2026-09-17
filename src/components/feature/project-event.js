@@ -103,7 +103,7 @@ export class ProjectEvent extends LitElement {
         date: { type: String },
         time: { type: String },
         place: { type: String },
-        expanded: { type: Boolean },
+        expanded: { type: Boolean }
     };
 
     constructor() {
@@ -122,7 +122,7 @@ export class ProjectEvent extends LitElement {
                     <fyi-jakob-meta-item slot="meta">
                         ${item}
                     </fyi-jakob-meta-item>
-                `,
+                `
             )}
             <fyi-jakob-titles
                 slot="content"

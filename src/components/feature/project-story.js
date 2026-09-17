@@ -182,7 +182,7 @@ export class ProjectStory extends LitElement {
         open: { type: Boolean },
         ready: { type: Boolean, state: true },
         inlineMode: { type: Boolean, state: true },
-        footerStyle: { type: String, state: true },
+        footerStyle: { type: String, state: true }
     };
 
     constructor() {
@@ -223,7 +223,7 @@ export class ProjectStory extends LitElement {
             console.log(
                 this.logPrefix(),
                 "Elements assigned, Slotted Image Count =",
-                this.imageElements.length,
+                this.imageElements.length
             );
 
             this.assignListenersAndIndizesToElements();
@@ -236,7 +236,7 @@ export class ProjectStory extends LitElement {
     assignListenersAndIndizesToElements() {
         console.log(
             this.logPrefix(),
-            "Assign Listeners and Indizes to Elements",
+            "Assign Listeners and Indizes to Elements"
         );
 
         let i = 0;
@@ -244,7 +244,7 @@ export class ProjectStory extends LitElement {
         for (let el of this.imageElements) {
             el.setAttribute("index", i);
             el.addEventListener("click", (el) =>
-                this.move(el.target.getAttribute("index")),
+                this.move(el.target.getAttribute("index"))
             );
             i++;
         }
@@ -265,7 +265,7 @@ export class ProjectStory extends LitElement {
                 xDown = firstTouch.clientX;
                 yDown = firstTouch.clientY;
             },
-            false,
+            false
         );
 
         document.addEventListener(
@@ -299,7 +299,7 @@ export class ProjectStory extends LitElement {
                 xDown = null;
                 yDown = null;
             },
-            false,
+            false
         );
 
         let xDown = null;
@@ -410,7 +410,7 @@ export class ProjectStory extends LitElement {
                         <fyi-jakob-meta-item slot="meta">
                             ${item}
                         </fyi-jakob-meta-item>
-                    `,
+                    `
                 )}
                 <fyi-jakob-meta-item slot="meta">
                     ${this.time}
@@ -522,7 +522,7 @@ export class ProjectStory extends LitElement {
                                     <fyi-jakob-meta-item>
                                         ${item}
                                     </fyi-jakob-meta-item>
-                                `,
+                                `
                             )}
                             <fyi-jakob-meta-item>
                                 ${this.time}

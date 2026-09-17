@@ -28,7 +28,7 @@ export class Link extends LitElement {
         mainTitle: { type: String },
         subTitle: { type: String },
         link: { type: String },
-        target: { type: String },
+        target: { type: String }
     };
 
     constructor() {

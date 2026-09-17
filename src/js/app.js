@@ -18,8 +18,8 @@ window.initApp = () => {
             onStringTyped: () =>
                 setTimeout(
                     () => document.querySelector(".typed-cursor").remove(),
-                    2200,
-                ),
+                    2200
+                )
         });
     }, 300);
 };

@@ -5,7 +5,7 @@ export class Project extends LitElement {
         mainTitle: { type: String },
         subTitle: { type: String },
         tags: { type: Array },
-        time: { type: String },
+        time: { type: String }
     };
 
     constructor() {
@@ -19,7 +19,7 @@ export class Project extends LitElement {
                     <fyi-jakob-meta-item slot="meta">
                         ${item}
                     </fyi-jakob-meta-item>
-                `,
+                `
             )}
             <fyi-jakob-meta-item slot="meta">
                 ${this.time}

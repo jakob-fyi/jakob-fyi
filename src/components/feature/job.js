@@ -24,7 +24,7 @@ export class Job extends LitElement {
         subTitle: { type: String },
         tagline: { type: String },
         link: { type: String },
-        target: { type: String },
+        target: { type: String }
     };
 
     constructor() {
