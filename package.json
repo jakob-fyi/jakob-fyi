@@ -5,6 +5,7 @@
     "scripts": {
         "parcel": "npx parcel",
         "start": "parcel src/index.html",
+        "clean": "rm -rf .parcel-cache dist",
         "lint": "prettier . --write",
         "ci:build": "parcel build src/index.html --log-level error --no-cache --no-source-maps --dist-dir ./dist",
         "test": "vitest run",

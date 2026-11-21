@@ -7,9 +7,13 @@ Technical notes for working on the website. The [README](../README.md) is kept s
 ```bash
 npm ci
 npm start          # dev server (Parcel)
+npm run clean      # delete Parcel cache and dist
 npm test           # unit & component tests (Vitest)
 npm run ci:build   # production build into ./dist
 ```
+
+If the dev server shows an outdated state after a branch switch, reset or
+rebase, stop it and run `npm run clean && npm start`.
 
 ## Structure
 
