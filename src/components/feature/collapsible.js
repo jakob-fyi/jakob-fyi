@@ -40,6 +40,17 @@ export class Collapsible extends LitElement {
                 flex-direction: column;
                 align-items: center;
                 width: 100%;
+                /* Hover tint drawn over whatever background the page sets */
+                transition: box-shadow 300ms ease;
+            }
+
+            /* Collapsed: the whole area is a click target */
+            :host(:not([open])) {
+                cursor: pointer;
+            }
+
+            :host(:not([open]):hover) {
+                box-shadow: inset 0 0 0 100vmax var(--collapsible-hover-overlay);
             }
 
             h2 {
@@ -75,7 +86,8 @@ export class Collapsible extends LitElement {
                 pointer-events: none;
             }
 
-            .toggle:hover .chevron {
+            .toggle:hover .chevron,
+            :host(:not([open]):hover) .chevron {
                 background: var(--btn-hover-round);
             }
 
@@ -149,6 +161,7 @@ export class Collapsible extends LitElement {
         this.summary = "years";
         this.open = false;
         this._groups = [];
+        this.addEventListener("click", this._onAreaClick);
     }
 
     connectedCallback() {
@@ -174,6 +187,24 @@ export class Collapsible extends LitElement {
     toggle() {
         this.open = !this.open;
     }
+
+    /** While collapsed, a click anywhere on the area opens it. */
+    _onAreaClick = (event) => {
+        if (this.open) return;
+        // Buttons and links handle their own clicks. Without this, the
+        // "… einklappen" click would close and then immediately reopen.
+        const fromControl = event
+            .composedPath()
+            .some(
+                (el) =>
+                    el instanceof HTMLButtonElement ||
+                    el instanceof HTMLAnchorElement
+            );
+        if (fromControl) return;
+        // Don't hijack text selection in the teaser.
+        if (window.getSelection?.()?.toString()) return;
+        this.open = true;
+    };
 
     _refreshGroups() {
         this._groups = collectGroups([...this.children]);

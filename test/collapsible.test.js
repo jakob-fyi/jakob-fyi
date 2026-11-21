@@ -82,6 +82,48 @@ describe("fyi-jakob-collapsible", () => {
         expect(parts(el).content.hasAttribute("inert")).toBe(true);
     });
 
+    describe("click on the whole area", () => {
+        it("opens when clicking anywhere while collapsed", async () => {
+            const el = await mount(markup());
+            shadow(el, ".teaser").click();
+            await el.updateComplete;
+            expect(el.open).toBe(true);
+            expect(parts(el).toggle.getAttribute("aria-expanded")).toBe("true");
+        });
+
+        it("does not close when clicking the area while open", async () => {
+            const el = await mount(markup("open"));
+            el.click();
+            await el.updateComplete;
+            expect(el.open).toBe(true);
+        });
+
+        it("toggle button still closes (area handler doesn't reopen)", async () => {
+            const el = await mount(markup("open"));
+            parts(el).toggle.click();
+            await el.updateComplete;
+            expect(el.open).toBe(false);
+        });
+
+        it("toggle button opens exactly once", async () => {
+            const el = await mount(markup());
+            parts(el).toggle.click();
+            await el.updateComplete;
+            expect(el.open).toBe(true);
+        });
+
+        it("ignores the click when text is selected", async () => {
+            const el = await mount(markup());
+            const spy = vi
+                .spyOn(window, "getSelection")
+                .mockReturnValue({ toString: () => "Projekte" });
+            el.click();
+            await el.updateComplete;
+            expect(el.open).toBe(false);
+            spy.mockRestore();
+        });
+    });
+
     it("hides the teaser from assistive tech while open", async () => {
         const el = await mount(markup("open"));
         const teaserWrapper = parts(el).teaser.closest(".collapse");

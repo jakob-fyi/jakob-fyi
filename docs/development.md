@@ -24,7 +24,8 @@ npm run ci:build   # production build into ./dist
 
 ### Archive & Recommendations
 
-Both areas are `fyi-jakob-collapsible` elements that start collapsed. Count and
+Both areas are `fyi-jakob-collapsible` elements that start collapsed; while
+collapsed, a click anywhere on the area opens it. Count and
 teaser line are computed from the contained `fyi-jakob-section`s, so adding an
 entry is enough. A link to `#archive`, `#recommendations` or any id inside
 (e.g. `#kasten`) opens the area automatically.
