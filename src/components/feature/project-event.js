@@ -1,161 +1,144 @@
-import { css, html, LitElement } from "lit";
+import { css, html, LitElement, nothing } from "lit";
+import { chevronUpDown } from "../shared/icons";
+import { buttonStyles, collapseStyles } from "../shared/styles";
+import { jsonArray, renderTags } from "../ui/tags";
 
+let nextId = 0;
+
+/**
+ * Event card (lecture, exhibition). Clicking the card or its toggle button
+ * reveals the slotted details.
+ */
 export class ProjectEvent extends LitElement {
-    static styles = css`
-        :host(:hover) > fyi-jakob-item {
-            cursor: pointer;
-            background-color: var(--item-background-color-hover);
-            border-color: var(--item-border-color-hover);
-        }
+    static styles = [
+        buttonStyles,
+        collapseStyles,
+        css`
+            :host {
+                display: block;
+            }
 
-        :host {
-            --expanding-top: 14px;
+            :host(:hover) fyi-jakob-item {
+                cursor: pointer;
+                background-color: var(--item-background-color-hover);
+                border-color: var(--item-border-color-hover);
+            }
 
             .datetime,
             .place {
-                margin: 0px;
-                padding: 0px;
+                margin: 0;
+                padding: 0;
                 font-size: 1em;
-
-                &.datetime {
-                    color: var(--event-date-and-place-text-color);
-                    margin-top: 14px;
-                }
-
-                &.place {
-                    color: var(--event-date-and-place-text-color);
-                    margin-top: 4px;
-                }
+                color: var(--event-date-and-place-text-color);
             }
 
-            .expanded-content {
-                height: auto;
-                overflow: hidden;
-                max-height: 0;
-
-                ::slotted(*:first-child) {
-                    transition: all ease 300ms;
-                    padding-top: var(--expanding-top) !important;
-                }
-
-                &.active {
-                    animation-name: showexpanded;
-                    animation-duration: 300ms;
-                    max-height: 1000px;
-                }
-
-                &.inactive {
-                    animation-name: hideexpanded;
-                    animation-duration: 300ms;
-                    max-height: 0;
-
-                    ::slotted(*:first-child) {
-                        padding-top: 0 !important;
-                    }
-                }
+            .datetime {
+                margin-top: 14px;
             }
-        }
 
-        @keyframes showexpanded {
-            from {
-                max-height: 0px;
-                opacity: 0;
-
-                ::slotted(*:first-child) {
-                    padding-top: 0px;
-                }
+            .place {
+                margin-top: 4px;
             }
-            to {
-                max-height: 1000px;
-                opacity: 1;
 
-                ::slotted(*:first-child) {
-                    padding-top: var(--expanding-top);
-                }
+            .details {
+                padding-top: 14px;
             }
-        }
 
-        @keyframes hideexpanded {
-            from {
-                max-height: 1000px;
-                opacity: 1;
-
-                ::slotted(*:first-child) {
-                    padding-top: var(--expanding-top);
-                }
+            .toggle {
+                margin-right: -10px;
             }
-            to {
-                max-height: 0px;
-                opacity: 0;
-                padding-top: 0px;
 
-                ::slotted(*:first-child) {
-                    padding-top: 0px;
-                }
+            .toggle svg {
+                transition: transform 300ms ease;
             }
-        }
-    `;
+
+            :host([expanded]) .toggle svg {
+                transform: rotate(180deg);
+            }
+        `
+    ];
 
     static properties = {
         mainTitle: { type: String },
         subTitle: { type: String },
-        tags: { type: Array },
+        tags: { converter: jsonArray },
         date: { type: String },
         time: { type: String },
         place: { type: String },
-        expanded: { type: Boolean }
+        expanded: { type: Boolean, reflect: true }
     };
 
     constructor() {
         super();
         this.expanded = false;
+        this._detailsId = `event-details-${nextId++}`;
+    }
+
+    get _hasDetails() {
+        return this.children.length > 0;
     }
 
     toggle() {
         this.expanded = !this.expanded;
     }
 
+    _onClick(event) {
+        // Links inside the details must work without collapsing the card.
+        const fromLink = event
+            .composedPath()
+            .some((el) => el instanceof HTMLAnchorElement);
+        if (!fromLink && this._hasDetails) {
+            this.toggle();
+        }
+    }
+
     render() {
-        return html`<fyi-jakob-item @click="${this.toggle}">
-            ${(this.tags ?? []).map(
-                (item) => html`
-                    <fyi-jakob-meta-item slot="meta">
-                        ${item}
-                    </fyi-jakob-meta-item>
-                `
-            )}
+        const dateLine = [this.date, this.time].filter(Boolean).join(" | ");
+        const hasDetails = this._hasDetails;
+
+        return html`<fyi-jakob-item @click=${this._onClick}>
+            ${renderTags(this.tags)}
             <fyi-jakob-titles
                 slot="content"
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
             ></fyi-jakob-titles>
-            <svg
-                slot="aside"
-                fill="none"
-                class="icon"
-                width="26px"
-                height="26px"
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M136 208l120-104 120 104M136 304l120 104 120-104"
-                    fill="none"
-                    stroke-width="40"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-            </svg>
+            ${
+                hasDetails
+                    ? html`<button
+                          slot="aside"
+                          type="button"
+                          class="icon-button toggle"
+                          aria-expanded=${this.expanded ? "true" : "false"}
+                          aria-controls=${this._detailsId}
+                          aria-label="Details ${
+                              this.expanded ? "ausblenden" : "anzeigen"
+                          }"
+                      >
+                          ${chevronUpDown}
+                      </button>`
+                    : nothing
+            }
             <div>
-                <p class="datetime">${this.date} | ${this.time}</p>
-                <p class="place">${this.place}</p>
+                ${
+                    dateLine
+                        ? html`<p class="datetime">${dateLine}</p>`
+                        : nothing
+                }
+                ${
+                    this.place
+                        ? html`<p class="place">${this.place}</p>`
+                        : nothing
+                }
             </div>
             <div
-                class="expanded-content ${this.expanded
-                    ? "active"
-                    : "inactive"}"
+                id=${this._detailsId}
+                class="collapse ${this.expanded ? "open" : ""}"
+                ?inert=${!this.expanded}
             >
-                <slot></slot>
+                <div class="collapse-inner">
+                    <div class="details"><slot></slot></div>
+                </div>
             </div>
         </fyi-jakob-item>`;
     }

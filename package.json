@@ -1,12 +1,14 @@
 {
     "name": "jakob-fyi",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "description": "Personal Website of Jakob Vesely",
     "scripts": {
         "parcel": "npx parcel",
         "start": "parcel src/index.html",
         "lint": "prettier . --write",
-        "ci:build": "parcel build src/index.html --log-level error --no-cache --no-source-maps --dist-dir ./dist"
+        "ci:build": "parcel build src/index.html --log-level error --no-cache --no-source-maps --dist-dir ./dist",
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "repository": {
         "type": "git",
@@ -24,13 +26,13 @@
     "devDependencies": {
         "@parcel/transformer-inline-string": "^2.16.4",
         "@parcel/transformer-sass": "^2.16.4",
-        "lit": "^3.3.3",
-        "prettier": "^3.9.7"
+        "happy-dom": "^21.0.4",
+        "parcel": "^2.16.4",
+        "prettier": "^3.9.7",
+        "vitest": "^5.1.1"
     },
     "dependencies": {
-        "lightgallery": "^2.9.0",
-        "parcel": "^2.16.4",
-        "photoswipe": "^5.4.4",
+        "lit": "^3.3.3",
         "typed.js": "^3.0.0"
     },
     "prettier": {

@@ -1,15 +1,9 @@
 @use "variables";
 
-.headline {
-    color: var(--section-title-text-color);
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-}
-
 header,
 main,
 #archive,
+#recommendations,
 footer {
     width: 100%;
     display: flex;

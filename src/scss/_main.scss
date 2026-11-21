@@ -14,16 +14,54 @@ main {
     }
 }
 
+#archive,
+#recommendations {
+    padding-top: calc(2 * var(--page-padding));
+    padding-bottom: calc(3 * var(--page-padding));
+    transition: padding ease 300ms;
+
+    &:not([open]) {
+        padding-top: 40px;
+        padding-bottom: 56px;
+        gap: 0;
+    }
+}
+
 #archive {
     background-color: var(--archive-background-color);
     border-top: 1px var(--archive-border-color) solid;
     border-bottom: 1px var(--archive-border-color) solid;
-    padding-top: calc(2 * var(--page-padding));
-    padding-bottom: calc(3 * var(--page-padding));
+}
+
+#recommendations {
+    background-color: var(--page-background-color);
+
+    > fyi-jakob-section {
+        --content-columns: 2;
+    }
+}
+
+// Not upgraded yet: avoid a flash of the full, uncollapsed list.
+fyi-jakob-collapsible:not(:defined) {
+    visibility: hidden;
+    max-height: 200px;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 600px) {
-    #archive {
+    #archive,
+    #recommendations {
         padding: var(--page-padding);
+
+        &:not([open]) {
+            padding: var(--page-padding);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #archive,
+    #recommendations {
+        transition: none;
     }
 }

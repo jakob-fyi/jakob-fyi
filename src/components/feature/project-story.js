@@ -1,55 +1,69 @@
-import { css, html, LitElement } from "lit";
+import { css, html, LitElement, nothing } from "lit";
+import {
+    chevronLeft,
+    chevronRight,
+    close,
+    contract,
+    expand,
+    image
+} from "../shared/icons";
+import { asideIconStyles, buttonStyles } from "../shared/styles";
+import { jsonArray, renderTags } from "../ui/tags";
 
+const GAP = 20;
+const SWIPE_THRESHOLD = 40;
+
+/**
+ * Card that opens a fullscreen image gallery of its slotted <img> elements.
+ * Navigation: buttons, arrow keys, swipe, click on a neighbouring image.
+ * Escape closes the gallery.
+ */
 export class ProjectStory extends LitElement {
-    logPrefix = () => `[jakob.fyi] [Story Component, '${this.id}']`;
+    static styles = [
+        buttonStyles,
+        asideIconStyles,
+        css`
+            :host {
+                display: block;
+            }
 
-    static styles = css`
-        :host(:hover) > fyi-jakob-item {
-            cursor: pointer;
-            background-color: var(--item-background-color-hover);
-            border-color: var(--item-border-color-hover);
-        }
+            .card {
+                all: unset;
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                border-radius: var(--item-border-radius);
+                cursor: pointer;
+            }
 
-        :host {
-            svg {
-                width: 24px;
+            .card:focus-visible {
+                outline: 2px solid var(--focus-ring-color);
+                outline-offset: 2px;
+            }
+
+            :host(:hover) fyi-jakob-item {
+                background-color: var(--item-background-color-hover);
+                border-color: var(--item-border-color-hover);
             }
 
             .fullscreen {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-                height: 100%;
+                inset: 0;
                 display: none;
                 z-index: 9999;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                background-color: #f4f4f4;
+                background-color: var(--page-background-color);
+                color: var(--base-text-color);
                 box-sizing: border-box;
             }
 
             .fullscreen.opened {
                 display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
             }
 
-            .fullscreen.opened .container {
-                opacity: 0;
-                transition: all ease 300ms;
-            }
-
-            .fullscreen.opened.ready .container {
-                opacity: 1;
-                transition: all ease 300ms;
-            }
-
-            .fullscreen .container {
+            .container {
                 opacity: 0;
                 width: 100%;
                 height: 100%;
@@ -57,22 +71,25 @@ export class ProjectStory extends LitElement {
                 display: flex;
                 overflow: hidden;
                 flex: 1;
-                padding: 20px 0px;
-                transition: all ease 300ms;
+                padding: 20px 0;
+                transition: opacity ease 300ms;
+                touch-action: pan-y;
             }
 
-            .fullscreen .container .images {
+            .fullscreen.ready .container {
+                opacity: 1;
+            }
+
+            .images {
                 height: 100%;
                 width: auto;
                 display: flex;
                 flex-direction: row;
-                flex-basis: 200px;
-                flex-grow: 0;
-                flex-shrink: 0;
-                transition: all ease 300ms;
+                gap: ${GAP}px;
+                flex: 0 0 200px;
             }
 
-            .fullscreen .container .images ::slotted(img) {
+            .images ::slotted(img) {
                 height: 100%;
                 border-radius: 10px;
                 overflow: hidden;
@@ -80,456 +97,356 @@ export class ProjectStory extends LitElement {
                 transform: scale(0.9);
                 transition: all ease 300ms;
             }
-            .fullscreen .container .images ::slotted(img:hover) {
+
+            .images ::slotted(img:hover) {
                 opacity: 0.5;
                 transform: scale(0.95);
                 cursor: pointer;
             }
 
-            .fullscreen .container .images ::slotted(img.active) {
+            .images ::slotted(img.active) {
                 opacity: 1;
                 transform: scale(1);
-            }
-            .fullscreen footer {
-                transition: all ease 200ms;
-                width: 100%;
-                bottom: 0px;
+                cursor: default;
             }
 
-            .fullscreen.mode-inline footer {
+            footer {
+                width: 100%;
+                bottom: 0;
+                transition: all ease 200ms;
+            }
+
+            .mode-inline footer {
                 position: fixed;
                 background: linear-gradient(
                     0deg,
-                    rgba(255, 255, 255, 1) 0%,
-                    rgba(255, 255, 255, 1) 20px,
-                    rgba(255, 255, 255, 0) 100%
+                    var(--page-background-color) 0%,
+                    var(--page-background-color) 20px,
+                    transparent 100%
                 );
             }
 
-            .fullscreen.mode-container footer {
+            .mode-container footer {
                 position: relative;
             }
 
-            .fullscreen footer .titles {
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 24px;
                 padding: 20px;
-                width: 100%;
+            }
+
+            .titles {
+                padding: 0 20px 20px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 8px;
-                box-sizing: border-box;
             }
 
-            .fullscreen footer .titles h2 {
+            .titles h2 {
                 font-size: 1em;
                 font-weight: 500;
                 text-align: center;
                 margin: 0;
             }
 
-            .fullscreen footer .titles h3 {
+            .titles h3 {
                 font-size: 0.9em;
                 font-weight: normal;
                 text-align: center;
-                margin: 0;
-                margin-bottom: 10px;
+                margin: 0 0 10px;
+                color: var(--item-subtitle-text-color);
             }
 
-            .fullscreen footer .buttons {
+            .counter {
+                font-size: 0.8em;
+                color: var(--item-subtitle-text-color);
+                font-variant-numeric: tabular-nums;
+            }
+
+            .tags {
                 display: flex;
-                flex-direction: row;
+                flex-wrap: wrap;
                 justify-content: center;
-                align-items: center;
-                gap: 30px;
-                padding: 20px;
+                gap: 10px;
             }
-
-            .fullscreen footer .buttons button {
-                line-height: 0;
-                padding: 10px;
-                border-radius: 999em;
-                border: 2px #ddd solid;
-                transition: all ease 300ms;
-                color: var(--header-toggle-text-color);
-                border-color: var(--header-toggle-border-color);
-            }
-
-            .fullscreen footer .buttons button:hover {
-                cursor: pointer;
-                opacity: 0.65;
-            }
-
-            .fullscreen footer .progress-container {
-                width: 100%;
-                height: 4px;
-            }
-
-            .fullscreen footer .progress-container#progress {
-                width: 0;
-                height: 100%;
-                background-color: #999;
-            }
-        }
-    `;
+        `
+    ];
 
     static properties = {
-        id: { type: String },
         mainTitle: { type: String },
         subTitle: { type: String },
-        tags: { type: Array },
+        tags: { converter: jsonArray },
         time: { type: String },
 
-        open: { type: Boolean },
-        ready: { type: Boolean, state: true },
-        inlineMode: { type: Boolean, state: true },
-        footerStyle: { type: String, state: true }
+        open: { type: Boolean, reflect: true },
+        ready: { state: true },
+        inlineMode: { state: true },
+        currentIndex: { state: true }
     };
 
     constructor() {
         super();
-        console.log(this.logPrefix(), "constructor()");
-
-        // Set initial Values
         this.open = false;
         this.ready = false;
         this.inlineMode = false;
         this.currentIndex = 0;
-        this.mitteInContainer = 0;
-        this.startX = 0;
-        this.gap = 20;
-        this.footerWidth = "100%";
-
-        // Setup Listers
-        addEventListener("resize", () => {
-            console.log(this.logPrefix(), "On resize Event");
-            this.calculateSizes();
-            this.move(this.currentIndex);
-        });
+        this._images = [];
+        this._touchStart = null;
+        this._returnFocusTo = null;
     }
 
-    handleSlotchange(e) {
-        console.log(this.logPrefix(), "handleSlotchange()");
-
-        if (e.target.assignedElements()) {
-            this.imageElements = e.target.assignedElements();
-            this.containerElement = this.shadowRoot.getElementById("container");
-            this.imagesContainerElement =
-                this.shadowRoot.getElementById("images");
-            this.firstImageElement = this.imageElements[0];
-            this.progressElement = this.shadowRoot.getElementById("progress");
-
-            this.imagesContainerElement.style.gap = `${this.gap}px`;
-
-            console.log(
-                this.logPrefix(),
-                "Elements assigned, Slotted Image Count =",
-                this.imageElements.length
-            );
-
-            this.assignListenersAndIndizesToElements();
-            this.calculateSizes();
-            this.setAllImagesInactive();
-            this.move(this.currentIndex);
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._detachGlobalListeners();
+        if (this.open) {
+            document.documentElement.style.overflow = "";
         }
     }
 
-    assignListenersAndIndizesToElements() {
-        console.log(
-            this.logPrefix(),
-            "Assign Listeners and Indizes to Elements"
-        );
+    get images() {
+        return this._images;
+    }
 
-        let i = 0;
-
-        for (let el of this.imageElements) {
-            el.setAttribute("index", i);
-            el.addEventListener("click", (el) =>
-                this.move(el.target.getAttribute("index"))
-            );
-            i++;
-        }
-
-        addEventListener("keyup", (event) => {
-            if (event.key == "ArrowRight") {
-                this.move(this.currentIndex + 1);
-            }
-            if (event.key == "ArrowLeft") {
-                this.move(this.currentIndex - 1);
-            }
+    _onSlotChange(event) {
+        this._images = event.target
+            .assignedElements()
+            .filter((el) => el instanceof HTMLImageElement);
+        this._images.forEach((img, index) => {
+            img.dataset.index = String(index);
+            img.draggable = false;
         });
-
-        document.addEventListener(
-            "touchstart",
-            (evt) => {
-                const firstTouch = evt.touches[0];
-                xDown = firstTouch.clientX;
-                yDown = firstTouch.clientY;
-            },
-            false
-        );
-
-        document.addEventListener(
-            "touchmove",
-            (evt) => {
-                if (!xDown || !yDown) {
-                    return;
-                }
-
-                var xUp = evt.touches[0].clientX;
-                var yUp = evt.touches[0].clientY;
-
-                var xDiff = xDown - xUp;
-                var yDiff = yDown - yUp;
-
-                if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                    /*most significant*/
-                    if (xDiff > 0) {
-                        this.move(this.currentIndex + 1);
-                    } else {
-                        this.move(this.currentIndex - 1);
-                    }
-                } else {
-                    if (yDiff > 0) {
-                        document.dispatchEvent("swipeDown");
-                    } else {
-                        document.dispatchEvent("swipeUp");
-                    }
-                }
-
-                xDown = null;
-                yDown = null;
-            },
-            false
-        );
-
-        let xDown = null;
-        let yDown = null;
+        this.move(Math.min(this.currentIndex, this._maxIndex), false);
+        this.requestUpdate(); // counter and button states depend on _images
     }
 
-    calculateSizes() {
-        console.log(this.logPrefix(), "Calculate Sizes");
-        this.containerWidth = this.containerElement.clientWidth;
-        this.imagesWidth = this.imagesContainerElement.clientWidth;
-        this.imageWidth = this.firstImageElement.clientWidth;
-
-        this.mitteInContainer = this.containerWidth / 2;
-        this.startX = this.mitteInContainer - this.imageWidth / 2;
-
-        this.maxIndex = this.imageElements.length - 1;
-
-        console.log("--> containerWidth", this.containerWidth);
-        console.log("--> imagesWidth", this.imagesWidth);
-        console.log("--> imageWidth", this.imageWidth);
-        console.log("--> mitteInContainer", this.mitteInContainer);
-        console.log("--> startX", this.startX);
-        console.log("--> maxIndex", this.maxIndex);
+    _onImageClick(event) {
+        const img = event
+            .composedPath()
+            .find((el) => el instanceof HTMLImageElement);
+        if (img?.dataset.index !== undefined) {
+            this.move(Number(img.dataset.index));
+        }
     }
 
-    openStoryFullscreen() {
+    get _maxIndex() {
+        return Math.max(this._images.length - 1, 0);
+    }
+
+    openGallery() {
+        this._returnFocusTo = this.shadowRoot.activeElement ?? this;
         this.open = true;
-        setTimeout(() => {
-            this.ready = true;
-            this.calculateSizes();
-            this.move(this.currentIndex, false);
-        }, 300);
+        this._attachGlobalListeners();
+        document.documentElement.style.overflow = "hidden";
+
+        // Wait for the overlay to be laid out before measuring.
+        this.updateComplete.then(() => {
+            requestAnimationFrame(() => {
+                this.ready = true;
+                this.move(this.currentIndex, false);
+                this.shadowRoot.querySelector(".close")?.focus();
+            });
+        });
     }
 
-    setAllImagesInactive() {
-        for (let el of this.imageElements) {
-            el.classList.remove("active");
-        }
-    }
-
-    move(index, transition = true) {
-        if (index <= this.maxIndex && index >= 0) {
-            this.currentIndex = index;
-            const newX =
-                this.startX -
-                this.currentIndex * (this.imageWidth + this.gap - 0.5);
-            console.log("Move to Index =", index, ", X-Translation =", newX);
-            this.imagesContainerElement.style.transform = `translateX(${newX}px)`;
-            this.imagesContainerElement.style.transition = transition
-                ? "all ease 300ms"
-                : "none";
-
-            this.setAllImagesInactive();
-            this.imageElements[index].classList.add("active");
-        }
-    }
-
-    forward = () => this.move(this.currentIndex + 1);
-    backward = () => this.move(this.currentIndex - 1);
-
-    close = () => {
+    close() {
         this.open = false;
-    };
+        this.ready = false;
+        this._detachGlobalListeners();
+        document.documentElement.style.overflow = "";
+        this._returnFocusTo?.focus?.();
+    }
 
-    toggleMode = () => {
+    forward() {
+        this.move(this.currentIndex + 1);
+    }
+
+    backward() {
+        this.move(this.currentIndex - 1);
+    }
+
+    toggleMode() {
         this.inlineMode = !this.inlineMode;
+        this.updateComplete.then(() => this.move(this.currentIndex, false));
+    }
 
-        setTimeout(() => {
-            this.calculateSizes();
-            this.move(this.currentIndex, false);
-        }, 10);
+    /** Show image `index` centred in the viewport. Out-of-range is ignored. */
+    move(index, transition = true) {
+        index = Number(index);
+        if (!Number.isInteger(index) || index < 0 || index > this._maxIndex) {
+            return;
+        }
+        this.currentIndex = index;
+
+        this._images.forEach((img, i) =>
+            img.classList.toggle("active", i === index)
+        );
+
+        const container = this.shadowRoot?.getElementById("container");
+        const strip = this.shadowRoot?.getElementById("images");
+        const first = this._images[0];
+        if (!container || !strip || !first) return;
+
+        const imageWidth = first.clientWidth;
+        const startX = container.clientWidth / 2 - imageWidth / 2;
+        const x = startX - index * (imageWidth + GAP - 0.5);
+        strip.style.transition = transition ? "transform ease 300ms" : "none";
+        strip.style.transform = `translateX(${x}px)`;
+    }
+
+    _onKeyDown = (event) => {
+        if (!this.open) return;
+        switch (event.key) {
+            case "ArrowRight":
+                this.forward();
+                break;
+            case "ArrowLeft":
+                this.backward();
+                break;
+            case "Escape":
+                this.close();
+                break;
+            default:
+                return;
+        }
+        event.preventDefault();
     };
+
+    _onResize = () => this.move(this.currentIndex, false);
+
+    _onTouchStart(event) {
+        const touch = event.touches[0];
+        this._touchStart = { x: touch.clientX, y: touch.clientY };
+    }
+
+    _onTouchEnd(event) {
+        if (!this._touchStart) return;
+        const touch = event.changedTouches[0];
+        const dx = this._touchStart.x - touch.clientX;
+        const dy = this._touchStart.y - touch.clientY;
+        this._touchStart = null;
+
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
+            dx > 0 ? this.forward() : this.backward();
+        }
+    }
+
+    _attachGlobalListeners() {
+        window.addEventListener("keydown", this._onKeyDown);
+        window.addEventListener("resize", this._onResize);
+    }
+
+    _detachGlobalListeners() {
+        window.removeEventListener("keydown", this._onKeyDown);
+        window.removeEventListener("resize", this._onResize);
+    }
 
     render() {
-        const expandIcon = html`<svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="ionicon"
-            viewBox="0 0 512 512"
-        >
-            <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
-                d="M432 320v112H320M421.8 421.77L304 304M80 192V80h112M90.2 90.23L208 208M320 80h112v112M421.77 90.2L304 208M192 432H80V320M90.23 421.8L208 304"
-            />
-        </svg>`;
+        const classes = [
+            "fullscreen",
+            this.open ? "opened" : "",
+            this.ready ? "ready" : "",
+            this.inlineMode ? "mode-inline" : "mode-container"
+        ].join(" ");
 
-        const contractIcon = html`<svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="ionicon"
-            viewBox="0 0 512 512"
-        >
-            <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="32"
-                d="M304 416V304h112M314.2 314.23L432 432M208 96v112H96M197.8 197.77L80 80M416 208H304V96M314.23 197.8L432 80M96 304h112v112M197.77 314.2L80 432"
-            />
-        </svg>`;
-
-        return html`<fyi-jakob-item @click="${this.openStoryFullscreen}">
-                ${(this.tags ?? []).map(
-                    (item) => html`
-                        <fyi-jakob-meta-item slot="meta">
-                            ${item}
-                        </fyi-jakob-meta-item>
-                    `
-                )}
-                <fyi-jakob-meta-item slot="meta">
-                    ${this.time}
-                </fyi-jakob-meta-item>
-                <fyi-jakob-titles
-                    slot="content"
-                    .mainTitle=${this.mainTitle}
-                    .subTitle=${this.subTitle}
-                ></fyi-jakob-titles>
-                <svg slot="aside" viewBox="0 0 512 512">
-                    <rect
-                        x="48"
-                        y="80"
-                        width="416"
-                        height="352"
-                        rx="48"
-                        ry="48"
-                        fill="none"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                    />
-                    <circle
-                        cx="336"
-                        cy="176"
-                        r="32"
-                        fill="none"
-                        stroke-miterlimit="10"
-                        stroke-width="32"
-                    />
-                    <path
-                        d="M304 335.79l-90.66-90.49a32 32 0 00-43.87-1.3L48 352M224 432l123.34-123.34a32 32 0 0143.11-2L464 368"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                    />
-                </svg>
-            </fyi-jakob-item>
-            <div
-                class="fullscreen ${this.open ? "opened" : "closed"} ${this
-                    .ready
-                    ? "ready"
-                    : "not-ready"} ${this.inlineMode
-                    ? "mode-inline"
-                    : "mode-container"}"
+        return html`<button
+                type="button"
+                class="card"
+                aria-haspopup="dialog"
+                @click=${this.openGallery}
             >
-                <div class="container" id="container">
-                    <div class="images" id="images">
-                        <slot @slotchange=${this.handleSlotchange}></slot>
+                <fyi-jakob-item>
+                    ${renderTags(this.tags, this.time)}
+                    <fyi-jakob-titles
+                        slot="content"
+                        .mainTitle=${this.mainTitle}
+                        .subTitle=${this.subTitle}
+                    ></fyi-jakob-titles>
+                    <span slot="aside" class="aside-icon">${image}</span>
+                </fyi-jakob-item>
+            </button>
+            <div
+                class=${classes}
+                role="dialog"
+                aria-modal="true"
+                aria-label=${this.mainTitle ?? "Galerie"}
+                ?hidden=${!this.open}
+            >
+                <div
+                    class="container"
+                    id="container"
+                    @touchstart=${this._onTouchStart}
+                    @touchend=${this._onTouchEnd}
+                >
+                    <div
+                        class="images"
+                        id="images"
+                        @click=${this._onImageClick}
+                    >
+                        <slot @slotchange=${this._onSlotChange}></slot>
                     </div>
                 </div>
-                <footer style="${this.footerStyle}">
-                    <nav class="buttons">
-                        <button type="button" @click="${this.backward}">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                            >
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="48"
-                                    d="M328 112L184 256l144 144"
-                                />
-                            </svg>
+                <footer>
+                    <nav class="buttons" aria-label="Galerie-Navigation">
+                        <button
+                            type="button"
+                            class="icon-button"
+                            aria-label="Vorheriges Bild"
+                            ?disabled=${this.currentIndex <= 0}
+                            @click=${this.backward}
+                        >
+                            ${chevronLeft}
                         </button>
-                        <button type="button" @click="${this.close}">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                            >
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="32"
-                                    d="M368 368L144 144M368 144L144 368"
-                                />
-                            </svg>
+                        <button
+                            type="button"
+                            class="icon-button close"
+                            aria-label="Galerie schließen"
+                            @click=${this.close}
+                        >
+                            ${close}
                         </button>
-                        <button type="button" @click="${this.toggleMode}">
-                            ${this.inlineMode ? contractIcon : expandIcon}
+                        <button
+                            type="button"
+                            class="icon-button"
+                            aria-label=${
+                                this.inlineMode
+                                    ? "Vollbild verlassen"
+                                    : "Vollbild"
+                            }
+                            aria-pressed=${this.inlineMode ? "true" : "false"}
+                            @click=${this.toggleMode}
+                        >
+                            ${this.inlineMode ? contract : expand}
                         </button>
-                        <button type="button" @click="${this.forward}">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                            >
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="48"
-                                    d="M184 112l144 144-144 144"
-                                />
-                            </svg>
+                        <button
+                            type="button"
+                            class="icon-button"
+                            aria-label="Nächstes Bild"
+                            ?disabled=${this.currentIndex >= this._maxIndex}
+                            @click=${this.forward}
+                        >
+                            ${chevronRight}
                         </button>
                     </nav>
                     <div class="titles">
                         <h2>${this.mainTitle}</h2>
                         <h3>${this.subTitle}</h3>
-                        <div>
-                            ${(this.tags ?? []).map(
-                                (item) => html`
-                                    <fyi-jakob-meta-item>
-                                        ${item}
-                                    </fyi-jakob-meta-item>
-                                `
-                            )}
-                            <fyi-jakob-meta-item>
-                                ${this.time}
-                            </fyi-jakob-meta-item>
+                        <div class="counter" aria-live="polite">
+                            ${
+                                this._images.length
+                                    ? `${this.currentIndex + 1} / ${this._images.length}`
+                                    : ""
+                            }
+                        </div>
+                        <div class="tags">
+                            ${renderTags(this.tags, this.time, nothing)}
                         </div>
                     </div>
                 </footer>
-            </div> `;
+            </div>`;
     }
 }
