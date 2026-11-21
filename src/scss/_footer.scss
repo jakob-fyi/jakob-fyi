@@ -4,6 +4,7 @@ footer {
     width: 100%;
     color: var(--footer-text-color);
     background-color: var(--footer-background-color);
+    border-top: 1px var(--band-border-color) solid;
     padding: var(--page-padding);
     padding-top: calc(3 * var(--page-padding));
     padding-bottom: calc(3 * var(--page-padding));

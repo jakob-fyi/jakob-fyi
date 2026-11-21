@@ -27,8 +27,7 @@
     --header-subjects-text-color: #333333;
     --header-toggle-text-color: #666666;
     --header-toggle-border-color: #dfdfdf;
-    --archive-background-color: #f2f2f2;
-    --archive-border-color: #dddddd;
+    --band-border-color: #e0e0e0;
     --footer-background-color: #efefef;
     --footer-headline-text-color: #000000;
     --footer-text-color: #555555;
@@ -54,7 +53,7 @@
     --btn-hover-round: rgba(0, 0, 0, 0.06);
     --btn-hover-block: #ebebeb;
     --focus-ring-color: #323277;
-    --collapsible-hover-overlay: rgba(0, 0, 0, 0.025);
+    --collapsible-hover-overlay: rgba(255, 255, 255, 0.6);
     --job-date-color: #bbbbbb;
     --job-border-color: #eeeeee;
 
@@ -69,8 +68,7 @@
         --header-subjects-text-color: #cccccc;
         --header-toggle-text-color: #999999;
         --header-toggle-border-color: #555555;
-        --archive-background-color: #303030;
-        --archive-border-color: #363636;
+        --band-border-color: #414141;
         --footer-background-color: #2e2e2e;
         --footer-headline-text-color: #ffffff;
         --footer-text-color: #cccccc;
@@ -96,7 +94,7 @@
         --btn-hover-round: rgba(255, 255, 255, 0.08);
         --btn-hover-block: #444444;
         --focus-ring-color: #9a9ad6;
-        --collapsible-hover-overlay: rgba(255, 255, 255, 0.03);
+        --collapsible-hover-overlay: rgba(255, 255, 255, 0.035);
         --job-date-color: #bbbbbb;
         --job-border-color: #484848;
     }
