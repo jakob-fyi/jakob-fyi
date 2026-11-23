@@ -116,7 +116,16 @@ describe("src/index.html content", () => {
                 groups.map((g) => [g.title, g.entries.map((e) => e.title)])
             ).toEqual([
                 ["Software & Tech", ["Dia Scanner"]],
-                ["Carpentry", ["Bücherregal"]]
+                [
+                    "Carpentry",
+                    [
+                        "Bücherregal",
+                        "Kassettenregal",
+                        "Esstisch",
+                        "Sitzbank",
+                        "Couchtisch"
+                    ]
+                ]
             ]);
         });
 
@@ -126,7 +135,11 @@ describe("src/index.html content", () => {
             ];
             expect(stories.map((s) => s.id)).toEqual([
                 "dia-scanner",
-                "buecherregal"
+                "buecherregal",
+                "kassettenregal",
+                "esstisch",
+                "sitzbank",
+                "couchtisch"
             ]);
         });
 
@@ -232,7 +245,7 @@ describe("src/index.html rendered", () => {
     it("shows the stories count and teaser", () => {
         const stories = document.getElementById("stories");
         expect(stories.open).toBe(false);
-        expect(shadow(stories, ".count").textContent.trim()).toBe("2");
+        expect(shadow(stories, ".count").textContent.trim()).toBe("6");
         const teaser = shadow(stories, ".teaser").textContent;
         expect(teaser).toContain("Software & Tech");
         expect(teaser).toContain("Carpentry");
