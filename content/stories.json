@@ -13,47 +13,56 @@
                     "id": "dia-scanner",
                     "title": "Dia Scanner",
                     "subtitle": "Automatisierte Digitalisierung von Dias und Verarbeitung",
-                    "tags": ["Software", "Hardware"],
+                    "tags": [
+                        "Software",
+                        "Hardware"
+                    ],
                     "time": "2020",
                     "images": [
                         {
-                            "src": "assets/stories/dia-scanner/18108629611121091.jpg",
+                            "src": "assets/stories/dia-scanner/dia-scanner_1.jpg",
                             "alt": "",
                             "width": 1080,
                             "height": 1794
                         },
                         {
-                            "src": "assets/stories/dia-scanner/17871220279696469.mp4",
+                            "src": "assets/stories/dia-scanner/dia-scanner_2.mp4",
                             "alt": "",
                             "width": 480,
                             "height": 796
                         },
                         {
-                            "src": "assets/stories/dia-scanner/17844305705126423.jpg",
+                            "src": "assets/stories/dia-scanner/dia-scanner_3.jpg",
                             "alt": "",
                             "width": 1080,
                             "height": 1794
                         },
                         {
-                            "src": "assets/stories/dia-scanner/18051240745242618.jpg",
+                            "src": "assets/stories/dia-scanner/dia-scanner_4.jpg",
                             "alt": "",
                             "width": 1080,
                             "height": 1794
                         },
                         {
-                            "src": "assets/stories/dia-scanner/17871470680707560.jpg",
+                            "src": "assets/stories/dia-scanner/dia-scanner_5.jpg",
                             "alt": "",
                             "width": 1080,
                             "height": 1794
                         },
                         {
-                            "src": "assets/stories/dia-scanner/18115240936119999.jpg",
+                            "src": "assets/stories/dia-scanner/dia-scanner_6.jpg",
                             "alt": "",
                             "width": 1080,
                             "height": 1794
                         },
                         {
-                            "src": "assets/stories/dia-scanner/18116552320113768.mp4",
+                            "src": "assets/stories/dia-scanner/dia-scanner_7.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1794
+                        },
+                        {
+                            "src": "assets/stories/dia-scanner/dia-scanner_8.mp4",
                             "alt": "",
                             "width": 480,
                             "height": 796
@@ -69,97 +78,416 @@
                     "type": "project-story",
                     "id": "buecherregal",
                     "title": "Bücherregal",
-                    "subtitle": "Aus massivem Escheholz mit einer Steckverbindung",
-                    "tags": ["Carpentry", "Furniture"],
+                    "subtitle": "aus massivem Eschenholz mit Steckverbindungen",
+                    "tags": [
+                        "Carpentry",
+                        "Furniture"
+                    ],
                     "time": "2024",
                     "images": [
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_1.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/buecherregal/buecherregal_1.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_2.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/buecherregal/buecherregal_2.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_3.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/buecherregal/buecherregal_3.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_4.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/buecherregal/buecherregal_4.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_5.jpg",
-                            "alt": "Bauprozess",
+                            "src": "assets/stories/buecherregal/buecherregal_5.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_6.jpg",
-                            "alt": "Bauprozess",
+                            "src": "assets/stories/buecherregal/buecherregal_6.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_7.jpg",
-                            "alt": "Bauprozess",
+                            "src": "assets/stories/buecherregal/buecherregal_7.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_8.jpg",
-                            "alt": "Bauprozess",
+                            "src": "assets/stories/buecherregal/buecherregal_8.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_9.jpg",
-                            "alt": "Bauprozess",
+                            "src": "assets/stories/buecherregal/buecherregal_9.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_10.jpg",
-                            "alt": "Aufbau",
+                            "src": "assets/stories/buecherregal/buecherregal_10.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_11.jpg",
-                            "alt": "Aufbau",
+                            "src": "assets/stories/buecherregal/buecherregal_11.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_12.jpg",
-                            "alt": "Aufbau",
+                            "src": "assets/stories/buecherregal/buecherregal_12.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_13.jpg",
-                            "alt": "Endprodukt",
+                            "src": "assets/stories/buecherregal/buecherregal_13.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_14.jpg",
-                            "alt": "Endprodukt",
+                            "src": "assets/stories/buecherregal/buecherregal_14.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_15.jpg",
-                            "alt": "Endprodukt",
+                            "src": "assets/stories/buecherregal/buecherregal_15.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                },
+                {
+                    "type": "project-story",
+                    "id": "kassettenregal",
+                    "title": "Kassettenregal",
+                    "subtitle": "aus Pappel-Sperrholz, großteils gesteckt",
+                    "tags": [
+                        "Carpentry",
+                        "Furniture"
+                    ],
+                    "time": "2020",
+                    "images": [
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_1.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_2.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_3.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_4.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_5.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_6.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_7.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_8.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_9.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_10.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/kassettenregal/kassettenregal_11.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                },
+                {
+                    "type": "project-story",
+                    "id": "esstisch",
+                    "title": "Esstisch",
+                    "subtitle": "aus massivem Eschenholz mit Schattenfuge",
+                    "tags": [
+                        "Carpentry",
+                        "Furniture"
+                    ],
+                    "time": "2024",
+                    "images": [
+                        {
+                            "src": "assets/stories/esstisch/esstisch_1.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_2.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_3.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_4.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_5.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_6.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_7.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_8.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_9.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/esstisch/esstisch_10.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                },
+                {
+                    "type": "project-story",
+                    "id": "sitzbank",
+                    "title": "Sitzbank",
+                    "subtitle": "aus massivem Eschenholz",
+                    "tags": [
+                        "Carpentry",
+                        "Furniture"
+                    ],
+                    "time": "2024",
+                    "images": [
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_1.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_2.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_3.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_4.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_5.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_6.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_7.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_8.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_9.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_10.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_11.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_12.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_13.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/sitzbank/sitzbank_14.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                },
+                {
+                    "type": "project-story",
+                    "id": "couchtisch",
+                    "title": "Couchtisch",
+                    "subtitle": "aus massivem Eichenholz",
+                    "tags": [
+                        "Carpentry",
+                        "Furniture"
+                    ],
+                    "time": "2020",
+                    "images": [
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_1.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_2.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_3.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_4.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_5.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_6.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_7.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_8.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/couchtisch/couchtisch_9.jpg",
+                            "alt": "",
                             "width": 1080,
                             "height": 1920
                         }
