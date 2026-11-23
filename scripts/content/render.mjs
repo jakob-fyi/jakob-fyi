@@ -53,22 +53,47 @@ export const element = (tag, attributes, children = []) => {
 
 const entryAttributes = (entry) => ATTRIBUTES.filter(([field]) => entry[field] !== undefined).map(([field, name]) => attribute(name, entry[field]));
 
-const image = ({ src, alt, width, height }) =>
-    [
-        "<img",
-        'loading="lazy"',
-        'decoding="async"',
-        ...(width !== undefined ? [`width="${width}"`] : []),
-        ...(height !== undefined ? [`height="${height}"`] : []),
-        `src="${escapeAttribute(src)}"`,
-        `alt="${escapeAttribute(alt)}"`,
-        "/>"
-    ].join(" ");
+/**
+ * Media paths in the content are relative to the project root (assets/ sits
+ * next to content/); the generated page lives in src/, one level below.
+ */
+export const assetUrl = (path) => `../${path}`;
+
+export const isVideo = (src) => /\.mp4$/i.test(src);
+
+const sizeAttributes = (width, height) => [
+    ...(width !== undefined ? [`width="${width}"`] : []),
+    ...(height !== undefined ? [`height="${height}"`] : [])
+];
+
+/** Story media: `.mp4` becomes a muted, looping <video>, everything else an <img>. */
+const media = ({ src, alt, width, height, poster }) =>
+    isVideo(src)
+        ? [
+              "<video",
+              "muted",
+              "loop",
+              "playsinline",
+              'preload="none"',
+              ...sizeAttributes(width, height),
+              ...(poster !== undefined ? [`poster="${escapeAttribute(assetUrl(poster))}"`] : []),
+              `src="${escapeAttribute(assetUrl(src))}"`,
+              `aria-label="${escapeAttribute(alt)}"`
+          ].join(" ") + "></video>"
+        : [
+              "<img",
+              'loading="lazy"',
+              'decoding="async"',
+              ...sizeAttributes(width, height),
+              `src="${escapeAttribute(assetUrl(src))}"`,
+              `alt="${escapeAttribute(alt)}"`,
+              "/>"
+          ].join(" ");
 
 const body = (value) => (Array.isArray(value) ? value : [value]);
 
 export const renderEntry = (entry) => {
-    const children = [...(entry.images ?? []).map(image), ...(entry.body !== undefined ? body(entry.body) : [])];
+    const children = [...(entry.images ?? []).map(media), ...(entry.body !== undefined ? body(entry.body) : [])];
     return element(`fyi-jakob-${entry.type}`, entryAttributes(entry), children);
 };
 

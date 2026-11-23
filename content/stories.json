@@ -17,28 +17,46 @@
                     "time": "2020",
                     "images": [
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_1.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/dia-scanner/18108629611121091.jpg",
+                            "alt": "",
                             "width": 1080,
-                            "height": 1920
+                            "height": 1794
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_2.jpg",
-                            "alt": "Entwurf",
-                            "width": 1080,
-                            "height": 1920
+                            "src": "assets/stories/dia-scanner/17871220279696469.mp4",
+                            "alt": "",
+                            "width": 480,
+                            "height": 796
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_3.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/dia-scanner/17844305705126423.jpg",
+                            "alt": "",
                             "width": 1080,
-                            "height": 1920
+                            "height": 1794
                         },
                         {
-                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_4.jpg",
-                            "alt": "Entwurf",
+                            "src": "assets/stories/dia-scanner/18051240745242618.jpg",
+                            "alt": "",
                             "width": 1080,
-                            "height": 1920
+                            "height": 1794
+                        },
+                        {
+                            "src": "assets/stories/dia-scanner/17871470680707560.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1794
+                        },
+                        {
+                            "src": "assets/stories/dia-scanner/18115240936119999.jpg",
+                            "alt": "",
+                            "width": 1080,
+                            "height": 1794
+                        },
+                        {
+                            "src": "assets/stories/dia-scanner/18116552320113768.mp4",
+                            "alt": "",
+                            "width": 480,
+                            "height": 796
                         }
                     ]
                 }

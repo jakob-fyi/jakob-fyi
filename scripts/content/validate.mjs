@@ -41,7 +41,8 @@ const isImage = (img) =>
     typeof img?.alt === "string" &&
     isSize(img.width) &&
     isSize(img.height) &&
-    Object.keys(img).every((key) => ["src", "alt", "width", "height"].includes(key));
+    (img.poster === undefined || isText(img.poster)) &&
+    Object.keys(img).every((key) => ["src", "alt", "width", "height", "poster"].includes(key));
 
 const label = (entry) => (isText(entry?.title) ? ` "${entry.title}"` : "");
 
@@ -52,7 +53,7 @@ const checkField = (field, value, error) => {
             break;
         case "images":
             if (!Array.isArray(value) || value.length === 0 || !value.every(isImage))
-                error(`"images" must be a non-empty list of { "src", "alt", "width"?, "height"? }`);
+                error(`"images" must be a non-empty list of { "src", "alt", "width"?, "height"?, "poster"? }`);
             break;
         case "body":
             if (!isText(value) && !(Array.isArray(value) && value.every(isText))) error(`"body" must be an HTML string or a list of HTML strings`);
@@ -138,7 +139,7 @@ const imagesOf = (block) =>
     (block.type === "collapsible" ? (block.sections ?? []) : [block])
         .flatMap((s) => s.entries ?? [])
         .flatMap((e) => (Array.isArray(e?.images) ? e.images : []))
-        .map((img) => img?.src)
+        .flatMap((img) => [img?.src, img?.poster])
         .filter(isText);
 
 /**
@@ -169,7 +170,7 @@ export const validateContent = (blocks, { templateIds = [], placeholders = [], i
             if (seen.has(id)) error(`${name}.json: id "${id}" is already used in ${seen.get(id)}`);
             else seen.set(id, `${name}.json`);
         }
-        for (const src of imagesOf(block)) if (!imageExists(src)) error(`${name}.json: image not found: src/${src}`);
+        for (const src of imagesOf(block)) if (!imageExists(src)) error(`${name}.json: image not found: ${src}`);
     }
     return errors;
 };

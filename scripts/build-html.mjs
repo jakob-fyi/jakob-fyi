@@ -49,7 +49,7 @@ export const build = () => {
     const errors = validateContent(blocks, {
         templateIds: [...template.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]),
         placeholders: [...template.matchAll(PLACEHOLDER)].map((m) => m[2]),
-        imageExists: (src) => existsSync(join(SRC_DIR, src))
+        imageExists: (src) => existsSync(join(root, src))
     });
     if (errors.length) return errors;
 

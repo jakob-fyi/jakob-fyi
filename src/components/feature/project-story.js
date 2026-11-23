@@ -15,6 +15,13 @@ const PENDING_TIMEOUT = 1000;
 const prefersReducedMotion = () =>
     window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
+const isVideo = (el) => el instanceof HTMLVideoElement;
+const isMedia = (el) => el instanceof HTMLImageElement || isVideo(el);
+/** Images use `alt`, videos `aria-label`. */
+const captionOf = (el) =>
+    (isVideo(el) ? el.getAttribute("aria-label") : el?.alt) ?? "";
+const plural = (count, one, many) => `${count} ${count === 1 ? one : many}`;
+
 const safeDecode = (value) => {
     try {
         return decodeURIComponent(value);
@@ -24,7 +31,8 @@ const safeDecode = (value) => {
 };
 
 /**
- * Card that opens a fullscreen image gallery of its slotted <img> elements.
+ * Card that opens a fullscreen gallery of its slotted <img> and <video>
+ * elements.
  *
  * - Native modal <dialog>: focus trap, inert page, top layer.
  * - Native horizontal scrolling with scroll snap: swipe, trackpad and
@@ -32,10 +40,13 @@ const safeDecode = (value) => {
  *   neighbouring image scroll programmatically.
  * - With an `id`, the gallery is linkable (`#id`) and the browser's back
  *   button / gesture closes it.
- * - The `alt` text of each image is shown as its caption.
+ * - The `alt` text of each image (`aria-label` of each video) is shown as
+ *   its caption.
+ * - The current video plays (muted, with native controls) while the gallery
+ *   is open; all others are paused. With reduced motion it does not autoplay.
  *
- * Give every <img> `width`/`height` attributes so the strip can be laid out
- * before the images have loaded.
+ * Give every item `width`/`height` attributes so the strip can be laid out
+ * before the media have loaded.
  */
 export class ProjectStory extends LitElement {
     static styles = [
@@ -91,7 +102,8 @@ export class ProjectStory extends LitElement {
                 background-color: var(--item-border-color);
             }
 
-            .thumb img {
+            .thumb img,
+            .thumb video {
                 display: block;
                 width: 100%;
                 height: 100%;
@@ -180,7 +192,8 @@ export class ProjectStory extends LitElement {
                 flex: 0 0 50%;
             }
 
-            .viewport ::slotted(img) {
+            .viewport ::slotted(img),
+            .viewport ::slotted(video) {
                 flex: 0 0 auto;
                 height: 100%;
                 width: auto;
@@ -199,14 +212,16 @@ export class ProjectStory extends LitElement {
                 -webkit-user-select: none;
             }
 
-            .viewport ::slotted(img.active) {
+            .viewport ::slotted(img.active),
+            .viewport ::slotted(video.active) {
                 opacity: 1;
                 transform: scale(1);
                 cursor: default;
             }
 
             @media (hover: hover) {
-                .viewport ::slotted(img:not(.active):hover) {
+                .viewport ::slotted(img:not(.active):hover),
+                .viewport ::slotted(video:not(.active):hover) {
                     opacity: 0.5;
                     transform: scale(0.95);
                 }
@@ -281,6 +296,7 @@ export class ProjectStory extends LitElement {
                 }
 
                 .viewport ::slotted(img),
+                .viewport ::slotted(video),
                 .info,
                 .buttons {
                     transition: none;
@@ -354,13 +370,14 @@ export class ProjectStory extends LitElement {
     }
 
     _onSlotChange(event) {
-        this._images = event.target
-            .assignedElements()
-            .filter((el) => el instanceof HTMLImageElement);
-        this._images.forEach((img, index) => {
-            img.dataset.index = String(index);
-            img.draggable = false;
-            img.addEventListener("load", this._onImageLoad);
+        this._images = event.target.assignedElements().filter(isMedia);
+        this._images.forEach((el, index) => {
+            el.dataset.index = String(index);
+            el.draggable = false;
+            el.addEventListener(
+                isVideo(el) ? "loadedmetadata" : "load",
+                this._onImageLoad
+            );
         });
         this.move(Math.min(this.currentIndex, this._maxIndex), false);
         this.requestUpdate(); // counter, thumbnail and buttons depend on _images
@@ -369,9 +386,7 @@ export class ProjectStory extends LitElement {
     _onImageLoad = () => this._recenter();
 
     _onImageClick(event) {
-        const img = event
-            .composedPath()
-            .find((el) => el instanceof HTMLImageElement);
+        const img = event.composedPath().find(isMedia);
         if (img?.dataset.index !== undefined) {
             this.move(Number(img.dataset.index));
         }
@@ -426,6 +441,7 @@ export class ProjectStory extends LitElement {
         window.removeEventListener("keydown", this._onKeyDown);
         document.documentElement.style.overflow = this._previousOverflow;
         this._clearPending();
+        this._syncPlayback();
         const dialog = this._dialog;
         if (dialog?.open) {
             if (typeof dialog.close === "function") dialog.close();
@@ -491,7 +507,24 @@ export class ProjectStory extends LitElement {
                 i >= index - PRELOAD_BEHIND &&
                 i <= index + PRELOAD_AHEAD
             ) {
-                img.loading = "eager";
+                if (isVideo(img)) img.preload = "auto";
+                else img.loading = "eager";
+            }
+        });
+        this._syncPlayback();
+    }
+
+    /** Only the current video plays, and only while the gallery is open. */
+    _syncPlayback() {
+        this._images.filter(isVideo).forEach((video) => {
+            const current =
+                this.open && video === this._images[this.currentIndex];
+            video.controls = current;
+            if (!current) {
+                video.pause?.();
+            } else if (video.paused !== false && !prefersReducedMotion()) {
+                // Autoplay can be refused; the controls are there anyway.
+                Promise.resolve(video.play?.()).catch(() => {});
             }
         });
     }
@@ -597,19 +630,41 @@ export class ProjectStory extends LitElement {
         if (!src) {
             return html`<span slot="aside" class="aside-icon">${image}</span>`;
         }
+        const videos = this._images.filter(isVideo).length;
+        const images = count - videos;
+        const label = [
+            images ? plural(images, "Bild", "Bildern") : "",
+            videos ? plural(videos, "Video", "Videos") : ""
+        ]
+            .filter(Boolean)
+            .join(" und ");
+        // A video's poster is its still; without one, show its first frame.
+        const still = isVideo(first)
+            ? first.poster
+                ? html`<img src=${first.poster} alt="" loading="lazy" />`
+                : html`<video
+                      src=${`${src}#t=0.1`}
+                      muted
+                      playsinline
+                      preload="metadata"
+                      aria-hidden="true"
+                  ></video>`
+            : html`<img src=${src} alt="" loading="lazy" decoding="async" />`;
         return html`<span slot="aside" class="thumb">
-            <img src=${src} alt="" loading="lazy" decoding="async" />
+            ${still}
             <span class="thumb-count" aria-hidden="true">${count}</span>
-            <span class="visually-hidden">Galerie mit ${count} Bildern</span>
+            <span class="visually-hidden">Galerie mit ${label}</span>
         </span>`;
     }
 
     render() {
         const count = this._images.length;
-        const caption = this._images[this.currentIndex]?.alt ?? "";
+        const current = this._images[this.currentIndex];
+        const caption = current ? captionOf(current) : "";
+        const kind = isVideo(current) ? "Video" : "Bild";
         const announcement =
             this.open && count
-                ? `Bild ${this.currentIndex + 1} von ${count}${caption ? `: ${caption}` : ""}`
+                ? `${kind} ${this.currentIndex + 1} von ${count}${caption ? `: ${caption}` : ""}`
                 : "";
 
         return html`<button

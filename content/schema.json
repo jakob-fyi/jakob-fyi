@@ -207,7 +207,7 @@
                         "properties": {
                             "src": {
                                 "type": "string",
-                                "description": "Path relative to src/, e.g. assets/stories/…"
+                                "description": "Path relative to the project root, e.g. assets/stories/…; a .mp4 file is shown as a muted, looping video."
                             },
                             "alt": {
                                 "type": "string"
@@ -221,6 +221,10 @@
                                 "type": "integer",
                                 "minimum": 1,
                                 "description": "Intrinsic height in px."
+                            },
+                            "poster": {
+                                "type": "string",
+                                "description": "Videos only: still image (path relative to the project root) shown before the video has loaded."
                             }
                         }
                     }

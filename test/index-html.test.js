@@ -22,6 +22,12 @@ const content = (name) =>
         readFileSync(resolve(process.cwd(), `content/${name}.json`), "utf8")
     );
 const recommendations = content("recommendations");
+const storyMedia = content("stories")
+    .sections.flatMap((section) =>
+        section.entries.filter((entry) => !entry.hidden)
+    )
+    .flatMap((story) => story.images);
+const videoCount = storyMedia.filter((m) => /\.mp4$/i.test(m.src)).length;
 const visibleEntries = (block) =>
     block.sections.flatMap((section) =>
         section.entries.filter((entry) => !entry.hidden)
@@ -124,14 +130,15 @@ describe("src/index.html content", () => {
             ]);
         });
 
-        it("gives every story image alt text, size and lazy async loading", () => {
+        it("gives every story image an alt attribute, size and lazy async loading", () => {
             const images = [
                 ...doc.querySelectorAll("fyi-jakob-project-story > img")
             ];
-            expect(images).toHaveLength(19);
+            expect(images).toHaveLength(storyMedia.length - videoCount);
             for (const img of images) {
                 const label = img.getAttribute("src");
-                expect(img.getAttribute("alt"), label).toBeTruthy();
+                // Empty alt is fine: the gallery then just shows no caption.
+                expect(img.getAttribute("alt"), label).not.toBeNull();
                 expect(
                     Number(img.getAttribute("width")),
                     label
@@ -142,6 +149,28 @@ describe("src/index.html content", () => {
                 ).toBeGreaterThan(0);
                 expect(img.getAttribute("loading"), label).toBe("lazy");
                 expect(img.getAttribute("decoding"), label).toBe("async");
+            }
+        });
+
+        it("gives every story video a label, size and no eager preload", () => {
+            const videos = [
+                ...doc.querySelectorAll("fyi-jakob-project-story > video")
+            ];
+            expect(videos).toHaveLength(videoCount);
+            for (const video of videos) {
+                const label = video.getAttribute("src");
+                expect(video.getAttribute("aria-label"), label).not.toBeNull();
+                expect(
+                    Number(video.getAttribute("width")),
+                    label
+                ).toBeGreaterThan(0);
+                expect(
+                    Number(video.getAttribute("height")),
+                    label
+                ).toBeGreaterThan(0);
+                expect(video.getAttribute("preload"), label).toBe("none");
+                expect(video.hasAttribute("muted"), label).toBe(true);
+                expect(video.hasAttribute("playsinline"), label).toBe(true);
             }
         });
     });

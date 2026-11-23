@@ -82,7 +82,7 @@ describe("render", () => {
             })
         );
         const img = story.querySelector("img");
-        expect(img.getAttribute("src")).toBe("assets/a.jpg");
+        expect(img.getAttribute("src")).toBe("../assets/a.jpg");
         expect(img.getAttribute("loading")).toBe("lazy");
 
         const event = parse(
@@ -115,6 +115,42 @@ describe("render", () => {
             img.getAttribute("height"),
             img.getAttribute("decoding")
         ]).toEqual(["1080", "1920", "async"]);
+    });
+
+    it("renders .mp4 sources as muted looping videos", () => {
+        const story = parse(
+            renderEntry({
+                type: "project-story",
+                id: "s",
+                title: "S",
+                images: [
+                    {
+                        src: "assets/a.mp4",
+                        alt: "Film",
+                        width: 480,
+                        height: 796,
+                        poster: "assets/a.jpg"
+                    }
+                ]
+            })
+        );
+        const video = story.querySelector("video");
+        expect(story.querySelector("img")).toBeNull();
+        expect(
+            Object.fromEntries(
+                [...video.attributes].map((a) => [a.name, a.value])
+            )
+        ).toEqual({
+            muted: "",
+            loop: "",
+            playsinline: "",
+            preload: "none",
+            width: "480",
+            height: "796",
+            poster: "../assets/a.jpg",
+            src: "../assets/a.mp4",
+            "aria-label": "Film"
+        });
     });
 
     it("renders nothing for a hidden block", () => {
@@ -258,7 +294,22 @@ describe("validate", () => {
                 { a: section([story]) },
                 { ...options, imageExists: () => false }
             )
-        ).toEqual(["a.json: image not found: src/assets/missing.jpg"]);
+        ).toEqual(["a.json: image not found: assets/missing.jpg"]);
+    });
+
+    it("checks that video posters exist", () => {
+        const story = {
+            type: "project-story",
+            id: "s",
+            title: "S",
+            images: [{ src: "assets/a.mp4", alt: "", poster: "assets/p.jpg" }]
+        };
+        expect(
+            validateContent(
+                { a: section([story]) },
+                { ...options, imageExists: (src) => src.endsWith(".mp4") }
+            )
+        ).toEqual(["a.json: image not found: assets/p.jpg"]);
     });
 
     it("requires content files and placeholders to match", () => {
@@ -301,7 +352,7 @@ describe("content/", () => {
                 placeholders: [...template.matchAll(PLACEHOLDER)].map(
                     (m) => m[2]
                 ),
-                imageExists: (src) => existsSync(resolve(root, "src", src))
+                imageExists: (src) => existsSync(resolve(root, src))
             })
         ).toEqual([]);
     });

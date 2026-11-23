@@ -525,4 +525,101 @@ describe("fyi-jakob-project-story", () => {
             expect(el.open).toBe(false);
         });
     });
+
+    describe("videos", () => {
+        const mixed = `
+            <fyi-jakob-project-story maintitle="Dias">
+                <img src="data:," alt="Bild" />
+                <video muted loop playsinline preload="none" src="a.mp4" aria-label="Film"></video>
+                <img src="data:," alt="" />
+            </fyi-jakob-project-story>`;
+
+        const mountMixed = async () => {
+            const el = await mount(mixed);
+            shadow(el, "slot").dispatchEvent(new Event("slotchange"));
+            const video = el.querySelector("video");
+            video.play = vi.fn(() => Promise.resolve());
+            video.pause = vi.fn();
+            return { el, video };
+        };
+
+        it("collects videos alongside images", async () => {
+            const { el, video } = await mountMixed();
+            expect(el.images).toHaveLength(3);
+            expect(el.images[1]).toBe(video);
+            expect(video.dataset.index).toBe("1");
+        });
+
+        it("uses aria-label as caption and announces a video", async () => {
+            const { el } = await mountMixed();
+            await openStory(el);
+            el.move(1);
+            await el.updateComplete;
+            expect(shadow(el, ".caption").textContent.trim()).toBe("Film");
+            expect(shadow(el, "[aria-live]").textContent.trim()).toBe(
+                "Video 2 von 3: Film"
+            );
+        });
+
+        it("plays only the current video and only while open", async () => {
+            const { el, video } = await mountMixed();
+            el.move(1);
+            expect(video.play).not.toHaveBeenCalled();
+
+            await openStory(el);
+            expect(video.play).toHaveBeenCalled();
+            expect(video.controls).toBe(true);
+
+            el.move(2);
+            expect(video.pause).toHaveBeenCalled();
+            expect(video.controls).toBe(false);
+
+            el.move(1);
+            video.pause.mockClear();
+            el.close();
+            expect(video.pause).toHaveBeenCalled();
+        });
+
+        it("does not autoplay with reduced motion", async () => {
+            vi.spyOn(window, "matchMedia").mockReturnValue({ matches: true });
+            const { el, video } = await mountMixed();
+            el.move(1, false);
+            await openStory(el);
+            expect(video.play).not.toHaveBeenCalled();
+            expect(video.controls).toBe(true);
+        });
+
+        it("preloads videos near the current item when open", async () => {
+            const { el, video } = await mountMixed();
+            expect(video.preload).toBe("none");
+            await openStory(el);
+            expect(video.preload).toBe("auto");
+        });
+
+        it("moves to a video when it is clicked", async () => {
+            const { el, video } = await mountMixed();
+            clickFrom(video, shadow(el, "#viewport"));
+            expect(el.currentIndex).toBe(1);
+        });
+
+        it("counts images and videos for screen readers", async () => {
+            const { el } = await mountMixed();
+            await el.updateComplete;
+            expect(shadow(el, ".thumb .visually-hidden").textContent).toContain(
+                "2 Bildern und 1 Video"
+            );
+        });
+
+        it("uses a video's first frame as thumbnail when it comes first", async () => {
+            const el = await mount(`
+                <fyi-jakob-project-story maintitle="Film">
+                    <video src="a.mp4" aria-label=""></video>
+                </fyi-jakob-project-story>`);
+            shadow(el, "slot").dispatchEvent(new Event("slotchange"));
+            await el.updateComplete;
+            expect(shadow(el, ".thumb video").getAttribute("src")).toMatch(
+                /a\.mp4#t=0\.1$/
+            );
+        });
+    });
 });
