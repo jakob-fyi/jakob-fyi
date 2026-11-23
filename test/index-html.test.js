@@ -224,8 +224,8 @@ describe("src/index.html rendered", () => {
         const archive = document.getElementById("archive");
         expect(archive.open).toBe(false);
         expect(shadow(archive, ".count").textContent.trim()).toBe("22");
-        expect(shadow(archive, ".teaser").textContent).toMatch(
-            /^Vorträge, Projekte und Texte von 2012 bis 2026 – zuletzt: /
+        expect(shadow(archive, ".teaser").textContent).toBe(
+            "Vorträge, Projekte und Texte von 2012 bis 2026"
         );
     });
 

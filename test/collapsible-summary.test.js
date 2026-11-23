@@ -3,7 +3,6 @@ import {
     buildTeaser,
     collectGroups,
     countEntries,
-    latestEntry,
     yearRange
 } from "../src/components/feature/collapsible-summary.js";
 import { sections } from "./helpers.js";
@@ -86,35 +85,6 @@ describe("countEntries", () => {
     });
 });
 
-describe("latestEntry", () => {
-    it("is null for no groups", () => {
-        expect(latestEntry([])).toBeNull();
-    });
-
-    it("falls back to the first entry when nothing has an `added` date", () => {
-        expect(
-            latestEntry([group("a", "First", "Second"), group("b", "Third")])
-                .title
-        ).toBe("First");
-    });
-
-    it("picks the entry with the latest `added` date across groups", () => {
-        const groups = [
-            group("Books", { title: "Old", added: "2026-01-01" }, "Undated"),
-            group("Movies", { title: "Newest", added: "2026-11-18" }),
-            group("Podcasts", { title: "Mid", added: "2026-05-15" })
-        ];
-        expect(latestEntry(groups).title).toBe("Newest");
-    });
-
-    it("prefers dated entries over undated ones even if undated comes first", () => {
-        const groups = [
-            group("a", "Undated", { title: "Dated", added: "2020-01-01" })
-        ];
-        expect(latestEntry(groups).title).toBe("Dated");
-    });
-});
-
 describe("yearRange", () => {
     it("is null for no groups", () => {
         expect(yearRange([])).toBeNull();
@@ -160,40 +130,34 @@ describe("buildTeaser", () => {
     });
 
     describe("years mode", () => {
-        it("shows the year range and the latest (first) entry", () => {
+        it("shows the year range", () => {
             const groups = [group("2026", "Newest"), group("2012", "Oldest")];
             expect(buildTeaser("years", groups, "Projekte")).toBe(
-                "Projekte von 2012 bis 2026 – zuletzt: Newest"
+                "Projekte von 2012 bis 2026"
             );
         });
 
         it("uses 'aus' for a single year", () => {
             expect(buildTeaser("years", [group("2024", "A")], "Projekte")).toBe(
-                "Projekte aus 2024 – zuletzt: A"
+                "Projekte aus 2024"
             );
         });
 
         it("defaults the label to 'Einträge'", () => {
             expect(buildTeaser("years", [group("2024", "A")])).toBe(
-                "Einträge aus 2024 – zuletzt: A"
+                "Einträge aus 2024"
             );
         });
 
         it("falls back to the bare label without year titles", () => {
             expect(
                 buildTeaser("years", [group("Carpentry", "Regal")], "Projekte")
-            ).toBe("Projekte – zuletzt: Regal");
-        });
-
-        it("omits 'zuletzt' when the latest entry has no title", () => {
-            expect(buildTeaser("years", [group("2024", "")], "Projekte")).toBe(
-                "Projekte aus 2024"
-            );
+            ).toBe("Projekte");
         });
     });
 
     describe("groups mode", () => {
-        it("lists the count per group and the most recently added entry", () => {
+        it("lists the count per group", () => {
             const groups = [
                 group(
                     "Books",
@@ -202,15 +166,7 @@ describe("buildTeaser", () => {
                 ),
                 group("Movies", { title: "Zone", added: "2026-11-18" })
             ];
-            expect(buildTeaser("groups", groups)).toBe(
-                "2 Books · 1 Movies – zuletzt: Zone"
-            );
-        });
-
-        it("uses the first entry when nothing is dated", () => {
-            expect(buildTeaser("groups", [group("Books", "A", "B")])).toBe(
-                "2 Books – zuletzt: A"
-            );
+            expect(buildTeaser("groups", groups)).toBe("2 Books · 1 Movies");
         });
     });
 });

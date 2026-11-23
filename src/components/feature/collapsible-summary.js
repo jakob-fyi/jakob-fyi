@@ -31,21 +31,6 @@ export const collectGroups = (sections) =>
 export const countEntries = (groups) =>
     groups.reduce((sum, group) => sum + group.entries.length, 0);
 
-/**
- * Most recently added entry: the one with the latest `added` date if any
- * entry carries one, otherwise the first entry (lists are newest-first).
- */
-export const latestEntry = (groups) => {
-    const entries = groups.flatMap((group) => group.entries);
-    const dated = entries.filter((entry) => entry.added);
-    if (dated.length > 0) {
-        return dated.reduce((latest, entry) =>
-            entry.added > latest.added ? entry : latest
-        );
-    }
-    return entries[0] ?? null;
-};
-
 /** Smallest and largest four-digit year among the group titles. */
 export const yearRange = (groups) => {
     const years = groups
@@ -54,11 +39,6 @@ export const yearRange = (groups) => {
         .map(Number);
     if (years.length === 0) return null;
     return { from: Math.min(...years), to: Math.max(...years) };
-};
-
-const withLatest = (text, groups) => {
-    const latest = latestEntry(groups);
-    return latest?.title ? `${text} – zuletzt: ${latest.title}` : text;
 };
 
 /**
@@ -73,14 +53,12 @@ export const buildTeaser = (mode, groups, label = "Einträge") => {
         const parts = groups.map(
             (group) => `${group.entries.length} ${group.title}`
         );
-        return withLatest(parts.join(" · "), groups);
+        return parts.join(" · ");
     }
 
     const range = yearRange(groups);
-    const text = range
-        ? range.from === range.to
-            ? `${label} aus ${range.from}`
-            : `${label} von ${range.from} bis ${range.to}`
-        : label;
-    return withLatest(text, groups);
+    if (!range) return label;
+    return range.from === range.to
+        ? `${label} aus ${range.from}`
+        : `${label} von ${range.from} bis ${range.to}`;
 };

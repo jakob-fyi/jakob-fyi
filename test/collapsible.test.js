@@ -48,7 +48,7 @@ describe("fyi-jakob-collapsible", () => {
         expect(count.textContent.trim()).toBe("3");
         expect(count.getAttribute("aria-label")).toBe("3 Einträge");
         expect(teaser.textContent).toBe(
-            "Projekte von 2012 bis 2026 – zuletzt: Newest"
+            "Projekte von 2012 bis 2026"
         );
         expect(el.count).toBe(3);
     });

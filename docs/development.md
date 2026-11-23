@@ -89,7 +89,7 @@ A recommendation is a `project-link` in the section of its medium
 }
 ```
 
-`added` (ISO date) decides which entry the teaser names as "zuletzt". A new
+`added` is the ISO date the entry was added. A new
 medium is just another `{ "title": "…", "entries": [] }` in `sections`.
 
 ### Merging a branch that still edits index.html by hand
