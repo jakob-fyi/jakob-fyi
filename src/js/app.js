@@ -1,15 +1,25 @@
 import Typed from "typed.js";
 
-window.toggleTheme = () => {
-    document.body.classList.toggle("dark");
+const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+export const setTheme = (dark) => {
+    document.body.classList.toggle("dark", dark);
 };
 
-if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    window.toggleTheme();
-}
+window.toggleTheme = () => {
+    setTheme(!document.body.classList.contains("dark"));
+};
+
+// Follow the system setting initially and when it changes. Nothing is stored.
+setTheme(darkQuery.matches);
+darkQuery.addEventListener("change", (event) => setTheme(event.matches));
 
 window.initApp = () => {
     document.body.classList.add("init");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+    }
 
     setTimeout(() => {
         new Typed("#greeting-typing", {
@@ -17,7 +27,7 @@ window.initApp = () => {
             typeSpeed: 30,
             onStringTyped: () =>
                 setTimeout(
-                    () => document.querySelector(".typed-cursor").remove(),
+                    () => document.querySelector(".typed-cursor")?.remove(),
                     2200
                 )
         });

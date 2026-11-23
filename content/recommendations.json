@@ -1,0 +1,50 @@
+{
+    "$schema": "./schema.json",
+    "type": "collapsible",
+    "hidden": true,
+    "id": "recommendations",
+    "heading": "Recommendations",
+    "summary": "groups",
+    "sections": [
+        {
+            "title": "Highlights",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Finding Van Gogh",
+                    "subtitle": "Städel Museum | Auf der Suche nach dem legendären „Bildnis des Dr. Gachet“",
+                    "tags": ["Art", "Podcast"],
+                    "link": "https://www.staedelmuseum.de/de/digital/finding-van-gogh",
+                    "target": "_blank",
+                    "added": "2026-11-14"
+                }
+            ]
+        },
+        {
+            "title": "Podcasts",
+            "entries": []
+        },
+        {
+            "title": "Books",
+            "entries": []
+        },
+        {
+            "title": "Theater",
+            "entries": []
+        },
+        {
+            "title": "Documentaries",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "The Vietnam War",
+                    "subtitle": "Rund 18-stündige Dokumentarserie von Ken Burns und Lynn Novick",
+                    "tags": ["History", "Long"],
+                    "link": "https://www.imdb.com/title/tt1877514/",
+                    "target": "_blank",
+                    "added": "2026-11-14"
+                }
+            ]
+        }
+    ]
+}

@@ -27,8 +27,7 @@
     --header-subjects-text-color: #333333;
     --header-toggle-text-color: #666666;
     --header-toggle-border-color: #dfdfdf;
-    --archive-background-color: #f2f2f2;
-    --archive-border-color: #dddddd;
+    --band-border-color: #e0e0e0;
     --footer-background-color: #efefef;
     --footer-headline-text-color: #000000;
     --footer-text-color: #555555;
@@ -37,23 +36,28 @@
     --footer-links-text-color-hover: #000000;
     --section-title-text-color: #000000;
     --section-title-border-color: #e4e4e4;
-    --item-background-color: #f8f8f8;
-    --item-background-color-hover: #fbfbfb;
-    --item-border-color: #e1e1e1;
-    --item-border-color-hover: #dadada;
+    --item-background-color: #ffffff;
+    --item-background-color-hover: #ffffff;
+    --item-border-color: #e6e6e6;
+    --item-border-color-hover: #d4d4d4;
     --item-title-text-color: #000000;
-    --item-subtitle-text-color: #777777;
+    --item-subtitle-text-color: #5f5f5f;
     --event-title-text-color: var(--item-title-text-color);
     --event-subtitle-text-color: var(--item-subtitle-text-color);
-    --event-date-and-place-text-color: #555555;
-    --tag-text-color: #aaaaaa;
-    --tag-border-color: #dddddd;
+    --event-date-and-place-text-color: #4a4a4a;
+    --tag-text-color: #808080;
+    --tag-border-color: #d6d6d6;
     --job-title-text-color: #000000;
-    --job-subtitle-text-color: #777777;
+    --job-subtitle-text-color: #5f5f5f;
+    --icon-color: #8f8f8f;
+    --btn-hover-round: rgba(0, 0, 0, 0.06);
+    --btn-hover-block: #ebebeb;
+    --focus-ring-color: #323277;
+    --collapsible-hover-overlay: rgba(255, 255, 255, 0.6);
     --job-date-color: #bbbbbb;
     --job-border-color: #eeeeee;
 
-    --item-border-radius: 2px;
+    --item-border-radius: 4px;
     --event-border-radius: var(--item-border-radius);
 
     body.dark {
@@ -64,8 +68,7 @@
         --header-subjects-text-color: #cccccc;
         --header-toggle-text-color: #999999;
         --header-toggle-border-color: #555555;
-        --archive-background-color: #303030;
-        --archive-border-color: #363636;
+        --band-border-color: #414141;
         --footer-background-color: #2e2e2e;
         --footer-headline-text-color: #ffffff;
         --footer-text-color: #cccccc;
@@ -76,17 +79,22 @@
         --section-title-border-color: #4f4f4f;
         --item-background-color: #3b3b3b;
         --item-background-color-hover: #3e3e3e;
-        --item-border-color: #484848;
+        --item-border-color: #4a4a4a;
         --item-border-color-hover: #5a5a5a;
         --item-title-text-color: #ffffff;
-        --item-subtitle-text-color: #808080;
+        --item-subtitle-text-color: #b3b3b3;
         --event-title-text-color: var(--item-title-text-color);
         --event-subtitle-text-color: var(--item-subtitle-text-color);
-        --event-date-and-place-text-color: #cccccc;
-        --tag-text-color: #bbbbbb;
+        --event-date-and-place-text-color: #d0d0d0;
+        --tag-text-color: #bdbdbd;
         --tag-border-color: #555;
         --job-title-text-color: #ffffff;
-        --job-subtitle-text-color: #808080;
+        --job-subtitle-text-color: #b3b3b3;
+        --icon-color: #9a9a9a;
+        --btn-hover-round: rgba(255, 255, 255, 0.08);
+        --btn-hover-block: #444444;
+        --focus-ring-color: #9a9ad6;
+        --collapsible-hover-overlay: rgba(255, 255, 255, 0.035);
         --job-date-color: #bbbbbb;
         --job-border-color: #484848;
     }

@@ -1,21 +1,31 @@
 import { css, html, LitElement } from "lit";
+import { relFor } from "./link-utils";
 
+/** Employer/organisation entry in the footer. Links if `link` is set. */
 export class Job extends LitElement {
     static styles = css`
         :host {
-            transition: all ease 300ms;
-            .wrapper {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5em;
-                width: 100%;
-                align-items: flex-start;
-            }
+            display: block;
         }
 
-        :host([link]:hover) {
-            cursor: pointer;
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            width: 100%;
+            align-items: flex-start;
+            color: inherit;
+            text-decoration: none;
+            transition: opacity ease 300ms;
+        }
+
+        a.wrapper:hover {
             opacity: 0.65;
+        }
+
+        a.wrapper:focus-visible {
+            outline: 2px solid var(--focus-ring-color);
+            outline-offset: 4px;
         }
     `;
 
@@ -32,19 +42,23 @@ export class Job extends LitElement {
         this.target = "_blank";
     }
 
-    openLink() {
-        if (this.link) {
-            window.open(this.link, this.target);
-        }
-    }
-
     render() {
-        return html`<div class="wrapper" @click="${this.openLink}">
-            <fyi-jakob-meta-item> ${this.tagline} </fyi-jakob-meta-item>
+        const content = html`<fyi-jakob-meta-item
+                >${this.tagline}</fyi-jakob-meta-item
+            >
             <fyi-jakob-titles
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
-            ></fyi-jakob-titles>
-        </div>`;
+            ></fyi-jakob-titles>`;
+
+        return this.link
+            ? html`<a
+                  class="wrapper"
+                  href=${this.link}
+                  target=${this.target}
+                  rel=${relFor(this.target)}
+                  >${content}</a
+              >`
+            : html`<div class="wrapper">${content}</div>`;
     }
 }

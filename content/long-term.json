@@ -1,0 +1,42 @@
+{
+    "$schema": "./schema.json",
+    "type": "section",
+    "id": "long-term",
+    "title": "Long Term",
+    "entries": [
+        {
+            "type": "project-link",
+            "id": "finder",
+            "title": "Finder",
+            "subtitle": "Standartisierte (ISAD(G), RiC) Archivverwaltungsplattform",
+            "tags": ["Web", "Archive", "Software", "Ortsarchiv"],
+            "time": "seit 2026",
+            "link": "https://github.com/jakob-fyi/oag-finder"
+        },
+        {
+            "type": "project-text",
+            "id": "atlas",
+            "title": "Lewinger Atlas",
+            "subtitle": "Umfangreiches Geoinformation- und Datenprojekt zu Gemeinlebarn",
+            "tags": ["History", "Web", "Geoinformation", "Software"],
+            "time": "seit 2024"
+        },
+        {
+            "type": "project-text",
+            "id": "ur-und-fruehgeschichte",
+            "title": "Ur- und Frühgeschichtliche Gesamtdarstellung",
+            "subtitle": "Übersicht über jegliche archäologische Tätigkeit in Gemeinlebarn von 1885 bis Heute",
+            "tags": ["History", "Web", "Archive", "Software"],
+            "time": "seit 2021"
+        },
+        {
+            "type": "project-link",
+            "title": "FFGBSY",
+            "subtitle": "Bestell- und Boniersystem der FF Gemeinlebarn - PWA und API",
+            "tags": ["PWA", "App", "Software", "Hardware"],
+            "time": "seit 2017",
+            "link": "https://www.appartig.at/work/ffgbsy-ff-gemeinlebarn-bestellsystem/",
+            "target": "_blank"
+        }
+    ]
+}

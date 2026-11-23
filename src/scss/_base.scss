@@ -15,12 +15,17 @@
 html,
 body {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    min-height: 100%;
     font-family: "Jost", "Cascadia Code", "Cascadia", sans-serif;
     font-size: 16px;
-    overflow: auto;
+}
+
+/* No overflow on html/body: the document must stay the scroll container,
+   otherwise position: sticky (section titles) stops working. */
+html {
+    scroll-padding-top: 16px;
+    /* Keeps the layout steady while a gallery locks page scrolling. */
+    scrollbar-gutter: stable;
 }
 
 body {

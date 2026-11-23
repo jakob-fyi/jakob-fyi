@@ -8,37 +8,18 @@
 @use "main";
 @use "footer";
 
+// Theme toggle: moon in light mode, sun in dark mode.
 body {
-    .icon-dark {
-        display: none;
-    }
-    .icon-light {
-        display: block;
-    }
-
-    .icon-grid {
-        display: block;
-    }
-
-    .icon-list {
+    .icon-sun {
         display: none;
     }
 
     &.dark {
-        .icon-dark {
-            display: block;
-        }
-        .icon-light {
-            display: none;
-        }
-    }
-
-    &.grid {
-        .icon-grid {
+        .icon-moon {
             display: none;
         }
 
-        .icon-list {
+        .icon-sun {
             display: block;
         }
     }

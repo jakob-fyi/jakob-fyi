@@ -1,3 +1,4 @@
+import { Collapsible } from "./feature/collapsible";
 import { Job } from "./feature/job";
 import { Link } from "./feature/link";
 import { ProjectEvent } from "./feature/project-event";
@@ -7,20 +8,32 @@ import { ProjectText } from "./feature/project-text";
 import { Section } from "./feature/section";
 import { Item } from "./ui/item";
 import { MetaItem } from "./ui/meta-item";
-import { MetaLine } from "./ui/meta-line";
 import { Titles } from "./ui/titles";
 
-// Dump/UI Components
-customElements.define("fyi-jakob-item", Item);
-customElements.define("fyi-jakob-meta-item", MetaItem);
-customElements.define("fyi-jakob-meta-line", MetaLine);
-customElements.define("fyi-jakob-titles", Titles);
-customElements.define("fyi-jakob-section", Section);
-customElements.define("fyi-jakob-job", Job);
-customElements.define("fyi-jakob-link", Link);
+export const components = {
+    // UI building blocks
+    "fyi-jakob-item": Item,
+    "fyi-jakob-meta-item": MetaItem,
+    "fyi-jakob-titles": Titles,
 
-// Feature Components
-customElements.define("fyi-jakob-project-link", ProjectLink);
-customElements.define("fyi-jakob-project-text", ProjectText);
-customElements.define("fyi-jakob-project-event", ProjectEvent);
-customElements.define("fyi-jakob-project-story", ProjectStory);
+    // Layout & feature components
+    "fyi-jakob-section": Section,
+    "fyi-jakob-collapsible": Collapsible,
+    "fyi-jakob-job": Job,
+    "fyi-jakob-link": Link,
+    "fyi-jakob-project-link": ProjectLink,
+    "fyi-jakob-project-text": ProjectText,
+    "fyi-jakob-project-event": ProjectEvent,
+    "fyi-jakob-project-story": ProjectStory
+};
+
+/** Idempotent, so tests and hot reloading can call it repeatedly. */
+export const defineComponents = () => {
+    for (const [name, element] of Object.entries(components)) {
+        if (!customElements.get(name)) {
+            customElements.define(name, element);
+        }
+    }
+};
+
+defineComponents();

@@ -1,0 +1,292 @@
+{
+    "$schema": "./schema.json",
+    "type": "collapsible",
+    "id": "archive",
+    "heading": "Archive",
+    "summary": "years",
+    "summaryLabel": "Vorträge, Projekte und Texte",
+    "sections": [
+        {
+            "title": "2026",
+            "entries": [
+                {
+                    "type": "project-event",
+                    "title": "About the oblivion and rediscovery of the local camp complex ‘Überland’ in Lower Austria",
+                    "subtitle": "Unveiling a ‘contaminated landscape’ - new sources about final phase crimes in the Austrian Danube region",
+                    "tags": ["Event", "History", "Lecture"],
+                    "place": "Birkbeck, University of London",
+                    "date": "Wednesday 7 January 2026",
+                    "time": "13:00 Uhr",
+                    "body": [
+                        "<p><strong>Lecture as part of the panel <q>Unveiling a ‘contaminated landscape’ - new sources about final phase crimes in the Austrian Danube region</q></strong></p>",
+                        "<p><strong>Beyond Camps and Forced Labour</strong><br>Eighth International Multidisciplinary Conference <br>Current International Research on Survivors of Nazi Persecution</p>",
+                        "<p>Wednesday 7 January - Friday 9 January 2026</p>",
+                        "<p><a href=\"https://wienerholocaustlibrary.org/what-we-do/research/beyond-camps/\" target=\"_blank\" rel=\"noopener noreferrer\">Official Website</a></p>",
+                        "<p><em>Hosted by</em><br>Birkbeck, University of London, Torrington Square, London, WC1E 7JL <br>The Wiener Holocaust Library, 29 Russell Square, London, WC1B 5DP</p>"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "2025",
+            "entries": [
+                {
+                    "type": "project-event",
+                    "title": "Überland – Ein Zwangsarbeitslager zwischen Gemeinlebarn und Reidling 1944/45",
+                    "subtitle": "Errichtung, Vergessen und Wiederentdeckung des lokalen Lagerkomplexes von 1944 bis heute",
+                    "tags": ["Event", "History", "Lecture"],
+                    "place": "Bücherei Sitzenberg-Reidling",
+                    "date": "Freitag, 21. November 2025",
+                    "time": "18:30 Uhr",
+                    "body": [
+                        "<p>In den Jahren 1944/45 bestand entlang der Bahnstraße zwischen Gemeinlebarn und Reidling ein bisher wenig bekanntes Lager ungarisch-jüdischer Zwangsarbeiter:innen. In seinem Vortrag stellt Jakob Vesely die Erkenntnisse der mehrjährigen Forschung einer breiten Öffentlichkeit vor.</p>",
+                        "<p><strong>Veranstaltungsort:</strong> Bücherei Sitzenberg-Reidling, Leopold Figl-Platz 3, 3454 Sitzenberg-Reidling</p>"
+                    ]
+                },
+                {
+                    "type": "project-event",
+                    "title": "60 Jahre neue Volksschule in Gemeinlebarn",
+                    "subtitle": "Ein Rückblick auf den Neubau 1964/65 und seine Wirkung bis heute mit multimedialen Inhalten aus dem Ortsarchiv Gemeinlebarn",
+                    "tags": ["Event", "History", "Exhibition"],
+                    "place": "Volksschule Gemeinlebarn",
+                    "date": "Freitag & Samstag, 17. & 18. Oktober 2025",
+                    "time": "Fr: 15 bis 21 Uhr, Sa: 10 bis 18 Uhr"
+                },
+                {
+                    "type": "project-event",
+                    "title": "Überland – Ein Zwangsarbeitslager zwischen Gemeinlebarn und Reidling 1944/45",
+                    "subtitle": "Errichtung, Vergessen und Wiederentdeckung des lokalen Lagerkomplexes von 1944 bis heute",
+                    "tags": ["Event", "History", "Lecture"],
+                    "place": "Feuerwehrhaus Gemeinlebarn",
+                    "date": "Samstag, 22. Februar 2025",
+                    "time": "18:00 Uhr",
+                    "body": [
+                        "<p>In den Jahren 1944/45 bestand entlang der Bahnstraße zwischen Gemeinlebarn und Reidling ein bisher wenig bekanntes Lager ungarisch-jüdischer Zwangsarbeiter:innen. In seinem Vortrag stellt Jakob Vesely die Erkenntnisse der mehrjährigen Forschung das erste Mal einer breiten Öffentlichkeit vor.</p>",
+                        "<p>Neben der Vortragsveranstaltung besteht ab 23.02.2025 auch online die Möglichkeit, sich grundlegend zu informieren und an der Lösung noch offener Fragen mitzuwirken: <a href=\"https://ueberland.ortsarchiv-gemeinlebarn.org\" target=\"_blank\" rel=\"noopener noreferrer\">ueberland.ortsarchiv-gemeinlebarn.org</a></p>",
+                        "<p><strong>Veranstaltungsort:</strong> Feuerwehrhaus Gemeinlebarn, Ortsstraße 10, 3133 Gemeinlebarn</p>"
+                    ]
+                },
+                {
+                    "type": "project-event",
+                    "title": "Historische Forschung mit Luftbildern & Geoinformation",
+                    "subtitle": "Beispielprojekte zu Gemeinlebarn & Reidling",
+                    "tags": ["Event", "History", "Lecture"],
+                    "place": "Pfarrhof in Reidling",
+                    "date": "Dienstag, 21. Jänner 2025",
+                    "time": "19:30 Uhr",
+                    "body": [
+                        "<h3>Was zeigen die verschiedenen Darstellungsformen über die Geschichte von Sitzenberg-Reidling?</h3>",
+                        "<p><em>Referenten:</em> Heinrich Andre, Jakob Vesely, Josef Resch</p>",
+                        "<p>Topothek, Luftbilder und Geoinformation, Chronik, Heimatbuch, Biografie, Zeitzeugen, Erzähl-Cafe, Volkskultur, Landschaft, Museum, ...</p>"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "2024",
+            "entries": [
+                {
+                    "type": "project-event",
+                    "title": "„Überland“ – Ein wiederentdecktes Zwangsarbeitslager zwischen Gemeinlebarn und Reidling",
+                    "subtitle": "Kurzvortrag im Rahmen der Tagung „Mitten im Ort – Lager im Nationalsozialismus“",
+                    "tags": ["Event", "History", "Lecture"],
+                    "place": "Donau Universität Krems",
+                    "date": "Dienstag, 5. November 2024",
+                    "time": "16:45 Uhr",
+                    "body": [
+                        "<h4>Abschlusstagung des Projekts „NS-‚Volksgemeinschaft‘ und Lager im Zentralraum Niederösterreich. Geschichte – Transformation – Erinnerung“ </h4>",
+                        "<p>Eine Kooperationsveranstaltung des Instituts für jüdische Geschichte Österreichs und des Fachbereichs Digital Memory Studies, Department für Kunst- und Kulturwissenschaften der Universität für Weiterbildung Krems</p>",
+                        "<p>Diese öffentliche, bei freiem Eintritt zugängliche Tagung schließt das dreijährige, von der niederösterreichischen Landesregierung/Abteilung Wissenschaft und Forschung finanzierte Projekt „NS-‚Volksgemeinschaft‘ und Lager. Geschichte – Transformation – Erinnerung“ ab. Sie präsentiert die Ergebnisse des historischen Teams sowie der beteiligten Citizen Scientists und stellt sie in einen breiten Kontext der europäischen Forschung und Erinnerungskultur. Die Vorstellung einer Citizen Science-Publikation sowie eine Foto-Ausstellung von während des Projekts erfassten Lagerspuren runden die wissenschaftlichen Beiträge ab.</p>",
+                        "<br>",
+                        "<h4>Links:</h4>",
+                        "<ul><li><a href=\"https://www.xn--ns-lager-niedersterreich-zoc.at/_files/ugd/6d41ab_d8b7cd5e2b6a4f5db7615fd3d0e6544a.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Programm (PDF)</a></li> <li><a href=\"https://www.xn--ns-lager-niedersterreich-zoc.at\" target=\"_blank\" rel=\"noopener noreferrer\">Projekt Website</a></li> <li><a href=\"http://www.injoest.ac.at\" target=\"_blank\" rel=\"noopener noreferrer\">Website des INJÖST</a></li></ul>"
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "2023",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "id": "ddfiy",
+                    "title": "DDFIY",
+                    "subtitle": "PWA zur Auswahl einer zufälligen Folge der drei ???",
+                    "tags": ["PWA", "App", "Software"],
+                    "time": "2023",
+                    "link": "https://ddfiy.jakob.fyi",
+                    "target": "_blank"
+                },
+                {
+                    "type": "project-text",
+                    "title": "Die ambivalente Funktion des Todes",
+                    "subtitle": "Der Versuch den Todesbegriff in der Philosophie von Albert Camus zu verorten",
+                    "tags": ["Philosophy", "Paper"],
+                    "time": "2023"
+                },
+                {
+                    "type": "project-link",
+                    "id": "fasching",
+                    "title": "Fasching in Lewing",
+                    "subtitle": "Ein bildlicher Rückblick auf den Fasching in Gemeinlebarn 1982 bis 2018",
+                    "tags": ["History", "Web", "Software"],
+                    "time": "2023",
+                    "link": "https://fasching.ortsarchiv-gemeinlebarn.org",
+                    "target": "_blank"
+                },
+                {
+                    "type": "project-link",
+                    "id": "isdiah",
+                    "title": "ISDIAH Beschreibung",
+                    "subtitle": "Eine umfassende und standardisierte Beschreibung des Ortsarchiv Gemeinlebarn nach ISDIAH",
+                    "tags": ["Archive", "Science"],
+                    "time": "2022 bis 2023",
+                    "link": "https://www.ortsarchiv-gemeinlebarn.org",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2022",
+            "entries": [
+                {
+                    "type": "project-text",
+                    "title": "Wovon wir reden, wenn wir von Ich und Wir reden",
+                    "subtitle": "Über die Diskrepanz zwischen Autonomie und Verschmelzung im Eros",
+                    "tags": ["Philosophy", "Paper"],
+                    "time": "2022"
+                }
+            ]
+        },
+        {
+            "title": "2021",
+            "entries": [
+                {
+                    "type": "project-text",
+                    "id": "findbuch",
+                    "title": "Findbuch & API",
+                    "subtitle": "Verwaltungsplattform und Schnittstelle für das Gemeinlebarner Ortsarchiv",
+                    "tags": ["Web", "Archive", "Software", "S3"],
+                    "time": "2018 bis 2021"
+                },
+                {
+                    "type": "project-link",
+                    "title": "FFGFÜA",
+                    "subtitle": "Füllapplikation für die ALFST Gemeinlebarn",
+                    "tags": ["PWA", "App", "Software", "Feuerwehr"],
+                    "time": "2021",
+                    "link": "https://ffgfuea.appartig.at",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2020",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Dia Scanner",
+                    "subtitle": "Automatisierte Digitalisierung von Dias und Verarbeitung",
+                    "tags": ["Software", "Hardware"],
+                    "time": "2020",
+                    "link": "https://github.com/jakob-fyi/reversal-film-scanner-rework-processing#reversal-film-scanner-rework-processing",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2019",
+            "entries": [
+                {
+                    "type": "project-text",
+                    "title": "In dubio pro malo",
+                    "subtitle": "Die Probleme von Freiheit und Verantwortung im Kontext vollautomatisierter Fahrzeuge",
+                    "tags": ["Philosophy", "Paper"],
+                    "time": "2019"
+                },
+                {
+                    "type": "project-text",
+                    "title": "Das Absurde und der Tod",
+                    "subtitle": "Die Akzeptanz des Todes als gemeinsames Fundament für das Absurde und den Tod",
+                    "tags": ["Philosophy", "Paper"],
+                    "time": "2019"
+                }
+            ]
+        },
+        {
+            "title": "2018",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Relaunch Ö-News",
+                    "subtitle": "Website-Relaunch und Migration des regionalen Onlinemagazins",
+                    "tags": ["Software", "Website", "AppArtig"],
+                    "time": "2018",
+                    "link": "https://www.oe-news.at",
+                    "target": "_blank"
+                },
+                {
+                    "type": "project-text",
+                    "title": "Die Notwendigkeit des Strebens im supererogatorischen Raum",
+                    "subtitle": "Eine Kritik an Susan Wolfs Theorie eines nicht erstrebenswerten ‚moral saint‘",
+                    "tags": ["Philosophy", "Paper"],
+                    "time": "2018"
+                }
+            ]
+        },
+        {
+            "title": "2017",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Relaunch Weingut Dam",
+                    "subtitle": "Re-Design für das Weingut Dam aus Hilpersdorf",
+                    "tags": ["Software", "Design", "Website", "AppArtig"],
+                    "time": "2017",
+                    "link": "https://www.appartig.at/work/weingut-dam-neue-website",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2016",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Relaunch Fahrvergnügen",
+                    "subtitle": "Website-Relaunch für das regionale Car-Sharing",
+                    "tags": ["Software", "Design", "Website", "AppArtig"],
+                    "time": "2016",
+                    "link": "https://www.appartig.at/work/fahrvergnuegen-redesign",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2015",
+            "entries": [
+                {
+                    "type": "project-link",
+                    "title": "Gault & Millau Gourmet Guide",
+                    "subtitle": "Offizielle Gourmet Guide App für Österreich und Südtirol in Zusammenarbeit mit Ploner Communications",
+                    "tags": ["Software", "Design", "App", "Android", "iOS", "AppArtig"],
+                    "time": "2015",
+                    "link": "https://www.appartig.at/work/gault-millau-gourmet-guide/",
+                    "target": "_blank"
+                }
+            ]
+        },
+        {
+            "title": "2012",
+            "entries": [
+                {
+                    "type": "project-text",
+                    "title": "Feuerwehr Wettkampf App",
+                    "subtitle": "Android-App für das Training von Feuerwehr Wettkampfgruppen",
+                    "tags": ["Software", "Design", "App", "Android"],
+                    "time": "2012"
+                }
+            ]
+        }
+    ]
+}

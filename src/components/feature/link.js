@@ -1,9 +1,17 @@
 import { css, html, LitElement } from "lit";
+import { externalLink } from "../shared/icons";
+import { asideIconStyles } from "../shared/styles";
+import { relFor } from "./link-utils";
 
+/** Link row in the footer ("Mail & Links"). */
 export class Link extends LitElement {
-    static styles = css`
-        :host {
-            transition: all ease 300ms;
+    static styles = [
+        asideIconStyles,
+        css`
+            :host {
+                display: block;
+            }
+
             .wrapper {
                 display: flex;
                 flex-direction: row;
@@ -11,18 +19,21 @@ export class Link extends LitElement {
                 width: 100%;
                 align-items: center;
                 justify-content: space-between;
-
-                path {
-                    stroke: #aaa;
-                }
+                color: inherit;
+                text-decoration: none;
+                transition: opacity ease 300ms;
             }
-        }
 
-        :host([link]:hover) {
-            cursor: pointer;
-            opacity: 0.65;
-        }
-    `;
+            .wrapper:hover {
+                opacity: 0.65;
+            }
+
+            .wrapper:focus-visible {
+                outline: 2px solid var(--focus-ring-color);
+                outline-offset: 4px;
+            }
+        `
+    ];
 
     static properties = {
         mainTitle: { type: String },
@@ -36,32 +47,21 @@ export class Link extends LitElement {
         this.target = "_blank";
     }
 
-    openLink() {
-        if (this.link) {
-            window.open(this.link, this.target);
-        }
-    }
-
     render() {
-        return html`<div class="wrapper" @click="${this.openLink}">
+        // mailto: and similar links must not open an empty tab.
+        const target = /^https?:/.test(this.link ?? "") ? this.target : "_self";
+
+        return html`<a
+            class="wrapper"
+            href=${this.link}
+            target=${target}
+            rel=${relFor(target)}
+        >
             <fyi-jakob-titles
                 .mainTitle=${this.mainTitle}
                 .subTitle=${this.subTitle}
             ></fyi-jakob-titles>
-            <svg
-                fill="none"
-                height="24"
-                width="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                />
-            </svg>
-        </div>`;
+            <span class="aside-icon">${externalLink}</span>
+        </a>`;
     }
 }
