@@ -1,22 +1,41 @@
 import { css, html, LitElement, nothing } from "lit";
-import {
-    chevronLeft,
-    chevronRight,
-    close,
-    contract,
-    expand,
-    image
-} from "../shared/icons";
+import { chevronLeft, chevronRight, close, image } from "../shared/icons";
 import { asideIconStyles, buttonStyles } from "../shared/styles";
 import { jsonArray, renderTags } from "../ui/tags";
 
 const GAP = 20;
-const SWIPE_THRESHOLD = 40;
+/** Height reserved below the images for the bottom bar. */
+const BAR_SPACE = 76;
+/** Images before/after the current one that are loaded eagerly. */
+const PRELOAD_BEHIND = 1;
+const PRELOAD_AHEAD = 2;
+/** Safety net: forget a programmatic scroll target after this long. */
+const PENDING_TIMEOUT = 1000;
+
+const prefersReducedMotion = () =>
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
+const safeDecode = (value) => {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+};
 
 /**
  * Card that opens a fullscreen image gallery of its slotted <img> elements.
- * Navigation: buttons, arrow keys, swipe, click on a neighbouring image.
- * Escape closes the gallery.
+ *
+ * - Native modal <dialog>: focus trap, inert page, top layer.
+ * - Native horizontal scrolling with scroll snap: swipe, trackpad and
+ *   momentum come for free; buttons, arrow keys, Home/End and clicks on a
+ *   neighbouring image scroll programmatically.
+ * - With an `id`, the gallery is linkable (`#id`) and the browser's back
+ *   button / gesture closes it.
+ * - The `alt` text of each image is shown as its caption.
+ *
+ * Give every <img> `width`/`height` attributes so the strip can be laid out
+ * before the images have loaded.
  */
 export class ProjectStory extends LitElement {
     static styles = [
@@ -26,6 +45,20 @@ export class ProjectStory extends LitElement {
             :host {
                 display: block;
             }
+
+            .visually-hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                overflow: hidden;
+                clip: rect(0 0 0 0);
+                white-space: nowrap;
+                border: 0;
+            }
+
+            /* Card */
 
             .card {
                 all: unset;
@@ -46,133 +79,212 @@ export class ProjectStory extends LitElement {
                 border-color: var(--item-border-color-hover);
             }
 
-            .fullscreen {
-                position: fixed;
-                inset: 0;
-                display: none;
-                z-index: 9999;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: var(--page-background-color);
-                color: var(--base-text-color);
+            .thumb {
+                position: relative;
+                flex-shrink: 0;
+                width: 42px;
+                height: 56px;
                 box-sizing: border-box;
+                border: 1px solid var(--item-border-color);
+                border-radius: 6px;
+                overflow: hidden;
+                background-color: var(--item-border-color);
             }
 
-            .fullscreen.opened {
-                display: flex;
-            }
-
-            .container {
-                opacity: 0;
+            .thumb img {
+                display: block;
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
+            }
+
+            .thumb-count {
+                position: absolute;
+                right: 3px;
+                bottom: 3px;
+                min-width: 1.4em;
+                padding: 2px 4px;
                 box-sizing: border-box;
-                display: flex;
+                border-radius: 999px;
+                background-color: rgba(0, 0, 0, 0.65);
+                color: #ffffff;
+                font-size: 11px;
+                line-height: 1.2;
+                text-align: center;
+                font-variant-numeric: tabular-nums;
+            }
+
+            /* Dialog */
+
+            dialog {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                max-height: none;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                box-sizing: border-box;
                 overflow: hidden;
-                flex: 1;
-                padding: 20px 0;
-                transition: opacity ease 300ms;
-                touch-action: pan-y;
+                overscroll-behavior: contain;
+                background-color: var(--page-background-color);
+                color: var(--base-text-color);
             }
 
-            .fullscreen.ready .container {
-                opacity: 1;
+            dialog[open] {
+                display: flex;
+                flex-direction: column;
+                animation: fade-in 200ms ease;
             }
 
-            .images {
+            dialog::backdrop {
+                background-color: var(--page-background-color);
+            }
+
+            @keyframes fade-in {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .viewport {
+                flex: 1 1 auto;
+                min-height: 0;
+                display: flex;
+                align-items: center;
+                gap: ${GAP}px;
+                /* Bottom: room for the bar, so it doesn't cover the image. */
+                padding: 20px 0
+                    calc(${BAR_SPACE}px + env(safe-area-inset-bottom));
+                box-sizing: border-box;
+                overflow-x: auto;
+                overflow-y: hidden;
+                overscroll-behavior: contain;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+            }
+
+            .viewport::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Room to centre the first and last image. */
+            .viewport::before,
+            .viewport::after {
+                content: "";
+                flex: 0 0 50%;
+            }
+
+            .viewport ::slotted(img) {
+                flex: 0 0 auto;
                 height: 100%;
                 width: auto;
-                display: flex;
-                flex-direction: row;
-                gap: ${GAP}px;
-                flex: 0 0 200px;
-            }
-
-            .images ::slotted(img) {
-                height: 100%;
+                max-width: calc(100% - 48px);
+                object-fit: contain;
                 border-radius: 10px;
-                overflow: hidden;
+                scroll-snap-align: center;
+                scroll-snap-stop: always;
                 opacity: 0.35;
                 transform: scale(0.9);
-                transition: all ease 300ms;
-            }
-
-            .images ::slotted(img:hover) {
-                opacity: 0.5;
-                transform: scale(0.95);
+                transition:
+                    opacity ease 300ms,
+                    transform ease 300ms;
                 cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
             }
 
-            .images ::slotted(img.active) {
+            .viewport ::slotted(img.active) {
                 opacity: 1;
                 transform: scale(1);
                 cursor: default;
             }
 
-            footer {
-                width: 100%;
-                bottom: 0;
-                transition: all ease 200ms;
+            @media (hover: hover) {
+                .viewport ::slotted(img:not(.active):hover) {
+                    opacity: 0.5;
+                    transform: scale(0.95);
+                }
             }
 
-            .mode-inline footer {
-                position: fixed;
-                background: linear-gradient(
-                    0deg,
-                    var(--page-background-color) 0%,
-                    var(--page-background-color) 20px,
-                    transparent 100%
-                );
+            /* Bottom bar: caption + counter left, navigation right. */
+            .bar {
+                position: absolute;
+                left: max(16px, env(safe-area-inset-left));
+                right: max(16px, env(safe-area-inset-right));
+                bottom: max(16px, env(safe-area-inset-bottom));
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                pointer-events: none; /* swipes pass through the gaps */
             }
 
-            .mode-container footer {
-                position: relative;
-            }
-
+            .info,
             .buttons {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 24px;
-                padding: 20px;
+                background-color: var(--page-background-color);
+                box-shadow: 0 0 0 1px var(--item-border-color);
+                border-radius: 999px;
+                opacity: 0.85;
+                transition: opacity ease 200ms;
             }
 
-            .titles {
-                padding: 0 20px 20px;
+            .info {
+                min-width: 0;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
+                align-items: baseline;
                 gap: 8px;
+                padding: 6px 14px;
+                font-size: 0.85em;
             }
 
-            .titles h2 {
-                font-size: 1em;
-                font-weight: 500;
-                text-align: center;
-                margin: 0;
-            }
-
-            .titles h3 {
-                font-size: 0.9em;
-                font-weight: normal;
-                text-align: center;
-                margin: 0 0 10px;
-                color: var(--item-subtitle-text-color);
+            .caption {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .counter {
-                font-size: 0.8em;
+                flex-shrink: 0;
                 color: var(--item-subtitle-text-color);
                 font-variant-numeric: tabular-nums;
             }
 
-            .tags {
+            .buttons {
+                flex-shrink: 0;
+                margin-left: auto;
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                align-items: center;
+                pointer-events: auto;
+            }
+
+            .buttons:hover,
+            .buttons:focus-within {
+                opacity: 1;
+            }
+
+            /* Phones in landscape: every pixel of height goes to the image. */
+            @media (orientation: landscape) and (max-height: 500px) {
+                .viewport {
+                    padding: 12px 0;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                dialog[open] {
+                    animation: none;
+                }
+
+                .viewport ::slotted(img),
+                .info,
+                .buttons {
+                    transition: none;
+                }
             }
         `
     ];
@@ -184,32 +296,61 @@ export class ProjectStory extends LitElement {
         time: { type: String },
 
         open: { type: Boolean, reflect: true },
-        ready: { state: true },
-        inlineMode: { state: true },
         currentIndex: { state: true }
     };
 
     constructor() {
         super();
         this.open = false;
-        this.ready = false;
-        this.inlineMode = false;
         this.currentIndex = 0;
         this._images = [];
-        this._touchStart = null;
-        this._returnFocusTo = null;
+        this._pushedHistory = false;
+        this._pendingIndex = null;
+        this._pendingTimer = null;
+        this._scrollFrame = null;
+        this._previousOverflow = "";
+        this._resizeObserver =
+            typeof ResizeObserver === "function"
+                ? new ResizeObserver(() => this._recenter())
+                : null;
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener("hashchange", this._onLocationChange);
+        window.addEventListener("popstate", this._onLocationChange);
+        this.updateComplete.then(() => {
+            if (this.isConnected && this._viewport) {
+                this._resizeObserver?.observe(this._viewport);
+            }
+        });
+        this._onLocationChange();
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
-        this._detachGlobalListeners();
+        window.removeEventListener("hashchange", this._onLocationChange);
+        window.removeEventListener("popstate", this._onLocationChange);
+        this._resizeObserver?.disconnect();
         if (this.open) {
-            document.documentElement.style.overflow = "";
+            this._teardown();
         }
     }
 
     get images() {
         return this._images;
+    }
+
+    get _dialog() {
+        return this.shadowRoot?.querySelector("dialog") ?? null;
+    }
+
+    get _viewport() {
+        return this.shadowRoot?.getElementById("viewport") ?? null;
+    }
+
+    get _maxIndex() {
+        return Math.max(this._images.length - 1, 0);
     }
 
     _onSlotChange(event) {
@@ -219,10 +360,13 @@ export class ProjectStory extends LitElement {
         this._images.forEach((img, index) => {
             img.dataset.index = String(index);
             img.draggable = false;
+            img.addEventListener("load", this._onImageLoad);
         });
         this.move(Math.min(this.currentIndex, this._maxIndex), false);
-        this.requestUpdate(); // counter and button states depend on _images
+        this.requestUpdate(); // counter, thumbnail and buttons depend on _images
     }
+
+    _onImageLoad = () => this._recenter();
 
     _onImageClick(event) {
         const img = event
@@ -233,33 +377,89 @@ export class ProjectStory extends LitElement {
         }
     }
 
-    get _maxIndex() {
-        return Math.max(this._images.length - 1, 0);
-    }
+    /* Open / close */
 
-    openGallery() {
-        this._returnFocusTo = this.shadowRoot.activeElement ?? this;
+    openGallery({ fromHistory = false } = {}) {
+        if (this.open) return;
         this.open = true;
-        this._attachGlobalListeners();
+
+        this._previousOverflow = document.documentElement.style.overflow;
         document.documentElement.style.overflow = "hidden";
+        window.addEventListener("keydown", this._onKeyDown);
 
-        // Wait for the overlay to be laid out before measuring.
-        this.updateComplete.then(() => {
-            requestAnimationFrame(() => {
-                this.ready = true;
-                this.move(this.currentIndex, false);
-                this.shadowRoot.querySelector(".close")?.focus();
-            });
-        });
+        const dialog = this._dialog;
+        if (dialog && !dialog.open) {
+            if (typeof dialog.showModal === "function") dialog.showModal();
+            else dialog.setAttribute("open", "");
+        }
+        this.shadowRoot?.querySelector(".close")?.focus();
+        this.move(this.currentIndex, false);
+
+        if (!fromHistory && this.id && !this._isTargeted()) {
+            history.pushState({ story: this.id }, "", `#${this.id}`);
+            this._pushedHistory = true;
+        }
     }
 
-    close() {
+    close({ fromHistory = false } = {}) {
+        if (!this.open) return;
+        this._teardown();
+        this.shadowRoot?.querySelector(".card")?.focus({ preventScroll: true });
+
+        if (!fromHistory) {
+            if (this._pushedHistory) {
+                history.back();
+            } else if (this._isTargeted()) {
+                // Opened via deep link: drop the hash without leaving the page.
+                history.replaceState(
+                    history.state,
+                    "",
+                    location.pathname + location.search
+                );
+            }
+        }
+        this._pushedHistory = false;
+    }
+
+    _teardown() {
         this.open = false;
-        this.ready = false;
-        this._detachGlobalListeners();
-        document.documentElement.style.overflow = "";
-        this._returnFocusTo?.focus?.();
+        window.removeEventListener("keydown", this._onKeyDown);
+        document.documentElement.style.overflow = this._previousOverflow;
+        this._clearPending();
+        const dialog = this._dialog;
+        if (dialog?.open) {
+            if (typeof dialog.close === "function") dialog.close();
+            else dialog.removeAttribute("open");
+        }
     }
+
+    /** Native close (e.g. Escape via the dialog's cancel) keeps state in sync. */
+    _onDialogClose() {
+        this.close();
+    }
+
+    _isTargeted() {
+        return (
+            Boolean(this.id) &&
+            safeDecode(location.hash.replace(/^#/, "")) === this.id
+        );
+    }
+
+    _onLocationChange = async () => {
+        if (this._isTargeted() && !this.open) {
+            // A collapsed parent area is inert; let it open first.
+            await this.closest("fyi-jakob-collapsible")?.updateComplete;
+            await this.updateComplete;
+            if (this.isConnected && this._isTargeted() && !this.open) {
+                this.openGallery({ fromHistory: true });
+            }
+        } else if (!this._isTargeted() && this.open) {
+            this._pushedHistory = false;
+            this.close({ fromHistory: true });
+        }
+    };
+
+    /* Navigation */
 
     forward() {
         this.move(this.currentIndex + 1);
@@ -269,43 +469,115 @@ export class ProjectStory extends LitElement {
         this.move(this.currentIndex - 1);
     }
 
-    toggleMode() {
-        this.inlineMode = !this.inlineMode;
-        this.updateComplete.then(() => this.move(this.currentIndex, false));
-    }
-
     /** Show image `index` centred in the viewport. Out-of-range is ignored. */
-    move(index, transition = true) {
+    move(index, smooth = true) {
         index = Number(index);
         if (!Number.isInteger(index) || index < 0 || index > this._maxIndex) {
             return;
         }
+        this._setCurrent(index);
+        this._scrollTo(index, smooth);
+    }
+
+    _setCurrent(index) {
         this.currentIndex = index;
+        this._images.forEach((img, i) => {
+            const active = i === index;
+            img.classList.toggle("active", active);
+            if (active) img.removeAttribute("aria-hidden");
+            else img.setAttribute("aria-hidden", "true");
+            if (
+                this.open &&
+                i >= index - PRELOAD_BEHIND &&
+                i <= index + PRELOAD_AHEAD
+            ) {
+                img.loading = "eager";
+            }
+        });
+    }
 
-        this._images.forEach((img, i) =>
-            img.classList.toggle("active", i === index)
-        );
+    _scrollTo(index, smooth) {
+        const viewport = this._viewport;
+        const img = this._images[index];
+        if (!this.open || !viewport || !img) return;
 
-        const container = this.shadowRoot?.getElementById("container");
-        const strip = this.shadowRoot?.getElementById("images");
-        const first = this._images[0];
-        if (!container || !strip || !first) return;
+        const left = viewport.scrollLeft + this._offsetFromCentre(img);
+        const animate = smooth && !prefersReducedMotion();
+        this._clearPending();
+        if (animate) {
+            this._pendingIndex = index;
+            this._pendingTimer = setTimeout(
+                () => this._clearPending(),
+                PENDING_TIMEOUT
+            );
+        }
+        viewport.scrollTo?.({ left, behavior: animate ? "smooth" : "auto" });
+    }
 
-        const imageWidth = first.clientWidth;
-        const startX = container.clientWidth / 2 - imageWidth / 2;
-        const x = startX - index * (imageWidth + GAP - 0.5);
-        strip.style.transition = transition ? "transform ease 300ms" : "none";
-        strip.style.transform = `translateX(${x}px)`;
+    /** Horizontal distance between the image centre and the viewport centre. */
+    _offsetFromCentre(img) {
+        const box = this._viewport.getBoundingClientRect();
+        const rect = img.getBoundingClientRect();
+        return rect.left + rect.width / 2 - (box.left + box.width / 2);
+    }
+
+    _recenter() {
+        if (this.open) this._scrollTo(this.currentIndex, false);
+    }
+
+    _clearPending() {
+        clearTimeout(this._pendingTimer);
+        this._pendingTimer = null;
+        this._pendingIndex = null;
+    }
+
+    /** Native scrolling (swipe, trackpad) decides which image is current. */
+    _onScroll() {
+        if (this._scrollFrame !== null) return;
+        this._scrollFrame = requestAnimationFrame(() => {
+            this._scrollFrame = null;
+            if (!this.open || !this._images.length) return;
+
+            let closest = 0;
+            let best = Infinity;
+            this._images.forEach((img, i) => {
+                const distance = Math.abs(this._offsetFromCentre(img));
+                if (distance < best) {
+                    best = distance;
+                    closest = i;
+                }
+            });
+
+            if (this._pendingIndex !== null) {
+                // A programmatic scroll is under way; don't flicker through
+                // the images it passes.
+                if (closest === this._pendingIndex) this._clearPending();
+                return;
+            }
+            if (closest !== this.currentIndex) this._setCurrent(closest);
+        });
+    }
+
+    /** The user took over: follow their scrolling, not our target. */
+    _onUserScrollStart() {
+        this._clearPending();
     }
 
     _onKeyDown = (event) => {
         if (!this.open) return;
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
         switch (event.key) {
             case "ArrowRight":
                 this.forward();
                 break;
             case "ArrowLeft":
                 this.backward();
+                break;
+            case "Home":
+                this.move(0);
+                break;
+            case "End":
+                this.move(this._maxIndex);
                 break;
             case "Escape":
                 this.close();
@@ -316,48 +588,35 @@ export class ProjectStory extends LitElement {
         event.preventDefault();
     };
 
-    _onResize = () => this.move(this.currentIndex, false);
+    /* Rendering */
 
-    _onTouchStart(event) {
-        const touch = event.touches[0];
-        this._touchStart = { x: touch.clientX, y: touch.clientY };
-    }
-
-    _onTouchEnd(event) {
-        if (!this._touchStart) return;
-        const touch = event.changedTouches[0];
-        const dx = this._touchStart.x - touch.clientX;
-        const dy = this._touchStart.y - touch.clientY;
-        this._touchStart = null;
-
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
-            dx > 0 ? this.forward() : this.backward();
+    _renderThumb() {
+        const count = this._images.length;
+        const first = this._images[0];
+        const src = first?.currentSrc || first?.src;
+        if (!src) {
+            return html`<span slot="aside" class="aside-icon">${image}</span>`;
         }
-    }
-
-    _attachGlobalListeners() {
-        window.addEventListener("keydown", this._onKeyDown);
-        window.addEventListener("resize", this._onResize);
-    }
-
-    _detachGlobalListeners() {
-        window.removeEventListener("keydown", this._onKeyDown);
-        window.removeEventListener("resize", this._onResize);
+        return html`<span slot="aside" class="thumb">
+            <img src=${src} alt="" loading="lazy" decoding="async" />
+            <span class="thumb-count" aria-hidden="true">${count}</span>
+            <span class="visually-hidden">Galerie mit ${count} Bildern</span>
+        </span>`;
     }
 
     render() {
-        const classes = [
-            "fullscreen",
-            this.open ? "opened" : "",
-            this.ready ? "ready" : "",
-            this.inlineMode ? "mode-inline" : "mode-container"
-        ].join(" ");
+        const count = this._images.length;
+        const caption = this._images[this.currentIndex]?.alt ?? "";
+        const announcement =
+            this.open && count
+                ? `Bild ${this.currentIndex + 1} von ${count}${caption ? `: ${caption}` : ""}`
+                : "";
 
         return html`<button
                 type="button"
                 class="card"
                 aria-haspopup="dialog"
-                @click=${this.openGallery}
+                @click=${() => this.openGallery()}
             >
                 <fyi-jakob-item>
                     ${renderTags(this.tags, this.time)}
@@ -366,31 +625,47 @@ export class ProjectStory extends LitElement {
                         .mainTitle=${this.mainTitle}
                         .subTitle=${this.subTitle}
                     ></fyi-jakob-titles>
-                    <span slot="aside" class="aside-icon">${image}</span>
+                    ${this._renderThumb()}
                 </fyi-jakob-item>
             </button>
-            <div
-                class=${classes}
-                role="dialog"
-                aria-modal="true"
-                aria-label=${this.mainTitle ?? "Galerie"}
-                ?hidden=${!this.open}
-            >
+            <dialog aria-labelledby="story-title" @close=${this._onDialogClose}>
+                <h2 id="story-title" class="visually-hidden">
+                    ${this.mainTitle ?? "Galerie"}
+                </h2>
                 <div
-                    class="container"
-                    id="container"
-                    @touchstart=${this._onTouchStart}
-                    @touchend=${this._onTouchEnd}
+                    class="viewport"
+                    id="viewport"
+                    @click=${this._onImageClick}
+                    @scroll=${this._onScroll}
+                    @pointerdown=${this._onUserScrollStart}
+                    @wheel=${{
+                        handleEvent: () => this._onUserScrollStart(),
+                        passive: true
+                    }}
+                    @touchstart=${{
+                        handleEvent: () => this._onUserScrollStart(),
+                        passive: true
+                    }}
                 >
-                    <div
-                        class="images"
-                        id="images"
-                        @click=${this._onImageClick}
-                    >
-                        <slot @slotchange=${this._onSlotChange}></slot>
-                    </div>
+                    <slot @slotchange=${this._onSlotChange}></slot>
                 </div>
-                <footer>
+                <div class="bar">
+                    ${
+                        count
+                            ? html`<div class="info" aria-hidden="true">
+                                  ${
+                                      caption
+                                          ? html`<span class="caption"
+                                                >${caption}</span
+                                            >`
+                                          : nothing
+                                  }
+                                  <span class="counter"
+                                      >${this.currentIndex + 1} / ${count}</span
+                                  >
+                              </div>`
+                            : nothing
+                    }
                     <nav class="buttons" aria-label="Galerie-Navigation">
                         <button
                             type="button"
@@ -403,27 +678,6 @@ export class ProjectStory extends LitElement {
                         </button>
                         <button
                             type="button"
-                            class="icon-button close"
-                            aria-label="Galerie schließen"
-                            @click=${this.close}
-                        >
-                            ${close}
-                        </button>
-                        <button
-                            type="button"
-                            class="icon-button"
-                            aria-label=${
-                                this.inlineMode
-                                    ? "Vollbild verlassen"
-                                    : "Vollbild"
-                            }
-                            aria-pressed=${this.inlineMode ? "true" : "false"}
-                            @click=${this.toggleMode}
-                        >
-                            ${this.inlineMode ? contract : expand}
-                        </button>
-                        <button
-                            type="button"
                             class="icon-button"
                             aria-label="Nächstes Bild"
                             ?disabled=${this.currentIndex >= this._maxIndex}
@@ -431,22 +685,20 @@ export class ProjectStory extends LitElement {
                         >
                             ${chevronRight}
                         </button>
+                        <button
+                            type="button"
+                            class="icon-button close"
+                            aria-label="Galerie schließen"
+                            autofocus
+                            @click=${() => this.close()}
+                        >
+                            ${close}
+                        </button>
                     </nav>
-                    <div class="titles">
-                        <h2>${this.mainTitle}</h2>
-                        <h3>${this.subTitle}</h3>
-                        <div class="counter" aria-live="polite">
-                            ${
-                                this._images.length
-                                    ? `${this.currentIndex + 1} / ${this._images.length}`
-                                    : ""
-                            }
-                        </div>
-                        <div class="tags">
-                            ${renderTags(this.tags, this.time, nothing)}
-                        </div>
-                    </div>
-                </footer>
-            </div>`;
+                </div>
+                <p class="visually-hidden" aria-live="polite">
+                    ${announcement}
+                </p>
+            </dialog>`;
     }
 }

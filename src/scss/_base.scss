@@ -24,6 +24,8 @@ body {
    otherwise position: sticky (section titles) stops working. */
 html {
     scroll-padding-top: 16px;
+    /* Keeps the layout steady while a gallery locks page scrolling. */
+    scrollbar-gutter: stable;
 }
 
 body {

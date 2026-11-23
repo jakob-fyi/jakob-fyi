@@ -191,7 +191,7 @@ describe("src/index.html rendered", () => {
     });
 
     it("loads the carpentry story with all 15 images", () => {
-        const story = document.getElementById("kasten");
+        const story = document.getElementById("buecherregal");
         // happy-dom does not fire the initial slotchange a browser would.
         story.shadowRoot
             .querySelector("slot")

@@ -15,12 +15,6 @@ export const chevronUpDown = icon(
     svg`<path d="M7 9.5L12 5L17 9.5M7 14.5L12 19L17 14.5" />`
 );
 export const close = icon(svg`<path d="M6 6L18 18M18 6L6 18" />`);
-export const expand = icon(
-    svg`<path d="M15 3H21V9M9 21H3V15M21 3L14 10M3 21L10 14" />`
-);
-export const contract = icon(
-    svg`<path d="M4 14H10V20M20 10H14V4M14 10L21 3M3 21L10 14" />`
-);
 export const externalLink = icon(
     svg`<path d="M10 6H6C4.9 6 4 6.9 4 8V18C4 19.1 4.9 20 6 20H16C17.1 20 18 19.1 18 18V14M14 4H20M20 4V10M20 4L10 14" />`
 );
