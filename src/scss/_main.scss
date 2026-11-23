@@ -15,6 +15,7 @@ main {
 }
 
 #archive,
+#stories,
 #recommendations {
     padding-top: calc(2 * var(--page-padding));
     padding-bottom: calc(3 * var(--page-padding));
@@ -29,6 +30,7 @@ main {
 
 // Same background as the page above; bands are separated by hairlines only.
 #archive,
+#stories,
 #recommendations {
     background-color: var(--page-background-color);
     border-top: 1px var(--band-border-color) solid;
@@ -49,6 +51,7 @@ fyi-jakob-collapsible:not(:defined) {
 
 @media screen and (max-width: 600px) {
     #archive,
+    #stories,
     #recommendations {
         padding: var(--page-padding);
 
@@ -60,6 +63,7 @@ fyi-jakob-collapsible:not(:defined) {
 
 @media (prefers-reduced-motion: reduce) {
     #archive,
+    #stories,
     #recommendations {
         transition: none;
     }
