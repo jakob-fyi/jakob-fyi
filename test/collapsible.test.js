@@ -152,7 +152,8 @@ describe("fyi-jakob-collapsible", () => {
         it("containsHash matches its own id, descendants, and nothing else", async () => {
             const el = await mount(markup());
             expect(el.containsHash("#archive")).toBe(true);
-            expect(el.containsHash("#stories")).toBe(true);
+            // Another area's id: must not open this one.
+            expect(el.containsHash("#stories")).toBe(false);
             expect(el.containsHash("#newest")).toBe(true);
             expect(el.containsHash("newest")).toBe(true);
             expect(el.containsHash("#elsewhere")).toBe(false);

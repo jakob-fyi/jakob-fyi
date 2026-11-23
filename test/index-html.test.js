@@ -2,10 +2,8 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
-    buildTeaser,
     collectGroups,
     countEntries,
-    ENTRY_SELECTOR,
     yearRange
 } from "../src/components/feature/collapsible-summary.js";
 import { mount, shadow } from "./helpers.js";
@@ -18,9 +16,16 @@ const doc = new DOMParser().parseFromString(
 );
 
 const groupsOf = (id) => collectGroups([...doc.getElementById(id).children]);
-const recommendationEntries = () => [
-    ...doc.querySelectorAll(`#recommendations :is(${ENTRY_SELECTOR})`)
-];
+
+const content = (name) =>
+    JSON.parse(
+        readFileSync(resolve(process.cwd(), `content/${name}.json`), "utf8")
+    );
+const recommendations = content("recommendations");
+const visibleEntries = (block) =>
+    block.sections.flatMap((section) =>
+        section.entries.filter((entry) => !entry.hidden)
+    );
 
 describe("src/index.html content", () => {
     it("has the typos fixed", () => {
@@ -92,59 +97,79 @@ describe("src/index.html content", () => {
             const groups = groupsOf("archive");
             expect(countEntries(groups)).toBe(22);
             expect(yearRange(groups)).toEqual({ from: 2012, to: 2026 });
-            expect(groups.map((g) => g.title)).toContain("Carpentry");
+        });
+    });
+
+    describe("stories", () => {
+        it("is a collapsible with one story per topic", () => {
+            expect(doc.getElementById("stories").localName).toBe(
+                "fyi-jakob-collapsible"
+            );
+            const groups = groupsOf("stories");
+            expect(
+                groups.map((g) => [g.title, g.entries.map((e) => e.title)])
+            ).toEqual([
+                ["Software & Tech", ["Dia Scanner"]],
+                ["Carpentry", ["Bücherregal"]]
+            ]);
+        });
+
+        it("gives every story a linkable id", () => {
+            const stories = [
+                ...doc.querySelectorAll("#stories fyi-jakob-project-story")
+            ];
+            expect(stories.map((s) => s.id)).toEqual([
+                "dia-scanner",
+                "buecherregal"
+            ]);
+        });
+
+        it("gives every story image alt text, size and lazy async loading", () => {
+            const images = [
+                ...doc.querySelectorAll("fyi-jakob-project-story > img")
+            ];
+            expect(images).toHaveLength(19);
+            for (const img of images) {
+                const label = img.getAttribute("src");
+                expect(img.getAttribute("alt"), label).toBeTruthy();
+                expect(
+                    Number(img.getAttribute("width")),
+                    label
+                ).toBeGreaterThan(0);
+                expect(
+                    Number(img.getAttribute("height")),
+                    label
+                ).toBeGreaterThan(0);
+                expect(img.getAttribute("loading"), label).toBe("lazy");
+                expect(img.getAttribute("decoding"), label).toBe("async");
+            }
         });
     });
 
     describe("recommendations", () => {
-        const media = {
-            Books: "Book",
-            Movies: "Movie",
-            Documentaries: "Documentary",
-            Podcasts: "Podcast"
-        };
-
-        it("is a collapsible with 4 media sections and 18 entries", () => {
-            expect(doc.getElementById("recommendations").localName).toBe(
-                "fyi-jakob-collapsible"
-            );
-            const groups = groupsOf("recommendations");
-            expect(groups.map((g) => [g.title, g.entries.length])).toEqual([
-                ["Books", 6],
-                ["Movies", 4],
-                ["Documentaries", 4],
-                ["Podcasts", 4]
-            ]);
-            expect(countEntries(groups)).toBe(18);
+        it("is rendered exactly when content/recommendations.json is not hidden", () => {
+            const element = doc.getElementById("recommendations");
+            if (recommendations.hidden) {
+                expect(element).toBeNull();
+            } else {
+                expect(element.localName).toBe("fyi-jakob-collapsible");
+                expect(countEntries(groupsOf("recommendations"))).toBe(
+                    visibleEntries(recommendations).length
+                );
+            }
         });
 
-        it("teaser names The Zone of Interest as the latest addition", () => {
-            expect(buildTeaser("groups", groupsOf("recommendations"))).toBe(
-                "6 Books · 4 Movies · 4 Documentaries · 4 Podcasts – zuletzt: The Zone of Interest"
-            );
-        });
-
-        it("every entry has maintitle, subtitle, link, added and [medium, topic] tags", () => {
-            const entries = recommendationEntries();
-            expect(entries).toHaveLength(18);
+        it("every entry has title, subtitle, link, added date and tags", () => {
+            const entries = visibleEntries(recommendations);
+            expect(entries.length).toBeGreaterThan(0);
             for (const entry of entries) {
-                const label =
-                    entry.getAttribute("maintitle") ?? entry.outerHTML;
-                expect(entry.getAttribute("maintitle"), label).toBeTruthy();
-                expect(entry.getAttribute("subtitle"), label).toBeTruthy();
-                expect(entry.getAttribute("link"), label).toMatch(
-                    /^https?:\/\//
-                );
-                expect(entry.getAttribute("added"), label).toMatch(
-                    /^\d{4}-\d{2}-\d{2}$/
-                );
-
-                const tags = JSON.parse(entry.getAttribute("tags"));
-                expect(tags, label).toHaveLength(2);
-                const section = entry
-                    .closest("fyi-jakob-section")
-                    .getAttribute("maintitle");
-                expect(tags[0], label).toBe(media[section]);
+                const label = entry.title ?? JSON.stringify(entry);
+                expect(entry.type, label).toBe("project-link");
+                expect(entry.title, label).toBeTruthy();
+                expect(entry.subtitle, label).toBeTruthy();
+                expect(entry.link, label).toMatch(/^https?:\/\//);
+                expect(entry.added, label).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+                expect(entry.tags?.length, label).toBeGreaterThan(0);
             }
         });
     });
@@ -175,12 +200,24 @@ describe("src/index.html rendered", () => {
         );
     });
 
-    it("shows the recommendations count and teaser", () => {
-        const recommendations = document.getElementById("recommendations");
-        expect(shadow(recommendations, ".count").textContent.trim()).toBe("18");
-        expect(shadow(recommendations, ".teaser").textContent).toContain(
-            "zuletzt: The Zone of Interest"
-        );
+    it("shows the stories count and teaser", () => {
+        const stories = document.getElementById("stories");
+        expect(stories.open).toBe(false);
+        expect(shadow(stories, ".count").textContent.trim()).toBe("2");
+        const teaser = shadow(stories, ".teaser").textContent;
+        expect(teaser).toContain("Software & Tech");
+        expect(teaser).toContain("Carpentry");
+    });
+
+    it("renders the recommendations only when they are not hidden", () => {
+        const element = document.getElementById("recommendations");
+        if (recommendations.hidden) {
+            expect(element).toBeNull();
+        } else {
+            expect(shadow(element, ".count").textContent.trim()).toBe(
+                String(visibleEntries(recommendations).length)
+            );
+        }
     });
 
     it("renders the mailto link without a new tab", () => {
