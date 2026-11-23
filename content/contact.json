@@ -1,0 +1,44 @@
+{
+    "$schema": "./schema.json",
+    "type": "section",
+    "id": "contact",
+    "title": "Mail & Links",
+    "entries": [
+        {
+            "type": "link",
+            "title": "Mail",
+            "subtitle": "contact@jakob.fyi",
+            "link": "mailto:contact@jakob.fyi"
+        },
+        {
+            "type": "link",
+            "title": "AppArtig",
+            "subtitle": "www.appartig.at",
+            "link": "https://www.appartig.at"
+        },
+        {
+            "type": "link",
+            "title": "Ortsarchiv Gemeinlebarn",
+            "subtitle": "www.ortsarchiv-gemeinlebarn.org",
+            "link": "https://www.ortsarchiv-gemeinlebarn.org"
+        },
+        {
+            "type": "link",
+            "title": "FF Gemeinlebarn",
+            "subtitle": "www.ff-gemeinlebarn.at",
+            "link": "https://www.ff-gemeinlebarn.at"
+        },
+        {
+            "type": "link",
+            "title": "GitHub",
+            "subtitle": "github.com/jakob-fyi",
+            "link": "https://github.com/jakob-fyi"
+        },
+        {
+            "type": "link",
+            "title": "Website Source",
+            "subtitle": "git Repository",
+            "link": "https://github.com/jakob-fyi/jakob-fyi"
+        }
+    ]
+}

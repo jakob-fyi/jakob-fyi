@@ -3,3 +3,6 @@
 node_modules/
 dist/
 tmp/
+
+# generated from content/*.json by scripts/build-html.mjs
+src/index.html

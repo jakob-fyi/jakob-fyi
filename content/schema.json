@@ -1,0 +1,371 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "jakob.fyi content block",
+    "description": "One block of src/index.html (a section or a collapsible area). Rendered by scripts/build-html.mjs.",
+    "oneOf": [
+        {
+            "$ref": "#/definitions/sectionBlock"
+        },
+        {
+            "$ref": "#/definitions/collapsibleBlock"
+        }
+    ],
+    "definitions": {
+        "text": {
+            "type": "string",
+            "minLength": 1
+        },
+        "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "description": "Anchor id, unique on the whole page (e.g. #kasten)."
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/text"
+            },
+            "description": "Shown as chips; for recommendations: [medium, topic]."
+        },
+        "link": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "title", "link"],
+            "properties": {
+                "type": {
+                    "const": "link"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "link": {
+                    "$ref": "#/definitions/link"
+                },
+                "target": {
+                    "$ref": "#/definitions/text"
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "hidden": {
+            "type": "boolean",
+            "description": "true = not rendered (instead of commenting the entry out)."
+        },
+        "projectLink": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "title", "link"],
+            "properties": {
+                "type": {
+                    "const": "project-link"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "tags": {
+                    "$ref": "#/definitions/tags"
+                },
+                "time": {
+                    "$ref": "#/definitions/text"
+                },
+                "link": {
+                    "$ref": "#/definitions/link"
+                },
+                "target": {
+                    "$ref": "#/definitions/text"
+                },
+                "added": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                    "description": "ISO date; the newest one is named as \"zuletzt\" in the teaser."
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "projectText": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "title"],
+            "properties": {
+                "type": {
+                    "const": "project-text"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "tags": {
+                    "$ref": "#/definitions/tags"
+                },
+                "time": {
+                    "$ref": "#/definitions/text"
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "projectEvent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "title"],
+            "properties": {
+                "type": {
+                    "const": "project-event"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "tags": {
+                    "$ref": "#/definitions/tags"
+                },
+                "place": {
+                    "$ref": "#/definitions/text"
+                },
+                "date": {
+                    "$ref": "#/definitions/text"
+                },
+                "time": {
+                    "$ref": "#/definitions/text"
+                },
+                "body": {
+                    "description": "Details shown when the event is expanded: HTML, one string per paragraph/element.",
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/text"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/text"
+                            }
+                        }
+                    ]
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "projectStory": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "title", "images"],
+            "properties": {
+                "type": {
+                    "const": "project-story"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "tags": {
+                    "$ref": "#/definitions/tags"
+                },
+                "time": {
+                    "$ref": "#/definitions/text"
+                },
+                "images": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["src", "alt"],
+                        "properties": {
+                            "src": {
+                                "type": "string",
+                                "description": "Path relative to src/, e.g. assets/stories/…"
+                            },
+                            "alt": {
+                                "type": "string"
+                            },
+                            "width": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "description": "Intrinsic width in px (avoids layout shift)."
+                            },
+                            "height": {
+                                "type": "integer",
+                                "minimum": 1,
+                                "description": "Intrinsic height in px."
+                            }
+                        }
+                    }
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "job": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "title"],
+            "properties": {
+                "type": {
+                    "const": "job"
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "subtitle": {
+                    "$ref": "#/definitions/text"
+                },
+                "tagline": {
+                    "$ref": "#/definitions/text"
+                },
+                "link": {
+                    "$ref": "#/definitions/link"
+                },
+                "target": {
+                    "$ref": "#/definitions/text"
+                },
+                "hidden": {
+                    "$ref": "#/definitions/hidden"
+                }
+            }
+        },
+        "entry": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/projectLink"
+                },
+                {
+                    "$ref": "#/definitions/projectText"
+                },
+                {
+                    "$ref": "#/definitions/projectEvent"
+                },
+                {
+                    "$ref": "#/definitions/projectStory"
+                },
+                {
+                    "$ref": "#/definitions/job"
+                },
+                {
+                    "$ref": "#/definitions/link"
+                }
+            ]
+        },
+        "section": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["entries"],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entry"
+                    }
+                }
+            }
+        },
+        "sectionBlock": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "entries"],
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "section"
+                },
+                "hidden": {
+                    "type": "boolean",
+                    "description": "true = the whole block is not rendered."
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "title": {
+                    "$ref": "#/definitions/text"
+                },
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entry"
+                    }
+                }
+            }
+        },
+        "collapsibleBlock": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "heading", "sections"],
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "collapsible"
+                },
+                "hidden": {
+                    "type": "boolean",
+                    "description": "true = the whole block is not rendered."
+                },
+                "id": {
+                    "$ref": "#/definitions/id"
+                },
+                "heading": {
+                    "$ref": "#/definitions/text"
+                },
+                "summary": {
+                    "enum": ["years", "groups"],
+                    "description": "years: \"… von 2012 bis 2026\"; groups: \"6 Books · 4 Movies …\""
+                },
+                "summaryLabel": {
+                    "$ref": "#/definitions/text"
+                },
+                "sections": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/section"
+                    }
+                }
+            }
+        }
+    }
+}

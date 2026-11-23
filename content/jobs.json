@@ -1,0 +1,35 @@
+{
+    "$schema": "./schema.json",
+    "type": "section",
+    "id": "jobs",
+    "title": "Where I do this stuff",
+    "entries": [
+        {
+            "type": "job",
+            "title": "AppArtig e.U.",
+            "subtitle": "IT Dienstleistungen",
+            "tagline": "seit 2013",
+            "link": "https://www.appartig.at"
+        },
+        {
+            "type": "job",
+            "title": "Land NÖ",
+            "subtitle": "Software Entwicklung",
+            "tagline": "seit 2020"
+        },
+        {
+            "type": "job",
+            "title": "FF Gemeinlebarn",
+            "subtitle": "Freiwillige Feuerwehr Gemeinlebarn",
+            "tagline": "seit 2004",
+            "link": "https://www.ff-gemeinlebarn.at"
+        },
+        {
+            "type": "job",
+            "title": "Ortsarchiv Gemeinlebarn",
+            "subtitle": "Digitalisierung, Verwaltung und Forschung",
+            "tagline": "seit 2013",
+            "link": "https://www.ortsarchiv-gemeinlebarn.org"
+        }
+    ]
+}

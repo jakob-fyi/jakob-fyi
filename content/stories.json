@@ -1,0 +1,153 @@
+{
+    "$schema": "./schema.json",
+    "type": "collapsible",
+    "id": "stories",
+    "heading": "Stories",
+    "summary": "groups",
+    "sections": [
+        {
+            "title": "Software & Tech",
+            "entries": [
+                {
+                    "type": "project-story",
+                    "id": "dia-scanner",
+                    "title": "Dia Scanner",
+                    "subtitle": "Automatisierte Digitalisierung von Dias und Verarbeitung",
+                    "tags": ["Software", "Hardware"],
+                    "time": "2020",
+                    "images": [
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_1.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_2.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_3.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_4.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Carpentry",
+            "entries": [
+                {
+                    "type": "project-story",
+                    "id": "buecherregal",
+                    "title": "Bücherregal",
+                    "subtitle": "Aus massivem Escheholz mit einer Steckverbindung",
+                    "tags": ["Carpentry", "Furniture"],
+                    "time": "2024",
+                    "images": [
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_1.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_2.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_3.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_4.jpg",
+                            "alt": "Entwurf",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_5.jpg",
+                            "alt": "Bauprozess",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_6.jpg",
+                            "alt": "Bauprozess",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_7.jpg",
+                            "alt": "Bauprozess",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_8.jpg",
+                            "alt": "Bauprozess",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_9.jpg",
+                            "alt": "Bauprozess",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_10.jpg",
+                            "alt": "Aufbau",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_11.jpg",
+                            "alt": "Aufbau",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_12.jpg",
+                            "alt": "Aufbau",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_13.jpg",
+                            "alt": "Endprodukt",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_14.jpg",
+                            "alt": "Endprodukt",
+                            "width": 1080,
+                            "height": 1920
+                        },
+                        {
+                            "src": "assets/stories/moebel/2024-04/2024-04_buecherregal_15.jpg",
+                            "alt": "Endprodukt",
+                            "width": 1080,
+                            "height": 1920
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

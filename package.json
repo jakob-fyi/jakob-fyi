@@ -4,11 +4,15 @@
     "description": "Personal Website of Jakob Vesely",
     "scripts": {
         "parcel": "npx parcel",
-        "start": "parcel src/index.html",
+        "generate": "node scripts/build-html.mjs",
+        "start": "npm run generate && (node scripts/build-html.mjs --watch & parcel src/index.html)",
         "clean": "rm -rf .parcel-cache dist",
         "lint": "prettier . --write",
+        "preci:build": "npm run generate",
         "ci:build": "parcel build src/index.html --log-level error --no-cache --no-source-maps --dist-dir ./dist",
+        "pretest": "npm run generate",
         "test": "vitest run",
+        "pretest:watch": "npm run generate",
         "test:watch": "vitest"
     },
     "repository": {
